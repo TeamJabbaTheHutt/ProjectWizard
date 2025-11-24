@@ -17,7 +17,13 @@ public class UserDAO {
         this.jdbc = jdbc;
     }
 
+    //CREATE
+    public int createNewUser(User newUser) {
+        String sql = "INSERT INTO users (username, email, users_password) VALUES (?, ?, ?)";
+        return jdbc.update(sql, newUser.getUsername(), newUser.getEmail(), newUser.getPassword());
+    }
 
+    // READ
     public User getUserByEmail(String email) {
         String sql = "SELECT * FROM users WHERE email = ?";
         try {
