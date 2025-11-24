@@ -10,4 +10,7 @@ public class ProjectService {
     public ProjectService(ProjectRepository projectRepository) {
         this.projectRepository = projectRepository;
     }
+
+    // createNewProject() { // Project newProject = repo.createNewProject()} (OnSuccess = newProject.getProjectId))
+
 }

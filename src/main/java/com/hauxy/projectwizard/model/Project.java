@@ -5,9 +5,9 @@ import java.util.List;
 
 public class Project {
     private int projectId;
-    private final String title;
-    private final String description;
-    private final LocalDate deadline;
+    private String title;
+    private String description;
+    private LocalDate deadline;
     private List<Task> tasks;
     private List<User> members;
 
@@ -16,6 +16,8 @@ public class Project {
         this.description = description;
         this.deadline = deadline;
     }
+
+    public Project() {}
 
     public int getProjectId() {
         return projectId;
@@ -29,8 +31,16 @@ public class Project {
         return title;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getDescription() {
         return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public List<User> getMembers() {
@@ -51,5 +61,9 @@ public class Project {
 
     public LocalDate getDeadline() {
         return deadline;
+    }
+
+    public void setDeadline(LocalDate deadline) {
+        this.deadline = deadline;
     }
 }

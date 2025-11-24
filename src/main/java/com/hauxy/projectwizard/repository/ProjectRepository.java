@@ -12,4 +12,8 @@ public class ProjectRepository {
     public ProjectRepository(ProjectDAO projectDAO) {
         this.projectDAO = projectDAO;
     }
+
+    public int createNewProject(Project newProject) {
+        return projectDAO.createNewProject(newProject);
+    }
 }
