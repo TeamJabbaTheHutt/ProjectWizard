@@ -20,9 +20,11 @@ public class ProjectController {
         this.projectService = projectService;
     }
 
-    @GetMapping("/createProject")
+    /*@GetMapping("/createProject")
     public String createProject(@RequestParam("title") String title, @RequestParam("description") String description, @RequestParam("deadline") LocalDate deadline, Model model, HttpSession httpSession) {
 
-        if ()
+
     }
+
+     */
 }
