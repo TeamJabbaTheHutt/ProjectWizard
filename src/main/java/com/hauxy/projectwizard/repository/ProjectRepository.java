@@ -5,6 +5,8 @@ import com.hauxy.projectwizard.repository.DAO.ProjectDAO;
 import com.hauxy.projectwizard.repository.DAO.UserDAO;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class ProjectRepository {
     private final ProjectDAO projectDAO;
@@ -15,5 +17,10 @@ public class ProjectRepository {
 
     public int createNewProject(Project newProject) {
         return projectDAO.createNewProject(newProject);
+    }
+
+
+    public List<Project> getUsersProjectsByUserId(int userId) {
+        return projectDAO.getUsersProjectsByUserId(userId);
     }
 }
