@@ -32,7 +32,10 @@ public class ProjectController {
 
     @GetMapping("/home")
     public String home(Model model, HttpSession httpSession) {
-        User user =  (User) httpSession.getAttribute("user");
+//        User user = (User) httpSession.getAttribute("user");
+        User user = new User("test", "test@mail.com", "testPsw");
+        user.setUserId(1);
+
         model.addAttribute("UsersListOfProjects", projectService.getUsersProjectsByUserId(user.getUserId()));
         return "homepage";
     }

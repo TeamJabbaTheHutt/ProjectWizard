@@ -32,7 +32,7 @@ public class ProjectDAO {
     // for at kunne få all usererens projects for user id, skal jeg først finde all projekter der tilhører useren ud fra userens ID
 
     public List<Project> getUsersProjectsByUserId(int userId) {
-        List<Integer> usersProjectIds = new ArrayList<>();
+        List<Integer> usersProjectIds;
         List<Project> usersProjects = new ArrayList<>();
         String sqlQueryForFetchingProjectId = "SELECT project_id FROM users_to_project WHERE user_id = ?";
         usersProjectIds = jdbc.queryForList(sqlQueryForFetchingProjectId, Integer.class, userId);
@@ -45,13 +45,13 @@ public class ProjectDAO {
     }
 
     public Project getProjectById(int projectId) {
-        String sql = "SELECT * FROM projects WHERE project_id = ?";
+        String sql = "SELECT * FROM project WHERE project_id = ?";
         return jdbc.queryForObject(sql, projectRowMapper, projectId);
     }
 
     //get projects
     public List<Project> getAllProjects() {
-        String sql = "SELECT * FROM projects";
+        String sql = "SELECT * FROM project";
         return jdbc.query(sql, projectRowMapper);
     }
 

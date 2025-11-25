@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Create Project</title>
+    <title>Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{/styles.css}">
 </head>
@@ -10,7 +10,7 @@
     <div class="usersProjects">
         <ul>
 
-            <li th:each="project : ${usersProjects}">
+            <li th:each="project : ${UsersListOfProjects}">
                 <h3 th:text="${project.title}"></h3>
                 <p th:text="${project.description}"></p>
                 <p>Deadline: <span th:text="${project.deadline}"></span></p>
