@@ -23,4 +23,11 @@ public class ProjectRepository {
     public List<Project> getUsersProjectsByUserId(int userId) {
         return projectDAO.getUsersProjectsByUserId(userId);
     }
+
+    public Project getProjectById(int projectId) {
+        return projectDAO.getProjectById(projectId);
+    }
+    public List<Project> getAllProjects() {
+        return projectDAO.getAllProjects();
+    }
 }
