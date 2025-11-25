@@ -19,7 +19,7 @@ public class UserDAO {
 
     //CREATE
     public int createNewUser(User newUser) {
-        String sql = "INSERT INTO users (username, email, users_password) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO users (username, email, user_password) VALUES (?, ?, ?)";
         return jdbc.update(sql, newUser.getUsername(), newUser.getEmail(), newUser.getPassword());
     }
 
