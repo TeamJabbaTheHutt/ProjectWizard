@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/login-style.css}">
+    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+<div class="userLoginWrapper">
+    <form th:action="@{/login}" method="post">
+        <h1>Login</h1>
+        <div class="login-input-box1">
+            <input type="text" name="email" placeholder="Email"  required>
+            <i class='bx  bxs-user'  ></i>
+        </div>
+        <div class="login-input-box2">
+            <input type="password" name="password" placeholder="Password"  required>
+            <i class='bx  bxs-lock'  ></i>
+        </div>
+
+        <div class="login-forgot-password">
+            <a href="#">Forgot your password?</a>
+        </div>
+
+        <button type="submit" class="login-btn">Login</button>
+
+        <div class="login-register">
+            <p>Don't have an account? <a th:href="@{/users/register}">Register</a> </p>
+        </div>
+
+
+    </form>
+    <p class="login-error-display-area"
+       th:if="${message}"
+       th:text="${message}"
+       th:classappend="${messageType} == 'success' ? ' success' : ' error'">
+    </p>
+
+
+</div>
+</body>
+</html>
