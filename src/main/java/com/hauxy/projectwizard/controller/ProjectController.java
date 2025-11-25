@@ -1,5 +1,6 @@
 package com.hauxy.projectwizard.controller;
 
+import com.hauxy.projectwizard.exceptions.UserNotLoggedInException;
 import com.hauxy.projectwizard.model.Project;
 import com.hauxy.projectwizard.model.User;
 import com.hauxy.projectwizard.service.ProjectService;
@@ -32,8 +33,15 @@ public class ProjectController {
 
     @GetMapping("/home")
     public String home(Model model, HttpSession httpSession) {
-        User user = (User) httpSession.getAttribute("user");
-        model.addAttribute("UsersListOfProjects", projectService.getUsersProjectsByUserId(user.getUserId()));
-        return "homepage";
+
+        try {
+            User user = (User) httpSession.getAttribute("user");
+            model.addAttribute("UsersListOfProjects", projectService.getUsersProjectsByUserId(user.getUserId()));
+            return "homepage";
+        } catch (NullPointerException e) {
+            throw new UserNotLoggedInException("you might not be logged in", e);
+
+        }
+
     }
 }
