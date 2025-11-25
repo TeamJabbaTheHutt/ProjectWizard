@@ -125,7 +125,7 @@ body {
     color: var(--text-color);
     border-radius: 5px;
     padding: 40px 50px;
-    margin-top: 120px; /* avoids navbar overlap */
+    margin-top: 120px;
 }
 
 .login-wrapper h1 {
@@ -133,14 +133,14 @@ body {
     font-size: 36px;
 }
 
-/* Input box container */
+
 .login-wrapper .input-box {
     position: relative;
     width: 100%;
     margin: 20px 0;
 }
 
-/* Inputs */
+
 .login-wrapper input {
     width: 100%;
     height: 45px;
@@ -150,14 +150,14 @@ body {
     padding: 12px 40px 12px 20px;
     outline: none;
     color: white;
-    box-sizing: border-box; /* Prevents overflow */
+    box-sizing: border-box;
 }
 
 .login-wrapper input::placeholder {
     color: #fff;
 }
 
-/* Icons inside input */
+
 .login-wrapper i {
     position: absolute;
     right: 15px;
@@ -167,7 +167,6 @@ body {
     color: white;
 }
 
-/* Login button */
 .login-btn {
     width: 100%;
     background-color: #2258c3;
@@ -184,7 +183,7 @@ body {
     background-color: #fd2df3;
 }
 
-/* Forgot password + Register links plain white */
+
 .login-forgot-password,
 .login-register {
     text-align: center;
@@ -203,7 +202,7 @@ body {
     text-decoration: none;
 }
 
-/* Error display */
+
 .login-error-display-area {
     text-align: center;
     margin-top: 15px;
