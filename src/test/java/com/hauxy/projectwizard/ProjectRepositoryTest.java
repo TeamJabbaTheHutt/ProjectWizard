@@ -24,7 +24,7 @@ import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TE
 @ActiveProfiles("test")
 @Sql(scripts = "classpath:h2init.sql", executionPhase = BEFORE_TEST_METHOD)
 public class ProjectRepositoryTest {
-
+    // for merge
     @Autowired
     private ProjectRepository projectRepository;
 
