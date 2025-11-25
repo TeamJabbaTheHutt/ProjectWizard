@@ -14,6 +14,12 @@ public class UserRepository {
     }
 
 
+    // CREATE
+    public int createNewUser(User newUser) {
+        return userDAO.createNewUser(newUser);
+    }
+
+   // READ
     public User getUserByEmail(String email) {
         return userDAO.getUserByEmail(email);
     }
