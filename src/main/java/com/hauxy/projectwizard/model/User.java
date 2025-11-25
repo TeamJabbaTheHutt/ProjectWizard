@@ -2,10 +2,11 @@ package com.hauxy.projectwizard.model;
 
 public class User {
     private int userId;
-    private final String username;
-    private final String email;
-    private final String password;
+    private String username;
+    private String email;
+    private String password;
 
+    public User() {}
     public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
@@ -30,5 +31,17 @@ public class User {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
