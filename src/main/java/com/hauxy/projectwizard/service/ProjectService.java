@@ -1,7 +1,10 @@
 package com.hauxy.projectwizard.service;
 
+import com.hauxy.projectwizard.model.Project;
 import com.hauxy.projectwizard.repository.ProjectRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ProjectService {
@@ -14,5 +17,7 @@ public class ProjectService {
     // createNewProject() { // Project newProject = repo.createNewProject()} (OnSuccess = newProject.getProjectId))
 
 
-
+    public List<Project> getUsersProjectsByUserId(int userId) {
+        return projectRepository.getUsersProjectsByUserId(userId);
+    }
 }

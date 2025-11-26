@@ -14,6 +14,6 @@ public class TestIntegrationtestSetup {
 
     @Test
     void contextLoads() {
-        // hvis vi når hertil, så har setup af den midlertidige h2 database i memory blevet sat op korrekt
+        // hvis vi når hertil, så er setup af den midlertidige h2 database i memory blevet sat op korrekt
     }
 }

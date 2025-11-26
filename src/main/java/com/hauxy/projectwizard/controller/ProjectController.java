@@ -1,6 +1,8 @@
 package com.hauxy.projectwizard.controller;
 
+import com.hauxy.projectwizard.exceptions.UserNotLoggedInException;
 import com.hauxy.projectwizard.model.Project;
+import com.hauxy.projectwizard.model.User;
 import com.hauxy.projectwizard.service.ProjectService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -20,11 +22,26 @@ public class ProjectController {
         this.projectService = projectService;
     }
 
-    /*@GetMapping("/createProject")
+    @GetMapping("/createProject")
     public String createProject(@RequestParam("title") String title, @RequestParam("description") String description, @RequestParam("deadline") LocalDate deadline, Model model, HttpSession httpSession) {
 
-
+//        if ()
+        return "createProject";
     }
 
-     */
+
+
+    @GetMapping("/home")
+    public String home(Model model, HttpSession httpSession) {
+
+        try {
+            User user = (User) httpSession.getAttribute("loggedInUser");
+            model.addAttribute("UsersListOfProjects", projectService.getUsersProjectsByUserId(user.getUserId()));
+            return "homepage";
+        } catch (NullPointerException e) {
+            throw new UserNotLoggedInException("you might not be logged in", e);
+
+        }
+
+    }
 }
