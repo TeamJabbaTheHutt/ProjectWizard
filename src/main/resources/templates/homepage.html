@@ -7,6 +7,9 @@
     <link rel="stylesheet" th:href="@{/styles.css}">
 </head>
 <body>
+    <div th:if="${UsersListOfProjects.isEmpty()}" class="isemptystate">
+    <p> You do not have any projects yet </p>
+    </div>
     <div class="usersProjects">
         <ul>
 

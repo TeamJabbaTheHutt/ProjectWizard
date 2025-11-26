@@ -35,7 +35,7 @@ public class ProjectController {
     public String home(Model model, HttpSession httpSession) {
 
         try {
-            User user = (User) httpSession.getAttribute("user");
+            User user = (User) httpSession.getAttribute("loggedInUser");
             model.addAttribute("UsersListOfProjects", projectService.getUsersProjectsByUserId(user.getUserId()));
             return "homepage";
         } catch (NullPointerException e) {
