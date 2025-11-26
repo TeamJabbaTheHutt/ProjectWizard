@@ -33,7 +33,7 @@ public class LoginController {
             model.addAttribute("message", "Login successful");
             model.addAttribute("messageType", "success");
             httpSession.setAttribute("loggedInUser", user);
-            return "redirect:/dashboard";
+            return "redirect:/project/home";
         } else {
             model.addAttribute("message", "Invalid username or password");
             model.addAttribute("messageType", "error");
