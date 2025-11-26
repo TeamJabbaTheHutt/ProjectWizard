@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -44,4 +45,36 @@ public class ProjectController {
         }
 
     }
+
+    /*@PostMapping("/project/addMember")
+    public String addMember(@RequestParam("newMemberEmail") String email, @RequestParam("projectId") int projectId, Model model) {
+        // 1. Tjek om brugeren eksisterer
+        User user = UserDao.getUserByEmail(email);
+
+        if (user == null) {
+            // Send fejlbesked tilbage til HTML
+            model.addAttribute("errorMessage", "User with that email does not exist!");
+
+            // Genindlæs dine data så siden virker
+            Project project = projectDao.getProjectById(projectId);
+            model.addAttribute("project", project);
+
+            return "edit-project"; // navnet på din html/jsp
+        }
+
+        // 2. Tilføj medlem hvis brugeren findes
+        projectDao.addMemberToProject(projectId, user.getUserId());
+
+        // 3. Redirect tilbage til projektet
+        return "redirect:/project/edit?projectId=" + projectId;
+    }
+     */
+
+
+    /* @PostMapping("/project/update")
+        public String updateProject(Project project) {
+            projectService.update(project);
+            return "redirect:/project/dashboard";
+        }
+    */
 }

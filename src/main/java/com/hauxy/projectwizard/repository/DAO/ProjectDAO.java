@@ -55,4 +55,13 @@ public class ProjectDAO {
         return jdbc.query(sql, projectRowMapper);
     }
 
+    /*
+    public void addMemberToProject(int projectId, int userId) {
+        String sql = "INSERT INTO users_to_project (user_id, project_id) VALUES (?, ?)";
+        jdbc.update(sql, userId, projectId);
+    }
+
+     */
+
+
 }

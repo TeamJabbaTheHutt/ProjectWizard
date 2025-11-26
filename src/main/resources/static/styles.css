@@ -291,3 +291,83 @@ body {
     color: white;
     text-decoration: none;
 }
+
+/* EDIT PROJECT WRAPPER - hvid baggrund, blå tekst */
+.edit-project-wrapper {
+    width: 700px;
+    background: #ffffff; /* hvid baggrund */
+    color: #004b80; /* mørk blå tekst */
+    border-radius: 5px;
+    padding: 30px 60px;
+    box-sizing: border-box;
+    margin-top: 50px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* let skygge for dybde */
+}
+
+.edit-project-wrapper h1,
+.edit-project-wrapper h3 {
+    text-align: center;
+    color: #004b80; /* blå overskrifter */
+}
+
+.edit-project-wrapper label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    color: #004b80; /* blå labels */
+}
+
+.edit-project-wrapper input[type="text"],
+.edit-project-wrapper input[type="date"],
+.edit-project-wrapper textarea {
+    width: 100%;
+    padding: 12px 20px;
+    margin-bottom: 15px;
+    border: 2px solid #004b80; /* blå kant */
+    border-radius: 40px;
+    background: #f8f8f8; /* let grå/hvid baggrund på input */
+    color: #004b80; /* blå tekst i input */
+    font-size: 16px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.edit-project-wrapper textarea {
+    min-height: 80px;
+    resize: vertical;
+    padding-top: 12px;
+}
+
+.edit-project-wrapper button {
+    width: 100%;
+    padding: 12px 0;
+    border: none;
+    border-radius: 40px;
+    background-color: #004b80; /* mørk blå knap */
+    color: #ffffff; /* hvid tekst på knap */
+    font-size: 18px;
+    cursor: pointer;
+    margin-bottom: 15px;
+    transition: background-color 0.3s;
+}
+
+.edit-project-wrapper button:hover {
+    background-color: #2258c3; /* lysere blå ved hover */
+}
+
+.edit-project-wrapper ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-bottom: 15px;
+}
+
+.edit-project-wrapper li {
+    margin-bottom: 5px;
+    color: #004b80; /* blå listeelementer */
+}
+
+.edit-project-wrapper .error-message {
+    color: #ff6b6b;
+    text-align: center;
+    margin-bottom: 15px;
+}
