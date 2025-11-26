@@ -1,5 +1,7 @@
 :root {
     --text-color: white;
+    --main-color: #5ca3ff;
+    --accent-color: #99c5ff;
 }
 
 * {
