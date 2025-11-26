@@ -1,5 +1,7 @@
 :root {
     --text-color: white;
+    --main-color: #5ca3ff;
+    --accent-color: #99c5ff;
 }
 
 {
@@ -335,4 +337,42 @@ body {
 
 .redirect-btn:hover {
     background-color: #163a75;
+}
+}
+
+
+
+/* HOME PAGE */
+.isemptystate {
+    font-size: 20px;
+}
+
+.usersProjects ul {
+    display: flex;
+    gap: 15px;
+    padding: 0;
+    list-style: none;
+}
+
+.usersProjects li {
+    padding: 0;
+}
+
+.project-card {
+    display: block;
+    background-color: #5ca3ff;
+    color: white;
+    text-decoration: none;
+    padding: 15px;
+    border-radius: 10px;
+    width: 250px;
+    height: 100%;
+}
+.project-title-homepage {
+    font-weight: bold;
+}
+
+.project-card:hover {
+    background-color: #2563eb;
+    cursor: pointer;
 }
