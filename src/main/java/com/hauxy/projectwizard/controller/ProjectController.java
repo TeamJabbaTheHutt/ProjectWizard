@@ -24,10 +24,23 @@ public class ProjectController {
 
     @GetMapping("/createProject")
     public String createProject(@RequestParam("title") String title, @RequestParam("description") String description, @RequestParam("deadline") LocalDate deadline, Model model, HttpSession httpSession) {
+        User user = (User) httpSession.getAttribute("loggedInUser");
 
-//        if ()
+        if (user == null) {
+            return "redirect:/login";
+        }
+
+        Project project = new Project(title, description, deadline);
+        String result = projectService.createNewProject(project);
+
+        if (result.equals("Success")) {
+
+        }
+
         return "createProject";
     }
+
+
 
 
 

@@ -20,12 +20,21 @@ public class ProjectDAO {
         this.jdbc = jdbc;
     }
 
+    @Transactional
     public int createNewProject(Project newProject) {
         String sql = "INSERT INTO projects (title, description, deadline) VALUES (?, ?, ?)";
         return jdbc.update(sql, newProject.getTitle(), newProject.getDescription(), newProject.getDeadline());
     }
 
-    // assignMemberToProject(String email) { "INSERT INTO users_to_projects (?, ?)"} (userId (for users.. if user.getEmail = bla, user.userID = ..), projectId, getprojectID )
+    public int getLastCreatedProjectId() {
+        String sql = "SELECT MAX(id) FROM projects";
+        return jdbc.queryForObject(sql, Integer.class);
+    }
+
+    public int addUserToProject(int userId, int projectId) {
+        String sql = "INSERT INTO project_members (user_id, project_id) VALUES (?, ?)";
+        return jdbc.update(sql, userId, projectId);
+    }
 
     //getUserPerProject from user id
 
