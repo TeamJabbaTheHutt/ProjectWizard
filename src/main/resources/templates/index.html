@@ -2,18 +2,29 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>projectWizard</title>
     <link rel="stylesheet" th:href="@{/styles.css}"/>
+    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
 </head>
-<body>
-<div class="homepage-container">
+<body class="landingPageBody">
+<nav class="landingnavbar">
+    <img th:src="@{/images/black-logo-removebg-preview.png}" alt="Logo" class="logo" />
+    <ul class="menu">
+        <li class="nav-item"><a href="#"></a></li>
+        <li class="nav-item"><a href="#"></a></li>
+        <li class="nav-item"><a href="#"></a></li>
+    </ul>
+    <a href="login" class="redirect-btn">Go to Login <i class='bx bxs-user'></i></a>
+</nav>
 
-    <div class="homepage-text">
-        <a href="login" class="redirect-btn">Go to Login</a>
-        <h1>Welcome to ProjectWizard</h1>
+<div class="landingpage-container">
 
-        <p>The simple way to stay in control of your projects.
-            Project Wizard is a minimalist project management tool designed for anyone who wants to work smarter,
+    <div class="landingpage-text">
+
+        <h1 class="landingWelcome">Welcome</h1>
+
+        <strong>The simple way to stay in control of your projects.</strong> <br><br>
+        <p class="landingText">Project Wizard is a minimalist project management tool designed for anyone who wants to work smarter,
             not harder.</p>
 
         <p>With a clean overview, intuitive features, and clear project flows, Project Wizard helps you plan, organize,
@@ -22,11 +33,12 @@
         <p>Gain insight into your project progress with real-time data, visual status indicators, and simple dashboards
             that give you exactly the information you need — without noise or unnecessary features.</p>
 
-        <p><strong>Plan. Track. Deliver.</strong> Project Wizard makes project management clear, fast, and focused.</p>
+        <p><strong>Plan. <i class='bxr  bx-calendar-alt-2'></i> <br><br>Track. <i class='bxr  bx-chart-line'></i> <br><br> Deliver. <i class='bxr  bx-package'></i> </strong><br><br>
+            Project Wizard makes project management <strong>clear, fast, and focused</strong>.</p>
     </div>
 
-    <div class="homepage-image">
-        <img src="/images/projectWizard.png" alt="Project Wizard Overview">
+    <div class="landingpage-image">
+        <img class="landingImage" src="/images/landingImage2.jpg" alt="Project Wizard Overview">
     </div>
 
 </div>
