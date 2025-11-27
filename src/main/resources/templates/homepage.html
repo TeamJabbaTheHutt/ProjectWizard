@@ -12,12 +12,14 @@
 <body>
 
 <nav class="navbar">
-    <img src="/static/images/black-logo-removebg-preview.png" alt="Logo" class="logo" />
-    <ul class="menu">
-        <li class="nav-item"><a href="#">Home</a></li>
-        <li class="nav-item"><a href="#">My Projects</a></li>
-        <li class="nav-item"><a href="#">Help</a></li>
-    </ul>
+    <div class="navbar-left">
+        <img src="/images/black-logo-removebg-preview.jpg" alt="Logo" class="logo" />
+        <ul class="menu">
+            <li class="nav-item"><a href="#">Home</a></li>
+            <li class="nav-item"><a href="#">My Projects</a></li>
+            <li class="nav-item"><a href="#">Help</a></li>
+        </ul>
+    </div>
     <button type="submit" class="user-icon"><i class='bx  bxs-user'  ></i></button>
 </nav>
     <div th:if="${UsersListOfProjects.isEmpty()}" class="isemptystate">
@@ -34,5 +36,9 @@
             </li>
         </ul>
     </div>
+    <a th:href="@{/project/createProject}">
+        <button type="submit" class="create-project" th:href="@{/project/createProject}">Create New Project</button>
+    </a>
+
 </body>
 </html>

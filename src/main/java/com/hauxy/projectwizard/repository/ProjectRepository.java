@@ -19,6 +19,13 @@ public class ProjectRepository {
         return projectDAO.createNewProject(newProject);
     }
 
+    public int getLastCreatedProjectId() {
+        return projectDAO.getLastCreatedProjectId();
+    }
+
+    public int addUserToProject(int userId, int projectId) {
+        return projectDAO.addUserToProject(userId, projectId);
+    }
 
     public List<Project> getUsersProjectsByUserId(int userId) {
         return projectDAO.getUsersProjectsByUserId(userId);
