@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -23,21 +24,37 @@ public class ProjectController {
     }
 
     @GetMapping("/createProject")
-    public String createProject(@RequestParam("title") String title, @RequestParam("description") String description, @RequestParam("deadline") LocalDate deadline, Model model, HttpSession httpSession) {
-        User user = (User) httpSession.getAttribute("loggedInUser");
+    public String showCreateProjectForm(Model model) {
+        LocalDate today = LocalDate.now();
+        model.addAttribute("todaysDate", today);
+        return "createProject";
+    }
+
+    @PostMapping("/createProject")
+    public String createProject(@RequestParam String title,
+                                @RequestParam String description,
+                                @RequestParam LocalDate deadline,
+                                Model model,
+                                HttpSession session) {
+
+        User user = (User) session.getAttribute("loggedInUser");
 
         if (user == null) {
             return "redirect:/login";
         }
 
         Project project = new Project(title, description, deadline);
-        String result = projectService.createNewProject(project);
 
-        if (result.equals("Success")) {
+        try {
+            projectService.createProjectWithCreator(project, user.getUserId());
+            model.addAttribute("message", "Project created successfully!");
 
+            return "redirect:/home";
+
+        } catch (RuntimeException e) {
+            model.addAttribute("error", "Could not create project. Please try again.");
+            return "createProject";
         }
-
-        return "createProject";
     }
 
 
