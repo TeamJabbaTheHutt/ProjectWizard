@@ -43,7 +43,7 @@ class LoginControllerTest {
                         .param("email", "test@test.com")
                         .param("password", "123"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/dashboard"));
+                .andExpect(redirectedUrl("/project/home"));
     }
 
 }

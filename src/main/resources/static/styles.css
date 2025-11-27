@@ -4,7 +4,7 @@
     --accent-color: #99c5ff;
 }
 
-* {
+{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -218,13 +218,13 @@ body {
     color: #7CFC00;
 }
 
-/* REGISTER WRAPPER */
+
 .registerWrapper {
     width: 450px;
     background: #004b80;
     color: var(--text-color);
     border-radius: 5px;
-    padding: 40px 30px;   /* mindre padding så inputs passer */
+    padding: 40px 30px;
     margin-top: 120px;
     box-sizing: border-box;
 }
@@ -234,7 +234,7 @@ body {
     font-size: 36px;
 }
 
-/* INPUT BOX */
+
 .registerWrapper .input-box {
     position: relative;
     width: 100%;
@@ -266,7 +266,7 @@ body {
     color: white;
 }
 
-/* REGISTER BUTTON */
+
 .registerWrapper .login-btn {
     width: 100%;
     background-color: #2258c3;
@@ -280,10 +280,10 @@ body {
 }
 
 .registerWrapper .login-btn:hover {
-    background-color: #2258c3; /* ingen pink */
+    background-color: #2258c3;
 }
 
-/* TEXT UNDER KNAP */
+
 .registerWrapper .register {
     text-align: center;
     margin-top: 10px;
@@ -292,6 +292,84 @@ body {
 .registerWrapper .register a {
     color: white;
     text-decoration: none;
+}.homepage-container {
+     display: flex;
+     width: 100%;
+     height: 100vh;
+ }
+
+.homepage-text {
+    flex: 1;
+    max-width: 50%;
+    padding: 50px;
+}
+
+.homepage-text h1 {
+    margin-bottom: 20px;
+    font-size: 32px;
+}
+
+.homepage-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.homepage-image img {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    border-radius: 0;
+}
+.redirect-btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: #5ca3ff;
+    color: white;
+    text-decoration: none;
+    border-radius: 40px;
+    font-size: 18px;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+.redirect-btn:hover {
+    background-color: #163a75;
+}
+}
+
+
+
+/* HOME PAGE */
+.isemptystate {
+    font-size: 20px;
+}
+
+.usersProjects ul {
+    display: flex;
+    gap: 15px;
+    padding: 0;
+    list-style: none;
+}
+
+.usersProjects li {
+    padding: 0;
+}
+
+.project-card {
+    display: block;
+    background-color: #5ca3ff;
+    color: white;
+    text-decoration: none;
+    padding: 15px;
+    border-radius: 10px;
+    width: 250px;
+    height: 100%;
+}
+.project-title-homepage {
+    font-weight: bold;
 }
 .input-box input::placeholder {
     color: #ffff;
@@ -303,4 +381,9 @@ body {
     top: 50%;
     transform: translateY(-50%);
     font-size: 20px;
+}
+
+.project-card:hover {
+    background-color: #2563eb;
+    cursor: pointer;
 }
