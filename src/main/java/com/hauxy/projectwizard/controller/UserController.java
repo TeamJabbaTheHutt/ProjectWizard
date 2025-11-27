@@ -28,7 +28,7 @@ public class UserController {
     @PostMapping("/register")
     public String registerUser(@RequestParam("username") String username, @RequestParam("email") String email, @RequestParam("password") String password, Model model, HttpSession httpSession) {
 
-        if (userService.checkIfUserExist(email)) {
+        if (!userService.checkIfUserExist(email)) {
             model.addAttribute("username", username);
             model.addAttribute("email",email);
             model.addAttribute("password",password);
@@ -36,7 +36,7 @@ public class UserController {
 
             if (userService.createNewUser(user).equals("Success")) {
                 httpSession.setAttribute("loggedInUser", user);
-                return "redirect:/dashboard";
+                return "redirect:/project/home";
             } else {
                 model.addAttribute("message", "❌ Failed to create user, try again");
                 model.addAttribute("messageType", "error");
