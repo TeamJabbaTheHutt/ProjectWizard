@@ -9,7 +9,7 @@
     <link rel="icon" type="image/x-icon" href="/static/images/favicon-wand.jpg">
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
 </head>
-<body>
+<body class="homepageBody">
 
 <nav class="navbar">
     <div class="navbar-left">
@@ -22,10 +22,17 @@
     </div>
     <button type="submit" class="user-icon"><i class='bx  bxs-user'  ></i></button>
 </nav>
+
+
     <div th:if="${UsersListOfProjects.isEmpty()}" class="isemptystate">
     <p> You do not have any projects yet </p>
     </div>
-    <div class="usersProjects"> <!-- for merge -->
+    <div class="usersProjects">
+        <div>
+            <h2 id="currentProjectsTitle">Current projects:</h2>
+            <p id="currentProjectsDescription">Choose between your current projects that you are working on, or press the <strong id="homePagePlusIcon">"+"</strong> button to create a new project</p><!-- for merge -->
+        </div>
+
         <ul>
             <li th:each="project : ${UsersListOfProjects}">
                 <a th:href="@{/project/dashboard/{id}(id=${project.getProjectId()})}" class="project-card">
@@ -34,14 +41,15 @@
                     <p class="project-deadline-homepage">Deadline: <span th:text="${project.deadline}"></span></p>
                 </a>
             </li>
+            <li>
+                <a th:href="@{/project/createProject}" class="project-card add-project-card">
+                    <div class="add-icon">+</div>
+                    <p class="add-text">Create New Project</p>
+                </a>
+            </li>
         </ul>
     </div>
-<li>
-    <a th:href="@{/project/createProject}" class="project-card add-project-card">
-        <div class="add-icon">+</div>
-        <p class="add-text">Create New Project</p>
-    </a>
-</li>
+
 
 
 </body>
