@@ -18,6 +18,9 @@ body {
     min-height: 100vh;
     background: rgba(248, 243, 237, 0.84);
 }
+li{
+    list-style-type: none;
+}
 
 .page-wrapper {
     max-width: 1000px;
@@ -195,7 +198,7 @@ a:active {
 
 .login-btn {
     width: 100%;
-    background-color: var(--main-color);
+    background-color: #2258c3;
     color: white;
     border: none;
     padding: 12px 0;
@@ -247,7 +250,7 @@ a:active {
 
 .registerWrapper {
     width: 450px;
-    background: var(--main-color);
+    background: #2258c3;
     color: var(--text-color);
     border-radius: 5px;
     padding: 40px 30px;
@@ -457,4 +460,53 @@ a:active {
 .project-card:hover {
     background-color: rgba(0, 75, 128, 0.84);
     cursor: pointer;
+}
+
+
+.project-card {
+    display: block;
+    width: 250px;
+    padding: 20px;
+    background-color: #004b80;
+    color: white;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+
+.add-project-card {
+    background-color: #d9d9d9;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+}
+
+.add-project-card:hover {
+    background-color: #bfbfbf;
+}
+
+
+.add-project-card .add-icon {
+    font-size: 48px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+
+.add-project-card .add-text {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.isemptystate {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-right: 25px;
+    font-size: 20px;
+    font-weight: bold;
 }
