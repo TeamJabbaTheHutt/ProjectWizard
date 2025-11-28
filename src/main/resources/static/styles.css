@@ -435,8 +435,7 @@ a:active {
     text-decoration: none;
     padding: 25px;
     border-radius: 5px;
-    width: 100%;     /* fills the li width */
-    /* remove height: 100%; */
+    width: 100%;     /* for merge */
     box-sizing: border-box;
 }
 

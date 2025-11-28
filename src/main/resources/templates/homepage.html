@@ -25,7 +25,7 @@
     <div th:if="${UsersListOfProjects.isEmpty()}" class="isemptystate">
     <p> You do not have any projects yet </p>
     </div>
-    <div class="usersProjects">
+    <div class="usersProjects"> <!-- for merge -->
         <ul>
             <li th:each="project : ${UsersListOfProjects}">
                 <a th:href="@{/project/dashboard/{id}(id=${project.getProjectId()})}" class="project-card">
