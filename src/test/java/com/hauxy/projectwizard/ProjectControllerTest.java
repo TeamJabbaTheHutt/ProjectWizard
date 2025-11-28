@@ -47,7 +47,7 @@ public class ProjectControllerTest {
         when(projectService.getUsersProjectsByUserId(1)).thenReturn(projects);
 
         mockMvc.perform(get("/project/home")
-                        .sessionAttr("user", testUser))
+                        .sessionAttr("loggedInUser", testUser))
                 .andExpect(status().isOk())
                 .andExpect(view().name("homepage"))
                 .andExpect(model().attributeExists("UsersListOfProjects"));
