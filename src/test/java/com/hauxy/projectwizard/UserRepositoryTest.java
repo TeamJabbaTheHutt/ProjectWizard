@@ -28,6 +28,16 @@ public class UserRepositoryTest {
         assertThat(user.getUsername().equals("Andreas"));
         assertThat(user.getUserId()==2);
         assertThat(user.getPassword().equals("password"));
+    }
+
+    @Test
+    void fetchRightUserTest() {
+        User userTest = new User("admin","adminEmail@email.com","admin");
+        User user = userRepository.getUserByEmail("adminEmail@email.com");
+        assertThat(user.getUsername().equals("admin"));
+        assertThat(user.getPassword().equals("admin"));
+        assertThat(user.getEmail().equals("adminEmail@email.com"));
 
     }
+
 }
