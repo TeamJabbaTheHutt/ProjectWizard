@@ -1,7 +1,8 @@
 :root {
     --text-color: white;
-    --main-color: #5ca3ff;
+    --main-color: #004b80;
     --accent-color: #99c5ff;
+    --accent-color-hover: #69aaff;
 }
 
 * {
@@ -198,7 +199,7 @@ a:active {
 
 .login-btn {
     width: 100%;
-    background-color: #2258c3;
+    background-color: var(--accent-color);
     color: white;
     border: none;
     padding: 12px 0;
@@ -209,7 +210,7 @@ a:active {
 }
 
 .login-btn:hover {
-    background-color: var(--main-color);
+    background-color: var(--accent-color-hover);
 }
 
 
@@ -250,7 +251,7 @@ a:active {
 
 .registerWrapper {
     width: 450px;
-    background: #2258c3;
+    background: var(--main-color);
     color: var(--text-color);
     border-radius: 5px;
     padding: 40px 30px;
@@ -298,7 +299,7 @@ a:active {
 
 .registerWrapper .login-btn {
     width: 100%;
-    background-color: #2258c3;
+    background-color: var(--accent-color);
     color: white;
     border: none;
     padding: 12px 0;
@@ -309,7 +310,7 @@ a:active {
 }
 
 .registerWrapper .login-btn:hover {
-    background-color: #2258c3;
+    background-color: var(--accent-color-hover);
 }
 
 
@@ -398,7 +399,7 @@ a:active {
 .redirect-btn {
     display: inline-block;
     padding: 12px 30px;
-    background-color: #5ca3ff;
+    background-color: var(--accent-color);
     color: white;
     text-decoration: none;
     border-radius: 40px;
@@ -414,6 +415,27 @@ a:active {
 
 
 /* HOME PAGE */
+.homepageBody {
+    background-image: url("images/homepageBackground.jpg");
+    background-size: cover;
+}
+#currentProjectsTitle {
+    font-weight: bold;
+    font-size: 30px;
+}
+#currentProjectsDescription {
+    margin-top: 10px;
+    color: #333333;
+}
+#homePagePlusIcon {
+    font-size: 20px;
+}
+@media (max-width: 1091px) {
+    .usersProjects {
+        padding: 10px;
+        margin-top: 150px;
+    }
+}
 .isemptystate {
     font-size: 20px;
 }
@@ -422,7 +444,7 @@ a:active {
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
-    padding: 0;
+    padding: 25px;
     list-style: none;
 }
 
@@ -432,18 +454,27 @@ a:active {
 }
 
 .project-card {
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
     display: block;
-    background-color: #004b80;
+    /*background-color: #004b80;*/
+    background-image: url("images/projectCardBackground.jpg");
+    background-size: cover;
     color: white;
     text-decoration: none;
-    padding: 25px;
+    padding: 20px;
     border-radius: 5px;
-    width: 100%;     /* for merge */
+    width: 100%;
     box-sizing: border-box;
 }
 
 .project-title-homepage {
     font-weight: bold;
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+.project-description-homepage {
+    margin-bottom: 20px;
+    color: #cfcfcf;
 }
 .input-box input::placeholder {
     color: #ffff;
@@ -458,51 +489,51 @@ a:active {
 }
 
 .project-card:hover {
+    background-image: none;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
     background-color: rgba(0, 75, 128, 0.84);
     cursor: pointer;
 }
 
 
 .project-card {
+    justify-content: center;
+    align-content: center;
     display: block;
     width: 250px;
+    height: 250px;
     padding: 20px;
-    background-color: #004b80;
+    background-color: var(--main-color);
     color: white;
     border-radius: 10px;
     text-decoration: none;
-    transition: background-color 0.2s;
 }
 
-
 .add-project-card {
+    display: flex;
+    background-image: none;
+    flex-direction: column;
+    justify-content: center; /* center vertically */
+    align-items: center;     /* center horizontally */
+    text-align: center;
     background-color: #d9d9d9;
     color: #333;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    text-align: center;
 }
 
 .add-project-card:hover {
     background-color: #bfbfbf;
 }
 
-
 .add-project-card .add-icon {
     font-size: 48px;
     font-weight: bold;
-    margin-top: 10px;
 }
-
 
 .add-project-card .add-text {
     margin-top: 10px;
     font-size: 18px;
     font-weight: bold;
 }
-
 .isemptystate {
     text-align: center;
     margin-bottom: 30px;
