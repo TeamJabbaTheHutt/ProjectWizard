@@ -36,9 +36,13 @@
             </li>
         </ul>
     </div>
-    <a th:href="@{/project/createProject}">
-        <button type="submit" class="create-project" th:href="@{/project/createProject}">Create New Project</button>
+<li>
+    <a th:href="@{/project/createProject}" class="project-card add-project-card">
+        <div class="add-icon">+</div>
+        <p class="add-text">Create New Project</p>
     </a>
+</li>
+
 
 </body>
 </html>
