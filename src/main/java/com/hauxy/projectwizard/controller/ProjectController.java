@@ -5,6 +5,7 @@ import com.hauxy.projectwizard.model.Project;
 import com.hauxy.projectwizard.model.User;
 import com.hauxy.projectwizard.service.ProjectService;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +25,13 @@ public class ProjectController {
     }
 
     @GetMapping("/createProject")
-    public String showCreateProjectForm(Model model) {
+    public String showCreateProjectForm(Model model, HttpSession httpSession) {
+        User user = (User) httpSession.getAttribute("loggedInUser");
+
+        if (user == null) {
+            return "redirect:/login";
+        }
+
         LocalDate today = LocalDate.now();
         model.addAttribute("todaysDate", today);
         return "createProject";
@@ -33,7 +40,7 @@ public class ProjectController {
     @PostMapping("/createProject")
     public String createProject(@RequestParam String title,
                                 @RequestParam String description,
-                                @RequestParam LocalDate deadline,
+                                @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate deadline,
                                 Model model,
                                 HttpSession session) {
 
@@ -49,9 +56,10 @@ public class ProjectController {
             projectService.createProjectWithCreator(project, user.getUserId());
             model.addAttribute("message", "Project created successfully!");
 
-            return "redirect:/home";
+            return "redirect:/project/home";
 
         } catch (RuntimeException e) {
+            e.printStackTrace();
             model.addAttribute("error", "Could not create project. Please try again.");
             return "createProject";
         }

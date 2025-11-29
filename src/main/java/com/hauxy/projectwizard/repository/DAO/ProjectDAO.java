@@ -22,17 +22,17 @@ public class ProjectDAO {
 
     @Transactional
     public int createNewProject(Project newProject) {
-        String sql = "INSERT INTO projects (title, description, deadline) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO project (title, project_description, deadline) VALUES (?, ?, ?)";
         return jdbc.update(sql, newProject.getTitle(), newProject.getDescription(), newProject.getDeadline());
     }
 
     public int getLastCreatedProjectId() {
-        String sql = "SELECT MAX(id) FROM projects";
+        String sql = "SELECT MAX(project_id) FROM project";
         return jdbc.queryForObject(sql, Integer.class);
     }
 
     public int addUserToProject(int userId, int projectId) {
-        String sql = "INSERT INTO project_members (user_id, project_id) VALUES (?, ?)";
+        String sql = "INSERT INTO users_to_project (user_id, project_id) VALUES (?, ?)";
         return jdbc.update(sql, userId, projectId);
     }
 

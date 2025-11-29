@@ -5,7 +5,7 @@
     <title>Create Project</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{/styles.css}">
-    <link rel="icon" type="image/x-icon" href="/static/images/favicon-wand.jpg">
+    <link rel="icon" type="image/x-icon" href="/static/images/black-logo.jpg">
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
@@ -23,9 +23,13 @@
     </nav>
 <div class="page-wrapper">
     <form class="new-project-wrapper"
-          th:action="@{/createProject}"
+          th:action="@{/project/createProject}"
           method="post">
         <h1>Create New Project</h1>
+
+        <div th:if="${error}" class="error-message">
+            <p th:text="${error}"></p>
+        </div>
 
         <div class="input-box">
             <input id="project-title" name="title" placeholder="Title" required>
