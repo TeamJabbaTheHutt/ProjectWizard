@@ -2,14 +2,17 @@ package com.hauxy.projectwizard.model;
 
 public class Subtask {
     private int taskId;
-    private final String title;
-    private final String description;
+    private String title;
+    private String description;
     private User assignee;
     private Status status;
     private double estimate;
     private double actualTime;
     private int projectId;
     private int parentId;
+
+    public Subtask() {}
+
 
     public Subtask(String title, String description) {
         this.title = title;
@@ -79,4 +82,12 @@ public class Subtask {
     public void setStatus(Status status) {
         this.status = status;
     }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
 }

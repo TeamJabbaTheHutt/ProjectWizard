@@ -38,4 +38,8 @@ public class ProjectService {
     public List<Project> getUsersProjectsByUserId(int userId) {
         return projectRepository.getUsersProjectsByUserId(userId);
     }
+
+    public Project getProjectByProjectId(int projectId) {
+        return projectRepository.getProjectById(projectId);
+    }
 }

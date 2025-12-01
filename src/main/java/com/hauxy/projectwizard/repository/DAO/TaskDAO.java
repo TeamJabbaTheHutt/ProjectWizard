@@ -1,7 +1,34 @@
 package com.hauxy.projectwizard.repository.DAO;
 
+import com.hauxy.projectwizard.model.Task;
+import com.hauxy.projectwizard.repository.rowMapper.TaskRowMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public class TaskDAO {
+
+    @Autowired
+    private final JdbcTemplate jdbc;
+    private final TaskRowMapper taskRowMapper = new TaskRowMapper();
+
+
+    public TaskDAO(JdbcTemplate jdbc) {
+        this.jdbc = jdbc;
+    }
+
+
+    public List<Task> getTasksByProjectId(int projectId) {
+        String sql = "SELECT * FROM task WHERE project_id = ?";
+        List<Task> tasks = jdbc.query(sql, taskRowMapper, projectId);
+        return tasks;
+    }
+
+
+
+
+
 }

@@ -4,6 +4,7 @@ import com.hauxy.projectwizard.exceptions.UserNotLoggedInException;
 import com.hauxy.projectwizard.model.Project;
 import com.hauxy.projectwizard.model.User;
 import com.hauxy.projectwizard.service.ProjectService;
+import com.hauxy.projectwizard.service.StatisticsService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -19,9 +20,11 @@ import java.time.LocalDate;
 @RequestMapping("/project")
 public class ProjectController {
     private final ProjectService projectService;
+    private final StatisticsService statisticsService;
 
-    public ProjectController(ProjectService projectService) {
+    public ProjectController(ProjectService projectService, StatisticsService statisticsService) {
         this.projectService = projectService;
+        this.statisticsService = statisticsService;
     }
 
     @GetMapping("/createProject")
@@ -71,7 +74,6 @@ public class ProjectController {
 
     @GetMapping("/home")
     public String home(Model model, HttpSession httpSession) {
-
         try {
             User user = (User) httpSession.getAttribute("loggedInUser");
             model.addAttribute("UsersListOfProjects", projectService.getUsersProjectsByUserId(user.getUserId()));

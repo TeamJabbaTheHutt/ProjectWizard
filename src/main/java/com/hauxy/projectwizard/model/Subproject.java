@@ -4,14 +4,26 @@ import java.time.LocalDate;
 
 public class Subproject {
     private int subProjectId;
+    private int projectId;
     private int parentId;
-    private final String title;
-    private final String description;
+    private String title;
+    private String description;
     private LocalDate deadline;
+
+    public Subproject() {}
+
+
 
     public Subproject(String title, String description) {
         this.title = title;
         this.description = description;
+    }
+
+    public int getProjectId() {
+        return projectId;
+    }
+    public void setProjectId(int projectId) {
+        this.projectId = projectId;
     }
 
     public int getSubProjectId() {
@@ -34,8 +46,17 @@ public class Subproject {
         return title;
     }
 
+    public  void setTitle(String title) {
+        this.title = title;
+    }
+
+
     public String getDescription() {
         return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public LocalDate getDeadline() {
