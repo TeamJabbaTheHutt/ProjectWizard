@@ -4,6 +4,7 @@ import com.hauxy.projectwizard.exceptions.UserNotLoggedInException;
 import com.hauxy.projectwizard.model.Project;
 import com.hauxy.projectwizard.model.User;
 import com.hauxy.projectwizard.service.ProjectService;
+
 import com.hauxy.projectwizard.service.StatisticsService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.format.annotation.DateTimeFormat;
