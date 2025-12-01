@@ -658,3 +658,72 @@ a:active {
     background-color: var(--accent-color-hover);
 }
 
+
+
+/* STATISTICS*/
+
+
+.statisticsContainer {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    max-width: 80vw;
+    height: 80vh;        /* make container 80% of viewport height */
+    align-items: stretch; /* make children stretch vertically if needed */
+}
+
+
+.statisticsBoxItem {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+}
+
+
+.statisticsBarItems {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+}
+
+
+.statisticsBox {
+    width: 250px;
+    height: 250px;
+    padding: 20px;
+    background-color: var(--main-color);
+    color: white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 2rem;
+}
+
+.statisticsLabel {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    opacity: 0.8;
+}
+
+.statisticsValue {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.statisticsBar {
+    width: 100px;
+    height: 50px;
+    background-color: #888;
+    color: white;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+}
+

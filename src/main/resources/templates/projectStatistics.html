@@ -1,0 +1,54 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Project Statistics</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <link rel="icon" type="image/x-icon" href="/static/images/black-logo.jpg">
+    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="navbar-left">
+            <img src="/images/black-logo-removebg-preview.jpg" alt="Logo" class="logo" />
+            <ul class="menu">
+                <li class="nav-item"><a href="#">Home</a></li>
+                <li class="nav-item"><a href="#">My Projects</a></li>
+                <li class="nav-item"><a href="#">Help</a></li>
+            </ul>
+        </div>
+        <button type="submit" class="user-icon"><i class='bx  bxs-user'  ></i></button>
+    </nav>
+
+    <div class="statisticsContainer">
+
+        <div class="statisticsBoxItem">
+            <div class="statisticsBox">
+                <div class="statisticsLabel">Estimated Hours until done</div>
+                <div class="statisticsValue" th:text="${timeEstimatedOnAllTasksAndSubtasks}">0</div>
+            </div>
+
+            <div class="statisticsBox">
+                <div class="statisticsLabel">Time Used Until Now</div>
+                <div class="statisticsValue" th:text="${timeActualUsedForAllTasksAndSubtasks}">0</div>
+            </div>
+
+            <div class="statisticsBox">
+                <div class="statisticsLabel">Time Saved in hours</div>
+                <div class="statisticsValue" th:text="${timeDifferenceOnAllTasksAndSubtasks}">0</div>
+            </div>
+
+            <div class="statisticsBox">
+                <div class="statisticsValue" th:text="${daysUntilDeadlineProject}">0</div>
+            </div>
+        </div>
+
+
+        <div class="statisticsBarItems">
+        </div>
+    </div>
+</body>
+</html>

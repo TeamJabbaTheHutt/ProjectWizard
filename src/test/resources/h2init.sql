@@ -23,6 +23,7 @@ CREATE TABLE project (
 CREATE TABLE sub_project (
                              sub_project_id INT AUTO_INCREMENT PRIMARY KEY,
                              parent_id INT NOT NULL,
+                             project_id INT NOT NULL,
                              subproject_title VARCHAR(255) NOT NULL,
                              sub_project_description TEXT,
                              deadline DATE,
@@ -86,8 +87,8 @@ VALUES ('adminEmail@email.com', 'admin', 'admin');
 INSERT INTO project (title, project_description, deadline)
 VALUES ('projectTestTitle', 'projectTestDescription', '2025-01-01');
 
-INSERT INTO sub_project(parent_id, subproject_title, sub_project_description, deadline)
-VALUES (1, 'subprojectTestTitle', 'subprojectTestDescription', '2025-01-01');
+INSERT INTO sub_project(parent_id, subproject_title, project_id, sub_project_description, deadline)
+VALUES (1, 'subprojectTestTitle', '1' , 'subprojectTestDescription', '2025-01-01');
 
 INSERT INTO users_to_project(user_id, project_id)
 VALUES (1, 1);
