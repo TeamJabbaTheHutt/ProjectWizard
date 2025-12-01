@@ -1,0 +1,68 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Edit project</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+
+<div class="container edit-project-wrapper">
+
+    <h1>Edit Project</h1>
+
+    <form action="/project/update" method="post">
+        <input type="hidden" name="projectId" th:value="${project.projectId}">
+
+        <label for="title">Title:</label><br>
+        <input type="text" id="title" name="title" th:value="${project.title}"><br><br>
+
+        <label for="description">Description:</label><br>
+        <textarea id="description" name="description" th:text="${project.description}"></textarea><br><br>
+
+        <label for="deadline">Deadline:</label><br>
+        <input type="date" id="deadline" name="deadline" th:value="${project.deadline}"><br><br>
+
+        <h3>Edit Members</h3>
+
+        <p>Current Members:</p>
+        <ul>
+            <li th:each="member : ${project.members}" th:text="${member.email}"></li>
+        </ul>
+
+        <label for="removeMember">Remove member by email:</label><br>
+        <input type="text" id="removeMember" name="removeMemberEmail" placeholder="email@example.com"><br><br>
+
+        <!-- SMALL BUTTON -->
+        <button type="submit"
+                formaction="/project/removeMember"
+                class="member-action-btn">
+            Remove Member
+        </button>
+
+        <br><br>
+
+        <label for="addMember">Add new member by email:</label><br>
+        <input type="text" id="addMember" name="newMemberEmail" placeholder="email@example.com"><br><br>
+
+        <!-- SMALL BUTTON -->
+        <button type="submit"
+                formaction="/project/addMember"
+                class="member-action-btn">
+            Add Member
+        </button>
+
+        <br><br>
+
+        <p th:if="${errorMessage}" th:text="${errorMessage}" style="color:red;"></p>
+
+        <!-- BIG BLUE BUTTON -->
+        <button type="submit" class="save-changes-btn">
+            Save Changes
+        </button>
+    </form>
+</div>
+
+</body>
+</html>
