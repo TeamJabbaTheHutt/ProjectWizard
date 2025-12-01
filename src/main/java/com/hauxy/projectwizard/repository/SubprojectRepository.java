@@ -5,11 +5,19 @@ import com.hauxy.projectwizard.repository.DAO.SubprojectDAO;
 import com.hauxy.projectwizard.repository.DAO.UserDAO;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class SubprojectRepository {
     private final SubprojectDAO subprojectDAO;
 
     public SubprojectRepository(SubprojectDAO subprojectDAO) {
         this.subprojectDAO = subprojectDAO;
+    }
+
+
+
+    public List<Subproject> getAllSubprojectsByProjectId(int projectId) {
+        return subprojectDAO.getAllSubProjectsByProjectId(projectId);
     }
 }

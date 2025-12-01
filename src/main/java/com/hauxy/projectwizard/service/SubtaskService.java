@@ -1,7 +1,10 @@
 package com.hauxy.projectwizard.service;
 
+import com.hauxy.projectwizard.model.Subtask;
 import com.hauxy.projectwizard.repository.SubtaskRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class SubtaskService {
@@ -9,5 +12,11 @@ public class SubtaskService {
 
     public SubtaskService(SubtaskRepository subtaskRepository) {
         this.subtaskRepository = subtaskRepository;
+    }
+
+
+
+    public List<Subtask> getAllSubTasksByProjectId(int projectId) {
+        return subtaskRepository.getAllSubtasksByProjectId(projectId);
     }
 }
