@@ -31,7 +31,7 @@ public class ProjectControllerTest {
     @Test
     void getProjectByUserIdTestListContainsProjects() throws Exception {
 
-        // Arrange
+
         User testUser = new User();
         testUser.setUserId(1);
 
@@ -46,14 +46,12 @@ public class ProjectControllerTest {
         when(projectService.getUsersProjectsByUserId(1)).thenReturn(projects);
 
 
-        // act and assert
         mockMvc.perform(get("/project/home")
                         .sessionAttr("loggedInUser", testUser))
                 .andExpect(status().isOk())
                 .andExpect(view().name("homepage"))
                 .andExpect(model().attributeExists("UsersListOfProjects"));
 
-        // verify
         verify(projectService).getUsersProjectsByUserId(1);
     }
 

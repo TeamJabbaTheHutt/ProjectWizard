@@ -27,6 +27,16 @@ public class TaskDAO {
         return tasks;
     }
 
+    public int insertTask(Task task, Integer parentTaskId) {
+        String sql = "INSERT INTO task (title, description, project_id, parent_task_id) VALUES (?, ?, ?, ?)";
+        return jdbc.update(sql, task.getTitle(), task.getDescription(), task.getProjectId(), parentTaskId);
+    }
+
+    public Task getTaskById(int taskId) {
+        String sql = "SELECT * FROM task WHERE task_id = ?";
+        return jdbc.queryForObject(sql, taskRowMapper, taskId);
+    }
+
 
 
 
