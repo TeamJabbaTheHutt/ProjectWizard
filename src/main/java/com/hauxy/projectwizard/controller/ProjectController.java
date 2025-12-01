@@ -3,15 +3,16 @@ package com.hauxy.projectwizard.controller;
 import com.hauxy.projectwizard.exceptions.UserNotLoggedInException;
 import com.hauxy.projectwizard.model.Project;
 import com.hauxy.projectwizard.model.User;
+import com.hauxy.projectwizard.repository.DAO.ProjectDAO;
+import com.hauxy.projectwizard.repository.DAO.UserDAO;
 import com.hauxy.projectwizard.service.ProjectService;
+import com.hauxy.projectwizard.service.UserService;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.boot.autoconfigure.graphql.GraphQlProperties;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 
@@ -19,9 +20,27 @@ import java.time.LocalDate;
 @RequestMapping("/project")
 public class ProjectController {
     private final ProjectService projectService;
+    private final UserService userService;
 
-    public ProjectController(ProjectService projectService) {
+
+    public ProjectController(ProjectService projectService, UserService userService) {
         this.projectService = projectService;
+        this.userService = userService;
+    }
+
+    @GetMapping("/{projectId}/edit")
+    public String showEditProjectPage(@PathVariable int projectId, Model model, HttpSession httpSession) {
+
+        User user = (User) httpSession.getAttribute("loggedInUser");
+
+        if (user == null) {
+            return "redirect:/login";
+        }
+        Project project = projectService.getProjectById(projectId);
+        model.addAttribute("project", project);
+        model.addAttribute("members", projectService.getProjectMembers(projectId));
+
+        return "editProject";
     }
 
     @GetMapping("/createProject")
@@ -66,9 +85,6 @@ public class ProjectController {
     }
 
 
-
-
-
     @GetMapping("/home")
     public String home(Model model, HttpSession httpSession) {
 
@@ -82,4 +98,62 @@ public class ProjectController {
         }
 
     }
+
+    @PostMapping("/{projectId}/edit")
+    public String updateProject(
+            @PathVariable int projectId,
+            @RequestParam String title,
+            @RequestParam String description,
+            @RequestParam String deadline,
+            HttpSession session
+    ) {
+        if (session.getAttribute("user") == null) {
+            return "redirect:/login";
+        }
+
+        projectService.updateProject(projectId, title, description, deadline);
+
+        return "redirect:/project/dashboard";
+    }
+
+    @PostMapping("/{projectId}/remove-member")
+    public String removeMember(
+            @PathVariable int projectId,
+            @RequestParam("memberId") int memberId,
+            HttpSession session
+    ) {
+        if (session.getAttribute("user") == null) {
+            return "redirect:/login";
+        }
+
+        projectService.removeMember(projectId, memberId);
+
+        return "redirect:/project/" + projectId + "/edit";
+    }
+
+    @PostMapping("/{projectId}/add-member")
+    public String addMember(
+            @PathVariable int projectId,
+            @RequestParam("newMemberEmail") String email,
+            Model model,
+            HttpSession session
+    ) {
+        if (session.getAttribute("user") == null) {
+            return "redirect:/login";
+        }
+
+        User user = userService.getUserByEmail(email);
+
+        if (user == null) {
+            model.addAttribute("errorMessage", "User with that email does not exist!");
+            model.addAttribute("project", projectService.getProjectById(projectId));
+            model.addAttribute("members", projectService.getProjectMembers(projectId));
+            return "editProject";
+        }
+
+        projectService.addMember(projectId, user.getUserId());
+
+        return "redirect:/project/" + projectId + "/edit";
+    }
+
 }
