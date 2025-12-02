@@ -737,7 +737,7 @@ a:active {
 }
 
 .statisticsBox {
-    display: flex;               /* Center content */
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
