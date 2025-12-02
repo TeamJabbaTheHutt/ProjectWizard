@@ -642,7 +642,7 @@ a:active {
     background-color: rgba(255, 255, 255, 0.3);
 }
 
-/* --- MAIN BUTTON: SAVE CHANGES (STOR BLÅ KNAP) --- */
+/* --- MAIN BUTTON: SAVE CHANGES (STOR BLÅ KNAP) --- for merge*/
 .edit-project-wrapper .save-changes-btn {
     display: block;
     width: 100%;

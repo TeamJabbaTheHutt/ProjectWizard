@@ -9,11 +9,12 @@ import java.sql.SQLException;
 public class ProjectRowMapper implements RowMapper<Project> {
 
     @Override
-    public Project mapRow(ResultSet rs, int rowNum) throws SQLException {
+    public Project mapRow(ResultSet rs, int rowNum) throws SQLException { // for merge
         Project project = new Project();
         project.setProjectId(rs.getInt("project_id"));
         project.setTitle(rs.getString("title"));
         project.setDescription(rs.getString("project_description"));
+        project.setCreatedAt(rs.getDate("created_at").toLocalDate());
         project.setDeadline(rs.getDate("deadline").toLocalDate());
         return project;
     }
