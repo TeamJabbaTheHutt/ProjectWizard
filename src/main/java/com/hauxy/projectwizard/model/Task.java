@@ -1,5 +1,7 @@
 package com.hauxy.projectwizard.model;
 
+import java.time.LocalDate;
+
 public class Task {
     private int taskId;
     private String title;
@@ -10,12 +12,21 @@ public class Task {
     private double actualTime;
     private int projectId;
     private int parentId;
+    private LocalDate deadline;
 
     public Task() {}
 
     public Task(String title, String description) {
         this.title = title;
         this.description = description;
+    }
+
+    public LocalDate getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(LocalDate deadline) {
+        this.deadline = deadline;
     }
 
     public int getTaskId() {

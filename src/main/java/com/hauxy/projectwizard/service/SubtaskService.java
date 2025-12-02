@@ -14,9 +14,14 @@ public class SubtaskService {
         this.subtaskRepository = subtaskRepository;
     }
 
-
-
     public List<Subtask> getAllSubTasksByProjectId(int projectId) {
         return subtaskRepository.getAllSubtasksByProjectId(projectId);
     }
+
+
+
+    public int updateSubtask(Subtask subtask) {
+        return subtaskRepository.updateSubtask(subtask);
+    }
+
 }

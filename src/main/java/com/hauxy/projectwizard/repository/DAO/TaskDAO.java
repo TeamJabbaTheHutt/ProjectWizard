@@ -28,8 +28,8 @@ public class TaskDAO {
     }
 
     public int insertTask(Task task, Integer parentTaskId) {
-        String sql = "INSERT INTO task (title, description, project_id, parent_task_id) VALUES (?, ?, ?, ?)";
-        return jdbc.update(sql, task.getTitle(), task.getDescription(), task.getProjectId(), parentTaskId);
+        String sql = "INSERT INTO task (title, task_description, project_id, parent_id, deadline) VALUES (?, ?, ?, ?, ?)";
+        return jdbc.update(sql, task.getTitle(), task.getDescription(), task.getProjectId(), parentTaskId, task.getDeadline());
     }
 
     public Task getTaskById(int taskId) {

@@ -29,4 +29,10 @@ public class SubtaskDAO {
         List<Subtask> subtasks = jdbc.query(sql, subtaskRowMapper, projectId);
         return subtasks;
     }
+
+    public int updateSubtask(Subtask subtask) {
+        String sql = "UPDATE subtask SET title = ?, subtask_description = ? WHERE subtask_id = ?";
+        return jdbc.update(sql, subtask.getTitle(), subtask.getDescription(), subtask.getTaskId());
+    }
+
 }
