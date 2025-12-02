@@ -107,26 +107,36 @@ public class ProjectController {
             @RequestParam String deadline,
             HttpSession session
     ) {
-        if (session.getAttribute("user") == null) {
+        if (session.getAttribute("loggedInUser") == null) {
             return "redirect:/login";
         }
 
         projectService.updateProject(projectId, title, description, deadline);
 
-        return "redirect:/project/dashboard";
+        return "redirect:/project/dashboard" + projectId;
     }
 
     @PostMapping("/{projectId}/remove-member")
     public String removeMember(
             @PathVariable int projectId,
-            @RequestParam("memberId") int memberId,
-            HttpSession session
+            @RequestParam("removeMemberEmail") String email,
+            HttpSession session,
+            Model model
     ) {
-        if (session.getAttribute("user") == null) {
+        if (session.getAttribute("loggedInUser") == null) {
             return "redirect:/login";
         }
 
-        projectService.removeMember(projectId, memberId);
+        User user = userService.getUserByEmail(email);
+
+        if (user == null) {
+            model.addAttribute("errorMessage", "No user exists with that email!");
+            model.addAttribute("project", projectService.getProjectById(projectId));
+            model.addAttribute("members", projectService.getProjectMembers(projectId));
+            return "editProject";
+        }
+
+        projectService.removeMember(projectId, user.getUserId());
 
         return "redirect:/project/" + projectId + "/edit";
     }
@@ -138,7 +148,7 @@ public class ProjectController {
             Model model,
             HttpSession session
     ) {
-        if (session.getAttribute("user") == null) {
+        if (session.getAttribute("loggedInUser") == null) {
             return "redirect:/login";
         }
 

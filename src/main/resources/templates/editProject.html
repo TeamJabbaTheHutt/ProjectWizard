@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Edit project</title>
-    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" th:href="@{/styles.css}">
 </head>
 <body>
 
@@ -12,8 +12,8 @@
 
     <h1>Edit Project</h1>
 
-    <form action="/project/update" method="post">
-        <input type="hidden" name="projectId" th:value="${project.projectId}">
+    <!-- UPDATE PROJECT -->
+    <form th:action="@{'/project/' + ${project.projectId} + '/edit'}" method="post">
 
         <label for="title">Title:</label><br>
         <input type="text" id="title" name="title" th:value="${project.title}"><br><br>
@@ -28,27 +28,27 @@
 
         <p>Current Members:</p>
         <ul>
-            <li th:each="member : ${project.members}" th:text="${member.email}"></li>
+            <li th:each="member : ${members}" th:text="${member.email}"></li>
         </ul>
 
+        <!-- REMOVE MEMBER -->
         <label for="removeMember">Remove member by email:</label><br>
         <input type="text" id="removeMember" name="removeMemberEmail" placeholder="email@example.com"><br><br>
 
-        <!-- SMALL BUTTON -->
         <button type="submit"
-                formaction="/project/removeMember"
+                th:formaction="@{'/project/' + ${project.projectId} + '/remove-member'}"
                 class="member-action-btn">
             Remove Member
         </button>
 
         <br><br>
 
+        <!-- ADD MEMBER -->
         <label for="addMember">Add new member by email:</label><br>
         <input type="text" id="addMember" name="newMemberEmail" placeholder="email@example.com"><br><br>
 
-        <!-- SMALL BUTTON -->
         <button type="submit"
-                formaction="/project/addMember"
+                th:formaction="@{'/project/' + ${project.projectId} + '/add-member'}"
                 class="member-action-btn">
             Add Member
         </button>
@@ -57,7 +57,7 @@
 
         <p th:if="${errorMessage}" th:text="${errorMessage}" style="color:red;"></p>
 
-        <!-- BIG BLUE BUTTON -->
+        <!-- SAVE CHANGES -->
         <button type="submit" class="save-changes-btn">
             Save Changes
         </button>
