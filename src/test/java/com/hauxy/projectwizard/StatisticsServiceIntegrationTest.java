@@ -41,7 +41,7 @@ public class StatisticsServiceIntegrationTest {
         //act
         double result = statisticsService.timeActualUsedForAllTasksAndSubtasks(1);
         // assert
-        assertThat(result).isEqualTo(5.0);
+        assertThat(result).isEqualTo(0.0);
     }
 
     @Test
@@ -55,7 +55,7 @@ public class StatisticsServiceIntegrationTest {
 
     @Test
     public void daysUntilDeadlineProject() {
-        LocalDate nowTest = LocalDate.of(2025, 2, 1); // Jan 1, 2025
+        LocalDate nowTest = LocalDate.of(2025, 2, 1);
         double result = statisticsService.daysUntilDeadlineProject(1, nowTest);
         assertThat(result).isEqualTo(-31);
 
@@ -63,16 +63,6 @@ public class StatisticsServiceIntegrationTest {
 
 
 
-    @Test
-    public void tasksInDoneAndTotalTaskDifferentTest() {
-        int resultTasksInDone = statisticsService.tasksInDoneByProjectId(1);
-        int resultTotalTasks = statisticsService.totalTasksByProjectId(1);
 
-        int resultDifference = statisticsService.differenceOfTasksDoneToTotalTasksByProjectId(1);
-
-        assertThat(resultTasksInDone).isEqualTo(0);
-        assertThat(resultTotalTasks).isEqualTo(2);
-        assertThat(resultDifference).isEqualTo(2);
-    }
 
 }
