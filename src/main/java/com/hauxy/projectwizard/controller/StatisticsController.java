@@ -27,15 +27,16 @@ public class StatisticsController {
     public String projectStatistics(@PathVariable("projectId") int projectId, Model model, HttpSession httpSession) {
         try {
             User user = (User) httpSession.getAttribute("loggedInUser");
-            model.addAttribute("timeEstimatedOnAllTasksAndSubtasks", statisticsService.timeEstimatedOnAllTasksAndSubtasks(projectId));
+            model.addAttribute("hoursLeftFromTasksNotInDoneByProjectId", statisticsService.hoursLeftFromTasksNotInDoneByProjectId(projectId));
             model.addAttribute("timeActualUsedForAllTasksAndSubtasks", statisticsService.timeActualUsedForAllTasksAndSubtasks(projectId));
             model.addAttribute("timeDifferenceOnAllTasksAndSubtasks", statisticsService.timeDifferenceOnAllTasksAndSubtasks(projectId));
             model.addAttribute("dateToday", LocalDate.now());
-//            model.addAttribute("tasksDoneByProjectId", statisticsService.tasksInDoneByProjectId(projectId));
-//            model.addAttribute("totalTasksByProjectId", statisticsService.totalTasksByProjectId(projectId));
-//            model.addAttribute("differenceOfTasksDoneToTotalTasksByProjectId", statisticsService.differenceOfTasksDoneToTotalTasksByProjectId(projectId));
+            model.addAttribute("tasksDoneByProjectId", statisticsService.tasksInDoneByProjectId(projectId));
+            model.addAttribute("totalTasksByProjectId", statisticsService.totalTasksByProjectId(projectId));
             model.addAttribute("daysUntilDeadlineProject", statisticsService.formatDeadlineDays(statisticsService.daysUntilDeadlineProject(projectId, LocalDate.now())));
             model.addAttribute("percentageOfProjectInDays", statisticsService.getPercentageOfProjectDone(projectId));
+            model.addAttribute("getDeadLineByProjectId", statisticsService.getDeadLineByProjectId(projectId));
+            model.addAttribute("getPercentageOfTasksDone", statisticsService.getPercentageOfTasksDone(projectId));
             System.out.println(statisticsService);
             // get all subprojects for stats?
             return "projectStatistics";
