@@ -14,7 +14,6 @@ public class SubprojectRowMapper implements RowMapper<Subproject> {
         Subproject subproject = new Subproject();
         subproject.setSubProjectId(rs.getInt("sub_project_id"));
         subproject.setParentId(rs.getInt("parent_id"));
-        subproject.setProjectId(rs.getInt("project_id"));
         subproject.setTitle(rs.getString("subproject_title"));
         subproject.setDescription(rs.getString("sub_project_description"));
         subproject.setCreatedAt(rs.getDate("created_at").toLocalDate());

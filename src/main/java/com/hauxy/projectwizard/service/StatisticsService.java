@@ -88,23 +88,7 @@ public class StatisticsService {
         return (double) ChronoUnit.DAYS.between(now, deadline);
     }
 
-    public int daysUntilDeadLineSubProject(int subProjectId, int projectId, LocalDate now) {
-        List<Subproject> subprojects = subprojectService.getAllSubProjectsByProjectId(projectId);
 
-        for (Subproject subproject : subprojects) {
-            if (subproject.getSubProjectId() == subProjectId) {
-                LocalDate deadline = subproject.getDeadline();
-
-                if (deadline == null) {
-                    throw new IllegalArgumentException("Subproject has no deadline set");
-                }
-
-                return (int) ChronoUnit.DAYS.between(now, deadline);
-            }
-        }
-
-        return -1;
-    }
 
     // tasks completed in done ud fra hvor mange tasks der er i total
 
@@ -141,7 +125,7 @@ public class StatisticsService {
     }
 
     public int differenceOfTasksDoneToTotalTasksByProjectId(int projectId) {
-        return totalTasksByProjectId(projectId)-tasksInDoneByProjectId(projectId);
+        return totalTasksByProjectId(projectId) - tasksInDoneByProjectId(projectId);
     }
 
     public String formatDeadlineDays(double days) {
@@ -152,5 +136,37 @@ public class StatisticsService {
         } else {
             return "Deadline is today";
         }
+    }
+    public LocalDate getCreatedAtByProjectId(int projectId) {
+        Project project = projectService.getProjectByProjectId(projectId);
+        return project.getCreatedAt();
+    }
+    public LocalDate getDeadLineByProjectId(int projectId) {
+        Project project = projectService.getProjectByProjectId(projectId);
+        return project.getDeadline();
+    }
+
+    public double totalDaysFromCreatedAtToDeadline(int projectId) {
+        LocalDate startDate = getCreatedAtByProjectId(projectId);
+        LocalDate endDate = getDeadLineByProjectId(projectId);
+        return ChronoUnit.DAYS.between(startDate, endDate);
+    }
+
+    public double getPercentageOfProjectDone(int projectId) {
+
+        LocalDate startDate = getCreatedAtByProjectId(projectId);
+        LocalDate endDate = getDeadLineByProjectId(projectId);
+        LocalDate today = LocalDate.now();
+
+        double totalDays = ChronoUnit.DAYS.between(startDate, endDate);
+
+        double passedDays = ChronoUnit.DAYS.between(startDate, today);
+
+        if (totalDays <= 0) {
+            return 0;
+        }
+
+        double percentage = (passedDays / totalDays) * 100;
+        return Math.max(0, Math.min(100, percentage));
     }
 }
