@@ -9,6 +9,7 @@ public class Task {
     private double estimate;
     private double actualTime;
     private int projectId;
+    private int parentId;
 
     public Task() {}
 
@@ -24,7 +25,13 @@ public class Task {
     public void setTitle(String title) {
         this.title = title;
     }
+    public void setParentId(int parentId) {
+        this.parentId = parentId;
+    }
 
+    public int getParentId() {
+        return parentId;
+    }
     public void setTaskId(int taskId) {
         this.taskId = taskId;
     }

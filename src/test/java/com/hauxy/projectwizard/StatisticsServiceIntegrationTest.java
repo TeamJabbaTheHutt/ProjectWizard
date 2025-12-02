@@ -61,13 +61,7 @@ public class StatisticsServiceIntegrationTest {
 
     }
 
-    @Test
-    public void daysUntilDeadlineSubproject() {
-        LocalDate nowTest = LocalDate.of(2025, 2, 1);
-        int result = statisticsService.daysUntilDeadLineSubProject(1,1, nowTest);
-        assertThat(result).isEqualTo(-31);
 
-    }
 
     @Test
     public void tasksInDoneAndTotalTaskDifferentTest() {

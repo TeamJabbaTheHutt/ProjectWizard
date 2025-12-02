@@ -5,7 +5,6 @@ import java.time.LocalDate;
 public class Subproject {
     // for merge
     private int subProjectId;
-    private int projectId;
     private int parentId;
     private String title;
     private String description;
@@ -21,12 +20,7 @@ public class Subproject {
         this.description = description;
     }
 
-    public int getProjectId() {
-        return projectId;
-    }
-    public void setProjectId(int projectId) {
-        this.projectId = projectId;
-    }
+
 
     public int getSubProjectId() {
         return subProjectId;
