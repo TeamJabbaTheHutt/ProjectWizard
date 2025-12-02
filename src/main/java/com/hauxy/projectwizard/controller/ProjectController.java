@@ -94,14 +94,17 @@ public class ProjectController {
 
 
     @GetMapping("/home")
-    public String home(Model model, HttpSession session) {
-        User user = (User) session.getAttribute("loggedInUser");
-        if (user == null) {
-            return "redirect:/login";
+    public String home(Model model, HttpSession httpSession) {
+        try {
+            User user = (User) httpSession.getAttribute("loggedInUser");
+            model.addAttribute("UsersListOfProjects", projectService.getUsersProjectsByUserId(user.getUserId()));
+            return "homepage";
+        } catch (NullPointerException e) {
+            throw new UserNotLoggedInException("you might not be logged in", e);
         }
-        model.addAttribute("UsersListOfProjects", projectService.getUsersProjectsByUserId(user.getUserId()));
-        return "homepage";
     }
+
+
     @PostMapping("/{projectId}/edit")
     public String updateProject(
             @PathVariable int projectId,
