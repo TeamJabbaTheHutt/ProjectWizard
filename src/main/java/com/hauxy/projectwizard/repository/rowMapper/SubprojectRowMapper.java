@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public class SubprojectRowMapper implements RowMapper<Subproject> {
 
     @Override
-    public Subproject mapRow(ResultSet rs, int rowNum) throws SQLException {
+    public Subproject mapRow(ResultSet rs, int rowNum) throws SQLException { // for merge
         Subproject subproject = new Subproject();
         subproject.setSubProjectId(rs.getInt("sub_project_id"));
         subproject.setParentId(rs.getInt("parent_id"));

@@ -13,6 +13,7 @@ CREATE TABLE users (
                        user_password VARCHAR(255) NOT NULL
 );
 
+
 CREATE TABLE project (
                          project_id INT AUTO_INCREMENT PRIMARY KEY,
                          title VARCHAR(255) NOT NULL,

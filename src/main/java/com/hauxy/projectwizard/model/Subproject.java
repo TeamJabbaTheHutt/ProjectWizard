@@ -3,6 +3,7 @@ package com.hauxy.projectwizard.model;
 import java.time.LocalDate;
 
 public class Subproject {
+    // for merge
     private int subProjectId;
     private int projectId;
     private int parentId;
