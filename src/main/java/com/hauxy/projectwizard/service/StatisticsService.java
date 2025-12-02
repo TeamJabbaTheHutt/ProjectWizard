@@ -78,7 +78,7 @@ public class StatisticsService {
     }
     // days until done ud fra deadline og localdate.now()
     public double daysUntilDeadlineProject(int projectId, LocalDate now) {
-        Project project = projectService.getProjectByProjectId(projectId);
+        Project project = projectService.getProjectById(projectId);
         LocalDate deadline = project.getDeadline();
 
         if (deadline == null) {
@@ -138,11 +138,11 @@ public class StatisticsService {
         }
     }
     public LocalDate getCreatedAtByProjectId(int projectId) {
-        Project project = projectService.getProjectByProjectId(projectId);
+        Project project = projectService.getProjectById(projectId);
         return project.getCreatedAt();
     }
     public LocalDate getDeadLineByProjectId(int projectId) {
-        Project project = projectService.getProjectByProjectId(projectId);
+        Project project = projectService.getProjectById(projectId);
         return project.getDeadline();
     }
 
