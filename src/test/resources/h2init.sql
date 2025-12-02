@@ -17,6 +17,7 @@ CREATE TABLE project (
                          project_id INT AUTO_INCREMENT PRIMARY KEY,
                          title VARCHAR(255) NOT NULL,
                          project_description TEXT,
+                         created_at DATE,
                          deadline DATE
 );
 
@@ -26,6 +27,7 @@ CREATE TABLE sub_project (
                              project_id INT NOT NULL,
                              subproject_title VARCHAR(255) NOT NULL,
                              sub_project_description TEXT,
+                             created_at DATE,
                              deadline DATE,
                              FOREIGN KEY (parent_id) REFERENCES project(project_id)
                                  ON DELETE CASCADE
@@ -84,11 +86,11 @@ CREATE TABLE subtask (
 INSERT INTO users(email, username, user_password)
 VALUES ('adminEmail@email.com', 'admin', 'admin');
 
-INSERT INTO project (title, project_description, deadline)
-VALUES ('projectTestTitle', 'projectTestDescription', '2025-01-01');
+INSERT INTO project (title, project_description, created_at, deadline)
+VALUES ('projectTestTitle', 'projectTestDescription','2024-01-01', '2025-01-01');
 
-INSERT INTO sub_project(parent_id, subproject_title, project_id, sub_project_description, deadline)
-VALUES (1, 'subprojectTestTitle', '1' , 'subprojectTestDescription', '2025-01-01');
+INSERT INTO sub_project(parent_id, subproject_title, project_id, sub_project_description, created_at, deadline)
+VALUES (1, 'subprojectTestTitle', '1' , 'subprojectTestDescription', '2024-01-01', '2025-01-01');
 
 INSERT INTO users_to_project(user_id, project_id)
 VALUES (1, 1);

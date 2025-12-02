@@ -7,6 +7,7 @@ public class Project {
     private int projectId;
     private String title;
     private String description;
+    private LocalDate createdAt;
     private LocalDate deadline;
     private List<Task> tasks;
     private List<User> members;
@@ -57,6 +58,14 @@ public class Project {
 
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDate getCreatedAt() {
+        return createdAt;
     }
 
     public LocalDate getDeadline() {
