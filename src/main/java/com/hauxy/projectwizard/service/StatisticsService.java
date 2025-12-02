@@ -48,10 +48,15 @@ public class StatisticsService {
         List<Subtask> AllSubTasksToProject = subtaskService.getAllSubTasksByProjectId(projectId);
 
         for(Task task : allTasksToProject) {
-            result += task.getActualTime();
+            if(task.getStatus() == Status.Done) {
+                result += task.getActualTime();
+            }
+
         }
         for (Subtask subtask : AllSubTasksToProject) {
-            result += subtask.getActualTime();
+            if (subtask.getStatus() == Status.Done) {
+                result += subtask.getActualTime();
+            }
         }
         return result;
     }
@@ -73,9 +78,11 @@ public class StatisticsService {
             totalActual += subtask.getActualTime();
         }
 
-        double timeDifference = totalActual - totalEstimate;
-        return timeDifference;
+        return totalEstimate - totalActual;
+
     }
+
+
     // days until done ud fra deadline og localdate.now()
     public double daysUntilDeadlineProject(int projectId, LocalDate now) {
         Project project = projectService.getProjectByProjectId(projectId);
@@ -111,6 +118,26 @@ public class StatisticsService {
         return tasksInDone;
     }
 
+    public double hoursLeftFromTasksNotInDoneByProjectId(int projectId) {
+        List<Task> allTasksToProject = taskService.getAllTasksByProjectId(projectId);
+        List<Subtask> allSubTasksToProject = subtaskService.getAllSubTasksByProjectId(projectId);
+        double totalHoursLeft = 0;
+
+        for (Task task : allTasksToProject) {
+
+            if (task.getStatus() != Status.Done) {
+                totalHoursLeft += task.getEstimate();
+            }
+        }
+        for(Subtask subtask : allSubTasksToProject) {
+
+            if (subtask.getStatus() != Status.Done) {
+                totalHoursLeft += subtask.getEstimate();
+            }
+        }
+        return totalHoursLeft;
+    }
+
     public int totalTasksByProjectId(int projectId) {
         List<Task> allTasksToProject = taskService.getAllTasksByProjectId(projectId);
         List<Subtask> allSubTasksToProject = subtaskService.getAllSubTasksByProjectId(projectId);
@@ -124,9 +151,6 @@ public class StatisticsService {
         return totalTasksInBacklog;
     }
 
-    public int differenceOfTasksDoneToTotalTasksByProjectId(int projectId) {
-        return totalTasksByProjectId(projectId) - tasksInDoneByProjectId(projectId);
-    }
 
     public String formatDeadlineDays(double days) {
         if (days < 0) {
@@ -168,5 +192,19 @@ public class StatisticsService {
 
         double percentage = (passedDays / totalDays) * 100;
         return Math.max(0, Math.min(100, percentage));
+    }
+
+    public double getPercentageOfTasksDone(int  projectId) {
+        int totalTasks = totalTasksByProjectId(projectId);
+        int totalTasksInDone = tasksInDoneByProjectId(projectId);
+
+        double percentage = 0;
+
+        if (totalTasks > 0) {
+            percentage = ((double) totalTasksInDone / totalTasks) * 100;
+        }
+
+        percentage = Math.max(0, Math.min(100, percentage));
+        return percentage;
     }
 }
