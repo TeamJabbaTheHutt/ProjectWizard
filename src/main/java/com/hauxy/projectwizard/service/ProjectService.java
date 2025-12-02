@@ -1,6 +1,7 @@
 package com.hauxy.projectwizard.service;
 
 import com.hauxy.projectwizard.model.Project;
+import com.hauxy.projectwizard.model.User;
 import com.hauxy.projectwizard.repository.ProjectRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,7 +40,24 @@ public class ProjectService {
         return projectRepository.getUsersProjectsByUserId(userId);
     }
 
-    public Project getProjectByProjectId(int projectId) {
-        return projectRepository.getProjectById(projectId);
+    public void updateProject(int id, String title, String description, String deadline) {
+        projectRepository.updateProject(id, title, description, deadline);
     }
+
+    public Project getProjectById(int id) {
+        return projectRepository.getProjectById(id);
+    }
+
+    public List<User> getProjectMembers(int projectId) {
+        return projectRepository.getProjectMembers(projectId);
+    }
+
+    public void removeMember(int projectId, int memberId) {
+        projectRepository.removeMember(projectId, memberId);
+    }
+
+    public void addMember(int projectId, int userId) {
+        projectRepository.addUserToProject(projectId, userId);
+    }
+
 }
