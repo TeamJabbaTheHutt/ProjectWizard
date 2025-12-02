@@ -7,6 +7,8 @@ import com.hauxy.projectwizard.repository.DAO.ProjectDAO;
 import com.hauxy.projectwizard.repository.DAO.UserDAO;
 import com.hauxy.projectwizard.service.ProjectService;
 import com.hauxy.projectwizard.service.UserService;
+
+import com.hauxy.projectwizard.service.StatisticsService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.boot.autoconfigure.graphql.GraphQlProperties;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -21,11 +23,14 @@ import java.time.LocalDate;
 public class ProjectController {
     private final ProjectService projectService;
     private final UserService userService;
+    private final StatisticsService statisticsService;
 
 
-    public ProjectController(ProjectService projectService, UserService userService) {
+
+    public ProjectController(ProjectService projectService, UserService userService, StatisticsService statisticsService) {
         this.projectService = projectService;
         this.userService = userService;
+        this.statisticsService = statisticsService;
     }
 
     @GetMapping("/{projectId}/edit")
@@ -83,6 +88,9 @@ public class ProjectController {
             return "createProject";
         }
     }
+
+
+
 
 
     @GetMapping("/home")

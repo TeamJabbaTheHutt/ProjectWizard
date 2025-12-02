@@ -3,16 +3,24 @@ package com.hauxy.projectwizard.model;
 import java.time.LocalDate;
 
 public class Subproject {
+    // for merge
     private int subProjectId;
     private int parentId;
-    private final String title;
-    private final String description;
+    private String title;
+    private String description;
+    private LocalDate createdAt;
     private LocalDate deadline;
+
+    public Subproject() {}
+
+
 
     public Subproject(String title, String description) {
         this.title = title;
         this.description = description;
     }
+
+
 
     public int getSubProjectId() {
         return subProjectId;
@@ -34,8 +42,25 @@ public class Subproject {
         return title;
     }
 
+    public  void setTitle(String title) {
+        this.title = title;
+    }
+
+
     public String getDescription() {
         return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDate getCreatedAt() {
+        return createdAt;
     }
 
     public LocalDate getDeadline() {

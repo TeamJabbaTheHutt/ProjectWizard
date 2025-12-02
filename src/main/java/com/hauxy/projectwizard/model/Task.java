@@ -2,13 +2,16 @@ package com.hauxy.projectwizard.model;
 
 public class Task {
     private int taskId;
-    private final String title;
-    private final String description;
+    private String title;
+    private String description;
     private User assignee;
     private Status status;
     private double estimate;
     private double actualTime;
     private int projectId;
+    private int parentId;
+
+    public Task() {}
 
     public Task(String title, String description) {
         this.title = title;
@@ -19,6 +22,16 @@ public class Task {
         return taskId;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+    public void setParentId(int parentId) {
+        this.parentId = parentId;
+    }
+
+    public int getParentId() {
+        return parentId;
+    }
     public void setTaskId(int taskId) {
         this.taskId = taskId;
     }
@@ -69,5 +82,9 @@ public class Task {
 
     public void setProjectId(int projectId) {
         this.projectId = projectId;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

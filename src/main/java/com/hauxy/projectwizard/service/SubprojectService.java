@@ -5,11 +5,18 @@ import com.hauxy.projectwizard.repository.SubprojectRepository;
 import com.hauxy.projectwizard.repository.SubtaskRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SubprojectService {
     private final SubprojectRepository subprojectRepository;
 
     public SubprojectService(SubprojectRepository subprojectRepository) {
         this.subprojectRepository = subprojectRepository;
+    }
+
+
+    public List<Subproject> getAllSubProjectsByProjectId(int projectId) {
+        return subprojectRepository.getAllSubprojectsByProjectId(projectId);
     }
 }

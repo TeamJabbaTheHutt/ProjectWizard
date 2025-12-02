@@ -1,0 +1,64 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Task</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <link rel="icon" type="image/x-icon" href="/static/images/black-logo.jpg">
+    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="navbar-left">
+        <img src="/images/black-logo-removebg-preview.jpg" alt="Logo" class="logo" />
+        <ul class="menu">
+            <li class="nav-item"><a th:href="@{/project/home}">Home</a></li>
+            <li class="nav-item"><a href="#">My Assignments</a></li>
+            <li class="nav-item"><a href="#">Help</a></li>
+        </ul>
+    </div>
+    <button type="submit" class="user-icon"><i class='bx bxs-user'></i></button>
+</nav>
+
+<div class="page-wrapper">
+
+    <form class="new-project-wrapper"
+          th:action="@{/task/create}"
+          method="post">
+
+        <h1>Create New Task</h1>
+
+        <div th:if="${parentTask != null}" class="error-message" style="background:#d9d9d9; color:black;">
+            <p><strong>Creating Subtask For:</strong>
+                <span th:text="${parentTask.title}"></span>
+            </p>
+            <input type="hidden" name="parentTaskId" th:value="${parentTask.id}">
+        </div>
+
+        <div th:if="${error}" class="error-message">
+            <p th:text="${error}"></p>
+        </div>
+
+        <div class="input-box">
+            <input id="task-title" type="text" name="title" placeholder="Task Title" required>
+        </div>
+
+        <div class="input-box">
+            <input id="task-description" type="text" name="description" placeholder="Description" required>
+        </div>
+
+        <div class="input-box">
+            <input id="task-deadline" type="date" name="deadline" th:attr="min=${todaysDate}">
+        </div>
+
+
+        <button class="login-btn" type="submit">Create Task</button>
+
+    </form>
+
+</div>
+
+</body>
+</html>
