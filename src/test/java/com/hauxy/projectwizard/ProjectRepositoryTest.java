@@ -27,10 +27,8 @@ public class ProjectRepositoryTest {
 
     @Test
     void getUsersProjectsByUserId() {
-        // Arrange
         var projects = projectRepository.getUsersProjectsByUserId(1);
 
-        // act and assert
         for (Project project : projects) {
             assertThat(projects).isNotNull();
             assertThat(project.getTitle().equals("projectTestTitle"));
@@ -43,10 +41,8 @@ public class ProjectRepositoryTest {
     }
     @Test
     void getProjectById() {
-        // Arrange
         var project = projectRepository.getProjectById(1);
 
-        // act and assert
         assertThat(project).isNotNull();
         assertThat(project.getTitle().equals("projectTestTitle"));
         assertThat(project.getDescription().equals("projectTestDescription"));
@@ -61,10 +57,8 @@ public class ProjectRepositoryTest {
     @Test
     void getAllProjects() {
 
-        // Arrange
         var projects = projectRepository.getUsersProjectsByUserId(1);
 
-        // Act and assert
         for (Project project : projects) {
             assertThat(projects).isNotNull();
             assertThat(project.getTitle().equals("projectTestTitle"));

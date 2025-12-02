@@ -19,4 +19,14 @@ public class TaskRepository {
     public List<Task> getAllTasksByProjectId(int projectId) {
         return taskDAO.getTasksByProjectId(projectId);
     }
+
+    public int createTask(Task task, Integer parentTaskId) {
+        return taskDAO.insertTask(task, parentTaskId);
+    }
+
+    public Task getTaskById(int taskId) {
+        return taskDAO.getTaskById(taskId);
+    }
+
+
 }
