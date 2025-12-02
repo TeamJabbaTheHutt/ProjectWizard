@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +24,8 @@ public class ProjectDAO {
 
     @Transactional
     public int createNewProject(Project newProject) {
-        String sql = "INSERT INTO project (title, project_description, deadline) VALUES (?, ?, ?)";
-        return jdbc.update(sql, newProject.getTitle(), newProject.getDescription(), newProject.getDeadline());
+        String sql = "INSERT INTO project (title, project_description, created_at, deadline) VALUES (?, ?, ?, ?)";
+        return jdbc.update(sql, newProject.getTitle(), newProject.getDescription(), LocalDate.now(), newProject.getDeadline());
     }
 
     public int getLastCreatedProjectId() {
