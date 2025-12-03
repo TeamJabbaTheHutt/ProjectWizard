@@ -4,6 +4,7 @@ import com.hauxy.projectwizard.model.Task;
 import com.hauxy.projectwizard.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -19,10 +20,11 @@ public class TaskService {
         return taskRepository.getTasksByProjectId(subprojectId);
     }
 
-    public int createTask(String title, String description, int projectId, Integer parentTaskId) {
+    public int createTask(String title, String description, Integer parentTaskId, LocalDate deadline) {
         Task task = new Task();
         task.setTitle(title);
         task.setDescription(description);
+        task.setDeadline(deadline);
 
         return taskRepository.createTask(task, parentTaskId);
     }
