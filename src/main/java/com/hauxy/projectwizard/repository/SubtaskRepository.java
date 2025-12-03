@@ -20,4 +20,7 @@ public class SubtaskRepository {
 
         return subtaskDAO.getAllSubtasks(taskId);
     }
+    public int createSubtask(Subtask subtask) {
+        return subtaskDAO.createSubtask(subtask);
+    }
 }

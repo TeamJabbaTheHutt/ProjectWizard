@@ -20,4 +20,7 @@ public class SubprojectRepository {
     public List<Subproject> getAllSubprojectsByProjectId(int projectId) {
         return subprojectDAO.getAllSubProjectsByProjectId(projectId);
     }
+    public int createSubproject(Subproject subproject) {
+        return subprojectDAO.createSubproject(subproject);
+    }
 }
