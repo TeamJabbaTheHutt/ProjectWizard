@@ -28,7 +28,7 @@ public class TaskDAO {
     }
 
     public int insertTask(Task task, Integer subprojectId) {
-        String sql = "INSERT INTO task (title, description, parent_id) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO task (title, task_description, parent_id) VALUES (?, ?, ?)";
         return jdbc.update(sql, task.getTitle(), task.getDescription(), subprojectId);
     }
 

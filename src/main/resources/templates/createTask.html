@@ -25,34 +25,29 @@
 <div class="page-wrapper">
 
     <form class="new-project-wrapper"
-          th:action="@{/task/create}"
-          method="post">
+          th:action="@{/task/saveTask/{projectId}(projectId=${projectId})}"
+          th:object="${task}" method="post">
 
         <h1>Create New Task</h1>
 
-        <div th:if="${parentTask != null}" class="error-message" style="background:#d9d9d9; color:black;">
-            <p><strong>Creating Subtask For:</strong>
-                <span th:text="${parentTask.title}"></span>
-            </p>
-            <input type="hidden" name="parentTaskId" th:value="${parentTask.id}">
-        </div>
+            <input type="hidden" th:field="*{parentId}">
 
-        <div th:if="${error}" class="error-message">
+
+        <div th:if="${error}" class="login-error-display-area error">
             <p th:text="${error}"></p>
         </div>
 
         <div class="input-box">
-            <input id="task-title" type="text" name="title" placeholder="Task Title" required>
+            <input th:field="*{title}" id="task-title" type="text" placeholder="Task Title" required>
         </div>
 
         <div class="input-box">
-            <input id="task-description" type="text" name="description" placeholder="Description" required>
+            <input th:field="*{description}" id="task-description" type="text" placeholder="Description" required>
         </div>
 
         <div class="input-box">
-            <input id="task-deadline" type="date" name="deadline" th:attr="min=${todaysDate}">
+            <input id="task-deadline" type="date" th:field="*{deadline}" th:attr="min=${todaysDate}">
         </div>
-
 
         <button class="login-btn" type="submit">Create Task</button>
 
