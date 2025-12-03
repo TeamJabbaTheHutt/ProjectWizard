@@ -25,7 +25,7 @@
 <div class="page-wrapper">
 
     <form class="new-project-wrapper"
-          th:action="@{/task/saveTask/${projectId}}"
+          th:action="@{/task/saveTask/{projectId}(projectId=${projectId})}"
           th:object="${task}" method="post">
 
         <h1>Create New Task</h1>
