@@ -8,7 +8,6 @@ public class Task {
     private Status status;
     private double estimate;
     private double actualTime;
-    private int projectId;
     private int parentId;
 
     public Task() {}
@@ -76,13 +75,13 @@ public class Task {
         this.actualTime = actualTime;
     }
 
-    public int getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(int projectId) {
-        this.projectId = projectId;
-    }
+//    public int getProjectId() {
+//        return projectId;
+//    }
+//
+//    public void setProjectId(int projectId) {
+//        this.projectId = projectId;
+//    }
 
     public void setDescription(String description) {
         this.description = description;

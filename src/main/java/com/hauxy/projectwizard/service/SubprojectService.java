@@ -19,4 +19,13 @@ public class SubprojectService {
     public List<Subproject> getAllSubProjectsByProjectId(int projectId) {
         return subprojectRepository.getAllSubprojectsByProjectId(projectId);
     }
+    public Subproject getSubprojectById(int subprojectId, int projectId) {
+        List<Subproject> subprojects = getAllSubProjectsByProjectId(projectId);
+        for (Subproject subproject : subprojects) {
+            if (subproject.getSubProjectId() == subprojectId) {
+                return subproject;
+            }
+        }
+        return null;
+    }
 }

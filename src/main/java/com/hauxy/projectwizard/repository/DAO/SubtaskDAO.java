@@ -23,10 +23,15 @@ public class SubtaskDAO {
         this.jdbc = jdbc;
     }
 
-
-    public List<Subtask> getTasksByProjectId(int projectId) {
-        String sql = "SELECT * FROM subtask WHERE project_id = ?";
-        List<Subtask> subtasks = jdbc.query(sql, subtaskRowMapper, projectId);
+//
+//    public List<Subtask> getTasksByProjectId(int projectId) {
+//        String sql = "SELECT * FROM subtask WHERE project_id = ?";
+//        List<Subtask> subtasks = jdbc.query(sql, subtaskRowMapper, projectId);
+//        return subtasks;
+//    }
+    public List<Subtask> getAllSubtasks(int taskId) {
+        String sql = "SELECT * FROM subtask WHERE parent_id = ?";
+        List<Subtask> subtasks = jdbc.query(sql, subtaskRowMapper, taskId);
         return subtasks;
     }
 }

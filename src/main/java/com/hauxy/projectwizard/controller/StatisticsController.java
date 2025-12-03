@@ -37,7 +37,6 @@ public class StatisticsController {
             model.addAttribute("percentageOfProjectInDays", statisticsService.getPercentageOfProjectDone(projectId));
             model.addAttribute("getDeadLineByProjectId", statisticsService.getDeadLineByProjectId(projectId));
             model.addAttribute("getPercentageOfTasksDone", statisticsService.getPercentageOfTasksDone(projectId));
-            System.out.println(statisticsService);
             // get all subprojects for stats?
             return "projectStatistics";
         } catch (NullPointerException e) {
