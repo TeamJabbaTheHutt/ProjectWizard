@@ -24,7 +24,7 @@ public class SubprojectDAO {
     }
 
     public List<Subproject> getAllSubProjectsByProjectId(int projectId) {
-        String sql = "SELECT * FROM sub_project WHERE project_id = ?";
+        String sql = "SELECT * FROM sub_project WHERE parent_id = ?";
         List<Subproject> subproject = jdbc.query(sql, subprojectRowMapper, projectId);
         return subproject;
     }

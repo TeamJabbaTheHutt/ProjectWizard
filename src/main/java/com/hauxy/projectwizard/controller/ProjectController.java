@@ -6,6 +6,7 @@ import com.hauxy.projectwizard.model.User;
 import com.hauxy.projectwizard.repository.DAO.ProjectDAO;
 import com.hauxy.projectwizard.repository.DAO.UserDAO;
 import com.hauxy.projectwizard.service.ProjectService;
+import com.hauxy.projectwizard.service.SubprojectService;
 import com.hauxy.projectwizard.service.UserService;
 
 import com.hauxy.projectwizard.service.StatisticsService;
@@ -27,7 +28,7 @@ public class ProjectController {
 
 
 
-    public ProjectController(ProjectService projectService, UserService userService, StatisticsService statisticsService) {
+    public ProjectController(ProjectService projectService, UserService userService, StatisticsService statisticsService, SubprojectService subprojectService) {
         this.projectService = projectService;
         this.userService = userService;
         this.statisticsService = statisticsService;
@@ -171,5 +172,7 @@ public class ProjectController {
 
         return "redirect:/project/" + projectId + "/edit";
     }
+
+
 
 }

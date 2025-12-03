@@ -1,19 +1,27 @@
 package com.hauxy.projectwizard.service;
 
-import com.hauxy.projectwizard.model.Project;
-import com.hauxy.projectwizard.model.User;
+import com.hauxy.projectwizard.model.*;
 import com.hauxy.projectwizard.repository.ProjectRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class ProjectService {
     private final ProjectRepository projectRepository;
+    private final SubprojectService subprojectService;
+    private final TaskService taskService;
+    private final SubtaskService subtaskService;
 
-    public ProjectService(ProjectRepository projectRepository) {
+
+
+    public ProjectService(ProjectRepository projectRepository,  SubprojectService subprojectService, TaskService taskService, SubtaskService subtaskService) {
         this.projectRepository = projectRepository;
+        this.subprojectService = subprojectService;
+        this.taskService = taskService;
+        this.subtaskService = subtaskService;
     }
 
     public String createNewProject(Project project) {
@@ -58,6 +66,28 @@ public class ProjectService {
 
     public void addMember(int projectId, int userId) {
         projectRepository.addUserToProject(projectId, userId);
+    }
+
+    public List<Subproject> getAllSubProjectsByProjectId(int projectId) {
+        return subprojectService.getAllSubProjectsByProjectId(projectId);
+    }
+    public List<Task> getAllTasksByProjectId(int projectId) {
+        List<Subproject> subprojects = getAllSubProjectsByProjectId(projectId);
+        List<Task> tasks = new ArrayList<>();
+
+        for (Subproject subproject : subprojects) {
+            tasks.addAll(taskService.getAllTasksBySubprojectId(subproject.getSubProjectId()));
+        }
+
+        return tasks;
+    }
+    public List<Subtask> getAllSubTasksByProjectId(int projectId) {
+        List<Task> tasks = getAllTasksByProjectId(projectId);
+        List<Subtask> subtasks = new ArrayList<>();
+        for (Task task : tasks) {
+            subtasks.addAll(subtaskService.getAllSubTasksByTaskId(task.getTaskId()));
+        }
+        return subtasks;
     }
 
 }

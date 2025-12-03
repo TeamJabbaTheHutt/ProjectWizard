@@ -1,6 +1,7 @@
 package com.hauxy.projectwizard.service;
 
 import com.hauxy.projectwizard.model.Subtask;
+import com.hauxy.projectwizard.model.Task;
 import com.hauxy.projectwizard.repository.SubtaskRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,17 @@ public class SubtaskService {
 
 
 
-    public List<Subtask> getAllSubTasksByProjectId(int projectId) {
-        return subtaskRepository.getAllSubtasksByProjectId(projectId);
+    public List<Subtask> getAllSubTasksByTaskId(int taskId) {
+        return subtaskRepository.getAllSubtasksByProjectId(taskId);
+    }
+
+    public Subtask getSubtaskById(int subtaskId, int taskId) {
+        List<Subtask> subTasks = getAllSubTasksByTaskId(taskId);
+        for (Subtask subtask : subTasks) {
+            if (subtask.getTaskId() == taskId) {
+                return subtask;
+            }
+        }
+        return null;
     }
 }

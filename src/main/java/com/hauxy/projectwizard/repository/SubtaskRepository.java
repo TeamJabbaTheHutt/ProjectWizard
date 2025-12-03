@@ -16,7 +16,8 @@ public class SubtaskRepository {
 
 
 
-    public List<Subtask> getAllSubtasksByProjectId(int projectId) {
-        return subtaskDAO.getTasksByProjectId(projectId);
+    public List<Subtask> getAllSubtasksByProjectId(int taskId) {
+
+        return subtaskDAO.getAllSubtasks(taskId);
     }
 }

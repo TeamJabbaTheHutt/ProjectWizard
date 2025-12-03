@@ -61,6 +61,48 @@ public class StatisticsServiceIntegrationTest {
 
     }
 
+    @Test
+    public void tasksInDoneByProjectIdTest() {
+        int result =  statisticsService.tasksInDoneByProjectId(1);
+        assertThat(result).isEqualTo(0);
+    }
+
+    @Test
+    public void hoursLeftFromTasksNotInDoneByProjectIdTest() {
+        double result = statisticsService.hoursLeftFromTasksNotInDoneByProjectId(1);
+        assertThat(result).isEqualTo(5.0);
+    }
+
+    @Test
+    public void totalTasksByProjectId() {
+        int result = statisticsService.totalTasksByProjectId(1);
+        assertThat(result).isEqualTo(2);
+    }
+
+    @Test
+    public void getCreatedAtByProjectIdTest() {
+        LocalDate result = statisticsService.getCreatedAtByProjectId(1);
+        assertThat(result).isEqualTo(LocalDate.of(2024,1,1));
+    }
+
+    @Test
+    public void getDeadLineByProjectIdTest() {
+        LocalDate result = statisticsService.getDeadLineByProjectId(1);
+        assertThat(result).isEqualTo(LocalDate.of(2025,1,1));
+    }
+
+    @Test
+    public void getPercentageOfProjectDone() {
+        double  result = statisticsService.getPercentageOfProjectDone(1);
+        assertThat(result).isEqualTo(100.0);
+    }
+
+    @Test
+    public void getPercentageOfTasksDone() {
+        double result = statisticsService.getPercentageOfTasksDone(1);
+        assertThat(result).isEqualTo(0.0);
+    }
+
 
 
 
