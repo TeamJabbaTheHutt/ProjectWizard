@@ -14,13 +14,10 @@ public class SubtaskRepository {
         this.subtaskDAO = subtaskDAO;
     }
 
-    public List<Subtask> getAllSubtasksByProjectId(int projectId) {
-        return subtaskDAO.getTasksByProjectId(projectId);
+
+
+    public List<Subtask> getAllSubtasksByProjectId(int taskId) {
+
+        return subtaskDAO.getAllSubtasks(taskId);
     }
-
-
-    public int updateSubtask(Subtask subtask) {
-        return subtaskDAO.updateSubtask(subtask);
-    }
-
 }

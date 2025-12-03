@@ -1,11 +1,13 @@
 package com.hauxy.projectwizard.repository.DAO;
 
 import com.hauxy.projectwizard.model.Project;
+import com.hauxy.projectwizard.model.User;
 import com.hauxy.projectwizard.repository.rowMapper.ProjectRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,8 +24,8 @@ public class ProjectDAO {
 
     @Transactional
     public int createNewProject(Project newProject) {
-        String sql = "INSERT INTO project (title, project_description, deadline) VALUES (?, ?, ?)";
-        return jdbc.update(sql, newProject.getTitle(), newProject.getDescription(), newProject.getDeadline());
+        String sql = "INSERT INTO project (title, project_description, created_at, deadline) VALUES (?, ?, ?, ?)";
+        return jdbc.update(sql, newProject.getTitle(), newProject.getDescription(), LocalDate.now(), newProject.getDeadline());
     }
 
     public int getLastCreatedProjectId() {
@@ -62,6 +64,41 @@ public class ProjectDAO {
     public List<Project> getAllProjects() {
         String sql = "SELECT * FROM project";
         return jdbc.query(sql, projectRowMapper);
+    }
+
+    //Update
+    public void updateProject(int projectId, String title, String description, String deadline) {
+        String sql = """
+            UPDATE project
+            SET title = ?, project_description = ?, deadline = ?
+            WHERE project_id = ?
+        """;
+
+        jdbc.update(sql, title, description, java.sql.Date.valueOf(deadline), projectId);
+    }
+
+    public List<User> getProjectMembers(int projectId) {
+
+        String sql = """
+            SELECT u.user_id, u.username, u.email, u.user_password
+            FROM users u
+            JOIN users_to_project up ON u.user_id = up.user_id
+            WHERE up.project_id = ?
+        """;
+
+        return jdbc.query(sql, (rs, rowNum) -> {
+            User user = new User();
+            user.setUserId(rs.getInt("user_id"));
+            user.setUsername(rs.getString("username"));
+            user.setEmail(rs.getString("email"));
+            user.setPassword(rs.getString("user_password"));
+            return user;
+        }, projectId);
+    }
+
+    public void removeMemberFromProject(int projectId, int userId) {
+        String sql = "DELETE FROM users_to_project WHERE project_id = ? AND user_id = ?";
+        jdbc.update(sql, projectId, userId);
     }
 
 }

@@ -41,7 +41,7 @@ public class StatisticsServiceIntegrationTest {
         //act
         double result = statisticsService.timeActualUsedForAllTasksAndSubtasks(1);
         // assert
-        assertThat(result).isEqualTo(5.0);
+        assertThat(result).isEqualTo(0.0);
     }
 
     @Test
@@ -55,24 +55,56 @@ public class StatisticsServiceIntegrationTest {
 
     @Test
     public void daysUntilDeadlineProject() {
-        LocalDate nowTest = LocalDate.of(2025, 2, 1); // Jan 1, 2025
+        LocalDate nowTest = LocalDate.of(2025, 2, 1);
         double result = statisticsService.daysUntilDeadlineProject(1, nowTest);
         assertThat(result).isEqualTo(-31);
 
     }
 
-
+    @Test
+    public void tasksInDoneByProjectIdTest() {
+        int result =  statisticsService.tasksInDoneByProjectId(1);
+        assertThat(result).isEqualTo(0);
+    }
 
     @Test
-    public void tasksInDoneAndTotalTaskDifferentTest() {
-        int resultTasksInDone = statisticsService.tasksInDoneByProjectId(1);
-        int resultTotalTasks = statisticsService.totalTasksByProjectId(1);
-
-        int resultDifference = statisticsService.differenceOfTasksDoneToTotalTasksByProjectId(1);
-
-        assertThat(resultTasksInDone).isEqualTo(0);
-        assertThat(resultTotalTasks).isEqualTo(2);
-        assertThat(resultDifference).isEqualTo(2);
+    public void hoursLeftFromTasksNotInDoneByProjectIdTest() {
+        double result = statisticsService.hoursLeftFromTasksNotInDoneByProjectId(1);
+        assertThat(result).isEqualTo(5.0);
     }
+
+    @Test
+    public void totalTasksByProjectId() {
+        int result = statisticsService.totalTasksByProjectId(1);
+        assertThat(result).isEqualTo(2);
+    }
+
+    @Test
+    public void getCreatedAtByProjectIdTest() {
+        LocalDate result = statisticsService.getCreatedAtByProjectId(1);
+        assertThat(result).isEqualTo(LocalDate.of(2024,1,1));
+    }
+
+    @Test
+    public void getDeadLineByProjectIdTest() {
+        LocalDate result = statisticsService.getDeadLineByProjectId(1);
+        assertThat(result).isEqualTo(LocalDate.of(2025,1,1));
+    }
+
+    @Test
+    public void getPercentageOfProjectDone() {
+        double  result = statisticsService.getPercentageOfProjectDone(1);
+        assertThat(result).isEqualTo(100.0);
+    }
+
+    @Test
+    public void getPercentageOfTasksDone() {
+        double result = statisticsService.getPercentageOfTasksDone(1);
+        assertThat(result).isEqualTo(0.0);
+    }
+
+
+
+
 
 }

@@ -25,4 +25,8 @@ public class UserService {
     public boolean checkIfUserExist(String email) {
         return userRepository.getUserByEmail(email) != null;
     }
+
+    public User getUserByEmail(String email) {
+        return userRepository.getUserByEmail(email);
+    }
 }

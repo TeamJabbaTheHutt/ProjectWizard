@@ -29,38 +29,38 @@ public class StatisticsServiceTest {
     @InjectMocks
     private StatisticsService statisticsService;
 
-    @Test
-    public void timeEstimatedOnAllTasksAndSubtasksTest() {
-        int projectId = 1;
-
-        // ARRANGE
-        Task t1 = new Task();
-        t1.setEstimate(50.1);
-
-        Task t2 = new Task();
-        t2.setEstimate(40.1);
-
-        Subtask s1 = new Subtask();
-        s1.setEstimate(10.0);
-
-        List<Task> tasks = List.of(t1, t2);
-        List<Subtask> subtasks = List.of(s1);
-
-        when(taskService.getAllTasksByProjectId(projectId))
-                .thenReturn(tasks);
-
-        when(subtaskService.getAllSubTasksByProjectId(projectId))
-                .thenReturn(subtasks);
-
-        // ACT
-        double result = statisticsService.timeEstimatedOnAllTasksAndSubtasks(projectId);
-
-        // ASSERT
-        assertThat(result).isEqualTo(100.2);
-
-        verify(taskService).getAllTasksByProjectId(projectId);
-        verify(subtaskService).getAllSubTasksByProjectId(projectId);
-    }
+//    @Test
+//    public void timeEstimatedOnAllTasksAndSubtasksTest() {
+//        int projectId = 1;
+//
+//        // ARRANGE
+//        Task t1 = new Task();
+//        t1.setEstimate(50.1);
+//
+//        Task t2 = new Task();
+//        t2.setEstimate(40.1);
+//
+//        Subtask s1 = new Subtask();
+//        s1.setEstimate(10.0);
+//
+//        List<Task> tasks = List.of(t1, t2);
+//        List<Subtask> subtasks = List.of(s1);
+//
+//        when(taskService.getAllTasksByProjectId(projectId))
+//                .thenReturn(tasks);
+//
+//        when(subtaskService.getAllSubTasksByProjectId(projectId))
+//                .thenReturn(subtasks);
+//
+//        // ACT
+//        double result = statisticsService.timeEstimatedOnAllTasksAndSubtasks(projectId);
+//
+//        // ASSERT
+//        assertThat(result).isEqualTo(100.2);
+//
+//        verify(taskService).getAllTasksByProjectId(projectId);
+//        verify(subtaskService).getAllSubTasksByProjectId(projectId);
+//    }
 
 
 

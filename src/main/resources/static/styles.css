@@ -718,17 +718,93 @@ a:active {
 
 /* STATISTICS*/
 
-.progress-container {
-    width: 300px;
-    height: 20px;
-    background: #dcdcdc;
+.statisticsContainer {
+    display: flex;
+    justify-content: flex-start;
+    gap: 15px;
+    width: 90vw;
+    flex-wrap: wrap;
+    padding: 15px;
     border-radius: 10px;
+}
+
+.statisticsBoxItem {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    flex-wrap: wrap;
+    max-width: 50vw;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.statisticsBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: var(--main-color);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    width: 300px;
+    height: 300px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+/* Text styles */
+.statisticsLabel {
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #c8c8c8;
+}
+
+.statisticsValue {
+    font-size: 25px;
+    font-weight: bold;
+    color: white ;
+}
+
+
+.statisticsBarItems {
+    max-width: 100%;
+    margin-bottom: 1rem;
+}
+
+.progress-container {
+    width: inherit;
+}
+
+.days-left {
+    margin: 0 0 4px 0;
+    font-size: 14px;
+    color: #555;
+    font-weight: 600;
+}
+
+.progress-bar {
+    width: inherit;
+    height: 50px;
+    background: var(--main-color);
+    border-radius: 2px;
     overflow: hidden;
 }
 
 .progress-fill {
     height: 100%;
-    background-color: #4caf50;
+    background: #fd2df3;
     width: 0%;
-    transition: width 0.3s ease;
+    transition: width 0.4s ease;
+}
+
+.statisticsValue.over {
+    color: #e63946;
+    font-weight: bold;
+}
+
+.statisticsValue.saved {
+    color: #2a9d8f;
+    font-weight: bold;
 }

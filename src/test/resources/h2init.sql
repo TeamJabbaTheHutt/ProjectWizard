@@ -49,15 +49,12 @@ CREATE TABLE task (
                       task_id INT AUTO_INCREMENT PRIMARY KEY,
                       title VARCHAR(255) NOT NULL,
                       task_description TEXT,
-                      project_id INT NOT NULL,
                       parent_id INT not null,
                       task_status ENUM('NoStatus','InProgress','InReview','Done') DEFAULT 'NoStatus',
                       estimated_time DOUBLE,
                       assignee_id INT,
                       actual_time DOUBLE,
 
-                      FOREIGN KEY (project_id) REFERENCES project(project_id)
-                          ON DELETE CASCADE,
 
                       FOREIGN KEY (parent_id) REFERENCES sub_project(sub_project_id)
                           ON DELETE CASCADE,
@@ -70,7 +67,6 @@ CREATE TABLE subtask (
                          subtask_id INT AUTO_INCREMENT PRIMARY KEY,
                          title VARCHAR(255) NOT NULL,
                          subtask_description TEXT,
-                         project_id INT NOT NULL,
                          subtask_status ENUM('NoStatus','InProgress','InReview','Done') DEFAULT 'NoStatus',
                          parent_id INT NOT NULL,
                          estimated_time DOUBLE,
@@ -80,8 +76,6 @@ CREATE TABLE subtask (
                          FOREIGN KEY (parent_id) REFERENCES task(task_id)
                              ON DELETE CASCADE,
 
-                         FOREIGN KEY (project_id) REFERENCES project(project_id)
-                             ON DELETE CASCADE,
 
                          FOREIGN KEY (assignee_id) REFERENCES users(user_id)
                              ON DELETE SET NULL
@@ -99,10 +93,10 @@ VALUES (1, 'subprojectTestTitle', 'subprojectTestDescription', '2024-01-01', '20
 INSERT INTO users_to_project(user_id, project_id)
 VALUES (1, 1);
 
-INSERT INTO task (title, task_description, project_id, parent_id,task_status, estimated_time, assignee_id, actual_time)
-VALUES ('taskTestTitle', 'taskTestDescription', 1,1, 'NoStatus', 2.5, 1, 2.5);
+INSERT INTO task (title, task_description, parent_id,task_status, estimated_time, assignee_id, actual_time)
+VALUES ('taskTestTitle', 'taskTestDescription', 1, 'NoStatus', 2.5, 1, 2.5);
 
-INSERT INTO subtask(title, subtask_description, project_id, subtask_status, parent_id, estimated_time, assignee_id, actual_time)
-VALUES ('subtaskTestTitle', 'subtaskTestDescription', 1, 'NoStatus', 1, 2.5, 1, 2.5);
+INSERT INTO subtask(title, subtask_description, subtask_status, parent_id, estimated_time, assignee_id, actual_time)
+VALUES ('subtaskTestTitle', 'subtaskTestDescription',  'NoStatus', 1, 2.5, 1, 2.5);
 
 

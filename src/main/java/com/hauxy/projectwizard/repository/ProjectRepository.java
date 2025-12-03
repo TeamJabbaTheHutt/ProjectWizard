@@ -1,6 +1,7 @@
 package com.hauxy.projectwizard.repository;
 
 import com.hauxy.projectwizard.model.Project;
+import com.hauxy.projectwizard.model.User;
 import com.hauxy.projectwizard.repository.DAO.ProjectDAO;
 import com.hauxy.projectwizard.repository.DAO.UserDAO;
 import org.springframework.stereotype.Repository;
@@ -34,7 +35,22 @@ public class ProjectRepository {
     public Project getProjectById(int projectId) {
         return projectDAO.getProjectById(projectId);
     }
+
     public List<Project> getAllProjects() {
         return projectDAO.getAllProjects();
     }
+
+    public void updateProject(int id, String title, String description, String deadline) {
+        projectDAO.updateProject(id, title, description, deadline);
+    }
+
+    public List<User> getProjectMembers(int projectId) {
+        return projectDAO.getProjectMembers(projectId);
+    }
+
+    public void removeMember(int projectId, int memberId) {
+        projectDAO.removeMemberFromProject(projectId, memberId);
+    }
+
+
 }

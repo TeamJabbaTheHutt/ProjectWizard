@@ -21,21 +21,22 @@ public class TaskDAO {
     }
 
 
-    public List<Task> getTasksByProjectId(int projectId) {
-        String sql = "SELECT * FROM task WHERE project_id = ?";
-        List<Task> tasks = jdbc.query(sql, taskRowMapper, projectId);
+    public List<Task> getTasksBySubprojectId(int subprojectId) {
+        String sql = "SELECT * FROM task WHERE parent_id = ?";
+        List<Task> tasks = jdbc.query(sql, taskRowMapper, subprojectId);
         return tasks;
     }
 
-    public int insertTask(Task task, Integer parentTaskId) {
-        String sql = "INSERT INTO task (title, task_description, project_id, parent_id, deadline) VALUES (?, ?, ?, ?, ?)";
-        return jdbc.update(sql, task.getTitle(), task.getDescription(), task.getProjectId(), parentTaskId, task.getDeadline());
+    public int insertTask(Task task, Integer subprojectId) {
+        String sql = "INSERT INTO task (title, description, parent_id) VALUES (?, ?, ?, ?)";
+        return jdbc.update(sql, task.getTitle(), task.getDescription(), subprojectId);
     }
 
-    public Task getTaskById(int taskId) {
-        String sql = "SELECT * FROM task WHERE task_id = ?";
-        return jdbc.queryForObject(sql, taskRowMapper, taskId);
-    }
+//    public Task getTaskById(int taskId, int subprojectId, int projectId) {
+//
+//        String sql = "SELECT * FROM task WHERE task_id = ?";
+//        return jdbc.queryForObject(sql, taskRowMapper, taskId);
+//    }
 
 
 
