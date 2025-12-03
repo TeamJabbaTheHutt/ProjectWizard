@@ -29,13 +29,11 @@ public class StatisticsService {
     public double timeEstimatedOnAllTasksAndSubtasks(int projectId) {
         double result = 0.0;
         List<Task> allTasksToProject = projectService.getAllTasksByProjectId(projectId);
-        List<Subtask> allSubTasksToProject = projectService.getAllSubTasksByProjectId(projectId);
+
         for (Task task : allTasksToProject) {
             result += task.getEstimate();
         }
-        for (Subtask subtask : allSubTasksToProject) {
-            result += subtask.getEstimate();
-        }
+
         return result;
     }
 
@@ -46,18 +44,13 @@ public class StatisticsService {
     public double timeActualUsedForAllTasksAndSubtasks(int projectId) {
         double result = 0.0;
         List<Task> allTasksToProject = projectService.getAllTasksByProjectId(projectId);
-        List<Subtask> allSubTasksToProject = projectService.getAllSubTasksByProjectId(projectId);
+
 
         for(Task task : allTasksToProject) {
             if(task.getStatus() == Status.Done) {
                 result += task.getActualTime();
             }
 
-        }
-        for (Subtask subtask : allSubTasksToProject) {
-            if (subtask.getStatus() == Status.Done) {
-                result += subtask.getActualTime();
-            }
         }
         return result;
     }
@@ -67,17 +60,12 @@ public class StatisticsService {
         double totalActual = 0.0;
 
         List<Task> allTasksToProject = projectService.getAllTasksByProjectId(projectId);
-        List<Subtask> allSubTasksToProject = projectService.getAllSubTasksByProjectId(projectId);
 
         for (Task task : allTasksToProject) {
             totalEstimate += task.getEstimate();
             totalActual += task.getActualTime();
         }
 
-        for (Subtask subtask : allSubTasksToProject) {
-            totalEstimate += subtask.getEstimate();
-            totalActual += subtask.getActualTime();
-        }
 
         return totalEstimate - totalActual;
 

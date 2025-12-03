@@ -6,6 +6,8 @@ import com.hauxy.projectwizard.model.Project;
 import com.hauxy.projectwizard.model.User;
 import com.hauxy.projectwizard.service.ProjectService;
 import com.hauxy.projectwizard.service.StatisticsService;
+import com.hauxy.projectwizard.service.SubprojectService;
+import com.hauxy.projectwizard.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -30,6 +32,10 @@ public class ProjectControllerTest {
     private ProjectService projectService;
     @MockitoBean
     private StatisticsService statisticsService;
+    @MockitoBean
+    private UserService userService;
+    @MockitoBean
+    private SubprojectService subprojectService;
 
     @Test
     void getProjectByUserIdTestListContainsProjects() throws Exception {

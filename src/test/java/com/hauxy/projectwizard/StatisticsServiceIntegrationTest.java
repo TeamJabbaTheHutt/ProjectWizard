@@ -33,7 +33,7 @@ public class StatisticsServiceIntegrationTest {
         // act
         double result = statisticsService.timeEstimatedOnAllTasksAndSubtasks(1);
         // assert
-        assertThat(result).isEqualTo(5.0);
+        assertThat(result).isEqualTo(2.5);
     }
 
     @Test

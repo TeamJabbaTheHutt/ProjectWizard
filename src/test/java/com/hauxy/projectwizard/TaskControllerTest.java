@@ -8,6 +8,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.LocalDate;
+
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -46,7 +48,7 @@ public class TaskControllerTest {
         int parentTaskId = 7;
 
 
-        when(taskService.createTask("Subtask", "Subtask description", projectId, parentTaskId))
+        when(taskService.createTask("Subtask", "Subtask description", projectId, LocalDate.of(2025, 1, 1)))
                 .thenReturn(1);
 
         mockMvc.perform(post("/task/create")
@@ -57,6 +59,6 @@ public class TaskControllerTest {
                 )
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/projectDashboard/" + projectId));
-        verify(taskService).createTask("Subtask", "Subtask description", projectId, parentTaskId);
+        verify(taskService).createTask("Subtask", "Subtask description", projectId, LocalDate.of(2025, 1, 1));
     }
 }
