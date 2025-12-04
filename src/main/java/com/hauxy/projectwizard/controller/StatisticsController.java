@@ -30,15 +30,19 @@ public class StatisticsController {
             User user = (User) httpSession.getAttribute("loggedInUser");
             user.getUserId();
             // check om user er del af projektet?
+
         } catch (NullPointerException e) {
             throw new UserNotLoggedInException("you might not be logged in", e);
 
         }
-            model.addAttribute("dateToday", LocalDate.now());
-            model.addAttribute("daysUntilDeadlineProject", statisticsService.formatDeadlineDays(statisticsService.daysUntilDeadlineProject(projectId, LocalDate.now())));
-            model.addAttribute("subprojects", statisticsService.getSubprojects(projectId));
 
-            return "projectStatistics";
+        // bruger springbean expression til at håndtere det store frontend call til statistikkerne.
+
+        model.addAttribute("dateToday", LocalDate.now());
+        model.addAttribute("daysUntilDeadlineProject", statisticsService.formatDeadlineDays(statisticsService.daysUntilDeadlineProject(projectId, LocalDate.now())));
+        model.addAttribute("subprojects", statisticsService.getSubprojects(projectId));
+
+        return "projectStatistics";
 
     }
 

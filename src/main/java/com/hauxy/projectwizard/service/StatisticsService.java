@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -13,6 +14,12 @@ public class StatisticsService {
     private final ProjectService projectService;
     private final SubprojectService subprojectService;
     private final SubtaskService subtaskService;
+
+//    private Project project;
+//    private List<Subproject> subprojects;
+//    private List<Task> tasks;
+//    private List<Subtask> subtasks;
+    // kan vi "fill data" og minimere database query calls?
 
     public StatisticsService(TaskService taskService, ProjectService projectService, SubprojectService subprojectService, SubtaskService subtaskService) {
         this.taskService = taskService;
@@ -25,6 +32,7 @@ public class StatisticsService {
     ///  fordeling af tidsforbrug på arbejdsdage, så man ved hvor mange timer der skal arbejdes hver dag, for at projektet bliver færdigt til tiden.
 
     // total estimering af alle tasks af estimated time
+
     public double timeEstimatedOnAllTasksAndSubtasks(int projectId) {
         double result = 0.0;
         List<Task> allTasksToProject = projectService.getAllTasksByProjectId(projectId);
