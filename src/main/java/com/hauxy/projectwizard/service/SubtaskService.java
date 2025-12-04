@@ -30,4 +30,8 @@ public class SubtaskService {
         }
         return null;
     }
+
+    public int createSubtask(Subtask subtask) {
+        return subtaskRepository.createSubtask(subtask);
+    }
 }

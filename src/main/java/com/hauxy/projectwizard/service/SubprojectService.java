@@ -28,4 +28,7 @@ public class SubprojectService {
         }
         return null;
     }
+    public int createSubproject(Subproject subproject) {
+        return subprojectRepository.createSubproject(subproject);
+    }
 }
