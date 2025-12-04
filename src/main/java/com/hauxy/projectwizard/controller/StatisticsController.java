@@ -35,12 +35,13 @@ public class StatisticsController {
             throw new UserNotLoggedInException("you might not be logged in", e);
 
         }
+        statisticsService.fetchData(projectId);
 
         // bruger springbean expression til at håndtere det store frontend call til statistikkerne.
 
         model.addAttribute("dateToday", LocalDate.now());
         model.addAttribute("daysUntilDeadlineProject", statisticsService.formatDeadlineDays(statisticsService.daysUntilDeadlineProject(projectId, LocalDate.now())));
-        model.addAttribute("subprojects", statisticsService.getSubprojects(projectId));
+        model.addAttribute("subprojects", statisticsService.getSubprojects());
 
         return "projectStatistics";
 

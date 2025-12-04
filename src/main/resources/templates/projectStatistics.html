@@ -29,34 +29,34 @@
 
             <div class="statisticsBox">
                 <div class="statisticsLabel">Estimated Hours until done</div>
-                <div class="statisticsValue" th:text="${@statisticsService.hoursLeftFromTasksNotInDoneByProjectId(projectId)}"></div>
+                <div class="statisticsValue" th:text="${@statisticsService.hoursLeftFromTasksNotInDoneByProjectId()}"></div>
             </div>
 
             <div class="statisticsBox">
                 <div class="statisticsLabel">Estimated Time On Tasks In Done</div>
-                <div class="statisticsValue" th:text="${@statisticsService.timeEstimatedOnTasksInDone(projectId)}"></div>
+                <div class="statisticsValue" th:text="${@statisticsService.timeEstimatedOnTasksInDone()}"></div>
             </div>
 
             <div class="statisticsBox">
                 <div class="statisticsLabel">Actual Time On Tasks In Done</div>
-                <div class="statisticsValue" th:text="${@statisticsService.timeActualUsedForAllTasksAndSubtasks(projectId)}"></div>
+                <div class="statisticsValue" th:text="${@statisticsService.timeActualUsedForAllTasksAndSubtasks()}"></div>
             </div>
 
             <div class="statisticsBox">
-                <div class="statisticsLabel" th:text="${@statisticsService.timeDifferenceOnAllTasksAndSubtasks(projectId) <= 0} ? 'Time used over the estimate' : 'Time saved in hours'"></div>
+                <div class="statisticsLabel" th:text="${@statisticsService.timeDifferenceOnAllTasksAndSubtasks() <= 0} ? 'Time used over the estimate' : 'Time saved in hours'"></div>
                 <div class="statisticsValue"
-                     th:text="${@statisticsService.timeDifferenceOnAllTasksAndSubtasks(projectId)}"
-                     th:style="'color:' + (${@statisticsService.timeDifferenceOnAllTasksAndSubtasks(projectId) <= 0} ? 'red' : '#00ff19')">
+                     th:text="${@statisticsService.timeDifferenceOnAllTasksAndSubtasks()}"
+                     th:style="'color:' + (${@statisticsService.timeDifferenceOnAllTasksAndSubtasks() <= 0} ? 'red' : '#00ff19')">
                 </div>
             </div>
             <div class="statisticsBox">
                 <div class="statisticsLabel">Estimated Hours for full project</div>
-                <div class="statisticsValue" th:text="${@statisticsService.timeEstimatedOnAllTasksAndSubtasks(projectId)}">0</div>
+                <div class="statisticsValue" th:text="${@statisticsService.timeEstimatedOnAllTasksAndSubtasks()}">0</div>
             </div>
 
             <div class="statisticsBox">
                 <div class="statisticsLabel">Total tasks in backlog</div>
-                <div class="statisticsValue" th:text="${@statisticsService.totalTasksByProjectId(projectId)}"></div>
+                <div class="statisticsValue" th:text="${@statisticsService.totalTasksByProjectId()}"></div>
             </div>
 
         </div>
@@ -65,36 +65,36 @@
         <div class="statisticsBarItems">
 
             <div class="progress-container">
-                <p class="startAndStopTitle" th:text="${@statisticsService.getCreatedAtByProjectId(projectId)} + ': Start of project'"></p>
-                <p class="startAndStopTitle" th:text="${@statisticsService.getDeadLineByProjectId(projectId)} + ': Deadline'"></p>
+                <p class="startAndStopTitle" th:text="${@statisticsService.getCreatedAtByProjectId()} + ': Start of project'"></p>
+                <p class="startAndStopTitle" th:text="${@statisticsService.getDeadLineByProjectId()} + ': Deadline'"></p>
 
                 <p class="days-left" th:text="${daysUntilDeadlineProject}"></p>
                 <div class="progress-bar">
                     <div class="progress-fill"
-                         th:style="'width:' + ${@statisticsService.getPercentageOfProjectDone(projectId)} + '%'">
+                         th:style="'width:' + ${@statisticsService.getPercentageOfProjectDone()} + '%'">
                     </div>
                 </div>
 
 
 
-                <p class="days-left" th:text="${@statisticsService.tasksInDoneByProjectId(projectId)} + ' Tasks in done out of ' + ${@statisticsService.totalTasksByProjectId(projectId)}"></p>
+                <p class="days-left" th:text="${@statisticsService.tasksInDoneByProjectId()} + ' Tasks in done out of ' + ${@statisticsService.totalTasksByProjectId()}"></p>
                 <div class="progress-bar">
                     <div class="progress-fill"
-                         th:style="'width:' + ${@statisticsService.getPercentageOfTasksDone(projectId)} + '%'">
+                         th:style="'width:' + ${@statisticsService.getPercentageOfTasksDone()} + '%'">
                     </div>
                 </div>
 
                 <div class="statisticsSubprojectBox">
                     <div class="subprojectLabel">Subprojects</div>
-                    <div class="statisticsValue" th:text="${@statisticsService.getNumberOfSubprojects(projectId)}"></div>
+                    <div class="statisticsValue" th:text="${@statisticsService.getNumberOfSubprojects()}"></div>
                 </div>
 
                 <div class="specificStatisticsSubprojectBox" th:each="subproject : ${subprojects}">
                     <p class="subprojectLabel" th:text="${subproject.title}"></p>
-                    <p th:text="'Total Tasks: ' + ${@statisticsService.getAllTasksInSubproject(subproject.subProjectId)}"></p>
-                    <p th:text="'Total Done: ' + ${@statisticsService.getNumberOfTasksInSubProjectsInDone(subproject.subProjectId)}"></p>
-                    <p th:text="'Estimated hours: ' + ${@statisticsService.estimatedHoursForSubproject(subproject.subProjectId)}"></p>
-                    <p th:text="'Actual hours: ' + ${@statisticsService.actualHoursForSubproject(subproject.subProjectId)}"></p>
+                    <p th:text="'Total Tasks: ' + ${@statisticsService.getAllTasksInSubproject()}"></p>
+                    <p th:text="'Total Done: ' + ${@statisticsService.getNumberOfTasksInSubProjectsInDone()}"></p>
+                    <p th:text="'Estimated hours: ' + ${@statisticsService.estimatedHoursForSubproject()}"></p>
+                    <p th:text="'Actual hours: ' + ${@statisticsService.actualHoursForSubproject()}"></p>
 
                 </div>
 
