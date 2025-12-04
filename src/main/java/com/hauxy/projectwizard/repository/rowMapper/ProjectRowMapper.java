@@ -14,8 +14,16 @@ public class ProjectRowMapper implements RowMapper<Project> {
         project.setProjectId(rs.getInt("project_id"));
         project.setTitle(rs.getString("title"));
         project.setDescription(rs.getString("project_description"));
-        project.setCreatedAt(rs.getDate("created_at").toLocalDate());
-        project.setDeadline(rs.getDate("deadline").toLocalDate());
+        java.sql.Date createdAtDate = rs.getDate("created_at");
+        if (createdAtDate != null) {
+            project.setCreatedAt(createdAtDate.toLocalDate());
+        }
+
+        java.sql.Date deadlineDate = rs.getDate("deadline");
+        if (deadlineDate != null) {
+            project.setDeadline(deadlineDate.toLocalDate());
+        }
+
         return project;
     }
 }
