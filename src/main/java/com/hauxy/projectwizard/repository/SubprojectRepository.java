@@ -23,4 +23,8 @@ public class SubprojectRepository {
     public int createSubproject(Subproject subproject) {
         return subprojectDAO.createSubproject(subproject);
     }
+
+    public void updateSubproject(int subProjectId, String title, String description, String deadline) {
+        subprojectDAO.updateSubproject(subProjectId, title, description, deadline);
+    }
 }

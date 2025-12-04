@@ -35,5 +35,14 @@ public class SubprojectDAO {
     }
 
 
+    public void updateSubproject(int subProjectId, String title, String description, String deadline) {
+        String sql = """
+            UPDATE sub_project
+            SET subproject_title = ?, sub_project_description = ?, deadline = ?
+            WHERE sub_project_id = ?
+        """;
+
+        jdbc.update(sql, title, description, java.sql.Date.valueOf(deadline), subProjectId);
+    }
 
 }
