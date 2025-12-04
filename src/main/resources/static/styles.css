@@ -719,12 +719,12 @@ a:active {
 /* STATISTICS*/
 
 .statisticsContainer {
-    margin-top: 100px;
+    margin-top: 50px;
     display: flex;
     justify-content: flex-start;
     gap: 15px;
     width: 90vw;
-    height: 90vh;
+    height: 80vh;
     flex-wrap: wrap;
     padding: 15px;
     border-radius: 10px;
@@ -732,14 +732,18 @@ a:active {
 
 .statisticsBoxItem {
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     gap: 15px;
     flex-wrap: wrap;
     max-width: 50vw;
     padding: 15px;
     border-radius: 10px;
 }
-
+@media (max-width: 1091px) {
+    .statisticsBoxItem {
+        max-width: none;
+    }
+}
 .statisticsBox {
     display: flex;
     flex-direction: column;
