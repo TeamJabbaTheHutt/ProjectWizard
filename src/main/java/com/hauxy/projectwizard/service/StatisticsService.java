@@ -40,7 +40,6 @@ public class StatisticsService {
         for (Task task : allTasksToProject) {
             result += task.getEstimate();
         }
-
         return result;
     }
 
@@ -59,6 +58,7 @@ public class StatisticsService {
 
     // total faktisk forbrugt tid af time actual af tasks
     public double timeActualUsedForAllTasksAndSubtasks(int projectId) {
+        int num = 0;
         double result = 0.0;
         List<Task> allTasksToProject = projectService.getAllTasksByProjectId(projectId);
 
@@ -66,9 +66,11 @@ public class StatisticsService {
         for(Task task : allTasksToProject) {
             if(task.getStatus() == Status.Done) {
                 result += task.getActualTime();
+                num++;
             }
 
         }
+        System.out.println(num);
         return result;
     }
     // afvigelse, er vi i timer plus eller minus?
@@ -79,8 +81,10 @@ public class StatisticsService {
         List<Task> allTasksToProject = projectService.getAllTasksByProjectId(projectId);
 
         for (Task task : allTasksToProject) {
-            totalEstimate += task.getEstimate();
-            totalActual += task.getActualTime();
+            if (task.getStatus() == Status.Done) {
+                totalEstimate += task.getEstimate();
+                totalActual += task.getActualTime();
+            }
         }
 
 
@@ -107,7 +111,6 @@ public class StatisticsService {
 
     public int tasksInDoneByProjectId(int projectId) {
         List<Task> allTasksToProject = projectService.getAllTasksByProjectId(projectId);
-        List<Subtask> allSubTasksToProject = projectService.getAllSubTasksByProjectId(projectId);
         int tasksInDone = 0;
         for (Task task : allTasksToProject) {
 
@@ -115,12 +118,7 @@ public class StatisticsService {
                 tasksInDone += 1;
             }
         }
-        for(Subtask subtask : allSubTasksToProject) {
 
-            if (subtask.getStatus() == Status.Done) {
-                tasksInDone += 1;
-            }
-        }
         return tasksInDone;
     }
 
