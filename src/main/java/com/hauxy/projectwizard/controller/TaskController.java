@@ -140,7 +140,7 @@ public class TaskController {
 
         return "redirect:/task/" + taskId + "/edit";
     }
-}
+
     @GetMapping("/createSubproject/{projectId}")
     public String createSubproject(@PathVariable int projectId, Model model) {
         Subproject subproject = new Subproject();
@@ -202,3 +202,4 @@ public class TaskController {
         return "redirect:/project/dashboard/" + projectId;
     }
 }
+
