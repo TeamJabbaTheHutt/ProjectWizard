@@ -1,0 +1,61 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Edit Task</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+
+<div class="container edit-project-wrapper">
+
+    <h1>Edit Task</h1>
+
+    <form th:action="@{'/task/' + ${task.taskId} + '/' + ${projectId} + '/edit'}" method="post">
+
+        <label for="title">Title:</label><br>
+        <input type="text" id="title" name="title" th:value="${task.title}"><br><br>
+
+        <label for="description">Description:</label><br>
+        <textarea id="description" name="description" th:text="${task.description}"></textarea><br><br>
+
+        <h3>Edit Assignees</h3>
+
+        <p>Current Assignees:</p>
+        <ul>
+            <li th:each="user : ${assignees}" th:text="${user.email}"></li>
+        </ul>
+
+        <label for="removeUser">Remove user by email:</label><br>
+        <input type="text" id="removeUser" name="removeUserEmail" placeholder="email@example.com"><br><br>
+
+        <button type="submit"
+                th:formaction="@{'/task/' + ${task.taskId} + '/remove-user'}"
+                class="member-action-btn">
+            Remove User
+        </button>
+
+        <br><br>
+
+        <label for="addUser">Add user by email:</label><br>
+        <input type="text" id="addUser" name="newUserEmail" placeholder="email@example.com"><br><br>
+
+        <button type="submit"
+                th:formaction="@{'/task/' + ${task.taskId} + '/add-user'}"
+                class="member-action-btn">
+            Add User
+        </button>
+
+        <br><br>
+
+        <p th:if="${errorMessage}" th:text="${errorMessage}" style="color:red;"></p>
+
+        <button type="submit" class="save-changes-btn">
+            Save Changes
+        </button>
+    </form>
+</div>
+
+</body>
+</html>
