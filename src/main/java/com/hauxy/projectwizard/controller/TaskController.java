@@ -6,6 +6,11 @@ import com.hauxy.projectwizard.model.User;
 import com.hauxy.projectwizard.service.SubtaskService;
 import com.hauxy.projectwizard.service.TaskService;
 import org.springframework.format.annotation.DateTimeFormat;
+import com.hauxy.projectwizard.model.*;
+import com.hauxy.projectwizard.service.SubprojectService;
+import com.hauxy.projectwizard.service.SubtaskService;
+import com.hauxy.projectwizard.service.TaskService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,10 +24,11 @@ import java.util.List;
 public class TaskController {
     private final TaskService taskService;
     private final SubtaskService subtaskService;
-
-    public TaskController(TaskService taskService, SubtaskService subtaskService) {
+    private final SubprojectService subprojectService;
+    public TaskController(TaskService taskService, SubtaskService subtaskService,  SubprojectService subprojectService) {
         this.taskService = taskService;
         this.subtaskService = subtaskService;
+        this.subprojectService = subprojectService;
     }
 
 //    @GetMapping("/create/{projectId}")
@@ -41,20 +47,20 @@ public class TaskController {
 //
 //        return "createTask";
 //    }
-@GetMapping("/create/{projectId}/{parentId}")
-public String showCreateTaskForm(
-        @PathVariable int projectId,
-        @PathVariable int parentId,
-        Model model) {
+    @GetMapping("/createTask/{projectId}/{parentId}")
+    public String showCreateTaskForm(
+            @PathVariable int projectId,
+            @PathVariable int parentId,
+            Model model) {
 
-    Task task = new Task();
-    model.addAttribute("projectId", projectId);
-    task.setParentId(parentId);
-    model.addAttribute("task", task);
+        Task task = new Task();
+        model.addAttribute("projectId", projectId);
+        task.setParentId(parentId);
+        model.addAttribute("task", task);
 
 
-    return "createTask";
-}
+        return "createTask";
+    }
 
 
     @PostMapping("/saveTask/{projectId}")
@@ -133,5 +139,66 @@ public String showCreateTaskForm(
         }
 
         return "redirect:/task/" + taskId + "/edit";
+    }
+}
+    @GetMapping("/createSubproject/{projectId}")
+    public String createSubproject(@PathVariable int projectId, Model model) {
+        Subproject subproject = new Subproject();
+        subproject.setParentId(projectId);
+        model.addAttribute("subproject", subproject);
+        model.addAttribute("projectId", projectId);
+        return "createSubProject";
+    }
+
+    @PostMapping("/saveSubproject/{projectId}")
+    public String saveSubProject(@ModelAttribute Subproject subproject, @PathVariable int projectId) {
+        subprojectService.createSubproject(subproject);
+        return "redirect:/projectDashboard/" + projectId;
+    }
+
+    @GetMapping("/createSubtask/{projectId}/{parentId}")
+    public String createSubtask(@PathVariable int projectId,@PathVariable int parentId, Model model) {
+        Subtask subtask = new Subtask();
+        subtask.setParentId(parentId);
+        model.addAttribute("subtask", subtask);
+        model.addAttribute("projectId", projectId);
+        return "createSubtask";
+    }
+    @PostMapping("/saveSubtask/{projectId}")
+    public String saveSubtask(@ModelAttribute Subtask subtask, @PathVariable int projectId) {
+        subtaskService.createSubtask(subtask);
+        return "redirect:/projectDashboard/" + projectId;
+    }
+
+    @GetMapping("/subproject/{subprojectId}/{projectId}/edit")
+    public String showEditSubprojectPage(@PathVariable int projectId, @PathVariable int subprojectId, Model model, HttpSession httpSession) {
+
+        User user = (User) httpSession.getAttribute("loggedInUser");
+
+        if (user == null) {
+            return "redirect:/login";
+        }
+        Subproject subproject = subprojectService.getSubprojectById(subprojectId, projectId);
+        System.out.println(subproject.getDeadline());
+        model.addAttribute("subproject", subproject);
+
+        return "editSubproject";
+    }
+
+    @PostMapping("/subproject/{subProjectId}/{projectId}/save")
+    public String updateSubproject(
+            @PathVariable int subProjectId,
+            @PathVariable int projectId,
+            @RequestParam String title,
+            @RequestParam String description,
+            @RequestParam String deadline,
+            HttpSession session
+    ) {
+        if (session.getAttribute("loggedInUser") == null) {
+            return "redirect:/login";
+        }
+        subprojectService.updateSubproject(subProjectId, title, description, deadline);
+
+        return "redirect:/project/dashboard/" + projectId;
     }
 }

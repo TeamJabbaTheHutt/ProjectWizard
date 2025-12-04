@@ -27,6 +27,10 @@ public class StatisticsController {
     public String projectStatistics(@PathVariable("projectId") int projectId, Model model, HttpSession httpSession) {
         try {
             User user = (User) httpSession.getAttribute("loggedInUser");
+        } catch (NullPointerException e) {
+            throw new UserNotLoggedInException("you might not be logged in", e);
+
+        }
             model.addAttribute("hoursLeftFromTasksNotInDoneByProjectId", statisticsService.hoursLeftFromTasksNotInDoneByProjectId(projectId));
             model.addAttribute("timeActualUsedForAllTasksAndSubtasks", statisticsService.timeActualUsedForAllTasksAndSubtasks(projectId));
             model.addAttribute("timeDifferenceOnAllTasksAndSubtasks", statisticsService.timeDifferenceOnAllTasksAndSubtasks(projectId));
@@ -39,10 +43,7 @@ public class StatisticsController {
             model.addAttribute("getPercentageOfTasksDone", statisticsService.getPercentageOfTasksDone(projectId));
             // get all subprojects for stats?
             return "projectStatistics";
-        } catch (NullPointerException e) {
-            throw new UserNotLoggedInException("you might not be logged in", e);
 
-        }
     }
 
 }

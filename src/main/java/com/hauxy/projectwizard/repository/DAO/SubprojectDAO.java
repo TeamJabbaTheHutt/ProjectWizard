@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -28,7 +29,20 @@ public class SubprojectDAO {
         List<Subproject> subproject = jdbc.query(sql, subprojectRowMapper, projectId);
         return subproject;
     }
+    public int createSubproject(Subproject subproject) {
+        String sql = "INSERT INTO sub_project (parent_id, subproject_title, sub_project_description, created_at, deadline) VALUES (?, ?, ?, ?, ?)";
+        return jdbc.update(sql, subproject.getParentId(),subproject.getTitle(), subproject.getDescription(), LocalDate.now(), subproject.getDeadline());
+    }
 
 
+    public void updateSubproject(int subProjectId, String title, String description, String deadline) {
+        String sql = """
+            UPDATE sub_project
+            SET subproject_title = ?, sub_project_description = ?, deadline = ?
+            WHERE sub_project_id = ?
+        """;
+
+        jdbc.update(sql, title, description, java.sql.Date.valueOf(deadline), subProjectId);
+    }
 
 }

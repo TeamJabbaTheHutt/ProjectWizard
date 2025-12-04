@@ -35,6 +35,7 @@ public class UserController {
             User user = new User(username,email, password);
 
             if (userService.createNewUser(user).equals("Success")) {
+                user = userService.getUserByEmail(email);
                 httpSession.setAttribute("loggedInUser", user);
                 return "redirect:/project/home";
             } else {

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Create Subproject</title>
+    <title>Create Subtask</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{/styles.css}">
     <link rel="icon" type="image/x-icon" href="/static/images/black-logo.jpg">
@@ -25,10 +25,10 @@
 <div class="page-wrapper">
 
     <form class="new-project-wrapper"
-          th:action="@{/task/saveSubproject/{projectId}(projectId=${projectId})}"
-          th:object="${subproject}" method="post">
+          th:action="@{/task/saveSubtask/{projectId}(projectId=${projectId})}"
+          th:object="${subtask}" method="post">
 
-        <h1>Create Subproject</h1>
+        <h1>Create New Task</h1>
 
         <input type="hidden" th:field="*{parentId}">
 
@@ -44,11 +44,9 @@
         <div class="input-box">
             <input th:field="*{description}" id="task-description" type="text" placeholder="Description" required>
         </div>
-        <div class="input-box">
-            <input id="task-deadline" type="date" th:field="*{deadline}" th:attr="min=${todaysDate}">
-        </div>
 
-        <button class="login-btn" type="submit">Create Subproject</button>
+
+        <button class="login-btn" type="submit">Create Subtask</button>
 
     </form>
 
