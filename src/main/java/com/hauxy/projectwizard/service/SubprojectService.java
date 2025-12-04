@@ -31,4 +31,8 @@ public class SubprojectService {
     public int createSubproject(Subproject subproject) {
         return subprojectRepository.createSubproject(subproject);
     }
+
+    public void updateSubproject(int subProjectId, String title, String description, String deadline) {
+        subprojectRepository.updateSubproject(subProjectId, title, description, deadline);
+    }
 }

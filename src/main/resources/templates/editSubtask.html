@@ -1,0 +1,68 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Edit project</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+
+<div class="container edit-project-wrapper">
+
+    <h1>Edit Project</h1>
+
+    <!-- UPDATE PROJECT -->
+    <form th:action="@{'/project/' + ${project.projectId} + '/edit'}" method="post">
+
+        <label for="title">Title:</label><br>
+        <input type="text" id="title" name="title" th:value="${project.title}"><br><br>
+
+        <label for="description">Description:</label><br>
+        <textarea id="description" name="description" th:text="${project.description}"></textarea><br><br>
+
+        <label for="deadline">Deadline:</label><br>
+        <input type="date" id="deadline" name="deadline" th:value="${project.deadline}"><br><br>
+
+        <h3>Edit Members</h3>
+
+        <p>Current Members:</p>
+        <ul>
+            <li th:each="member : ${members}" th:text="${member.email}"></li>
+        </ul>
+
+        <!-- REMOVE MEMBER -->
+        <label for="removeMember">Remove member by email:</label><br>
+        <input type="text" id="removeMember" name="removeMemberEmail" placeholder="email@example.com"><br><br>
+
+        <button type="submit"
+                th:formaction="@{'/project/' + ${project.projectId} + '/remove-member'}"
+                class="member-action-btn">
+            Remove Member
+        </button>
+
+        <br><br>
+
+        <!-- ADD MEMBER -->
+        <label for="addMember">Add new member by email:</label><br>
+        <input type="text" id="addMember" name="newMemberEmail" placeholder="email@example.com"><br><br>
+
+        <button type="submit"
+                th:formaction="@{'/project/' + ${project.projectId} + '/add-member'}"
+                class="member-action-btn">
+            Add Member
+        </button>
+
+        <br><br>
+
+        <p th:if="${errorMessage}" th:text="${errorMessage}" style="color:red;"></p>
+
+        <!-- SAVE CHANGES -->
+        <button type="submit" class="save-changes-btn">
+            Save Changes
+        </button>
+    </form>
+</div>
+
+</body>
+</html>

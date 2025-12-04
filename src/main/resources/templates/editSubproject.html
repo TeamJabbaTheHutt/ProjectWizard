@@ -1,0 +1,35 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Edit project</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+
+<div class="container edit-project-wrapper">
+
+    <h1>Edit Subproject</h1>
+
+    <!-- UPDATE PROJECT -->
+    <form th:action="@{'/task/subproject/'+ ${subproject.subProjectId} + '/' + ${subproject.parentId} + '/save'}" method="post">
+
+        <label for="title">Title:</label><br>
+        <input type="text" id="title" name="title" th:value="${subproject.title}"><br><br>
+
+        <label for="description">Description:</label><br>
+        <textarea id="description" name="description" th:text="${subproject.description}"></textarea><br><br>
+
+        <label for="deadline">Deadline:</label><br>
+        <input type="date" id="deadline" name="deadline" th:value="${subproject.deadline}"><br><br>
+
+        <!-- SAVE CHANGES -->
+        <button type="submit" class="save-changes-btn">
+            Save Changes
+        </button>
+    </form>
+</div>
+
+</body>
+</html>

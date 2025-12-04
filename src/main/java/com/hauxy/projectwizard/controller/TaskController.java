@@ -1,11 +1,10 @@
 package com.hauxy.projectwizard.controller;
 
-import com.hauxy.projectwizard.model.Subproject;
-import com.hauxy.projectwizard.model.Subtask;
-import com.hauxy.projectwizard.model.Task;
+import com.hauxy.projectwizard.model.*;
 import com.hauxy.projectwizard.service.SubprojectService;
 import com.hauxy.projectwizard.service.SubtaskService;
 import com.hauxy.projectwizard.service.TaskService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -95,5 +94,37 @@ public class TaskController {
     public String saveSubtask(@ModelAttribute Subtask subtask, @PathVariable int projectId) {
         subtaskService.createSubtask(subtask);
         return "redirect:/projectDashboard/" + projectId;
+    }
+
+    @GetMapping("/subproject/{subprojectId}/{projectId}/edit")
+    public String showEditSubprojectPage(@PathVariable int projectId, @PathVariable int subprojectId, Model model, HttpSession httpSession) {
+
+        User user = (User) httpSession.getAttribute("loggedInUser");
+
+        if (user == null) {
+            return "redirect:/login";
+        }
+        Subproject subproject = subprojectService.getSubprojectById(subprojectId, projectId);
+        System.out.println(subproject.getDeadline());
+        model.addAttribute("subproject", subproject);
+
+        return "editSubproject";
+    }
+
+    @PostMapping("/subproject/{subProjectId}/{projectId}/save")
+    public String updateSubproject(
+            @PathVariable int subProjectId,
+            @PathVariable int projectId,
+            @RequestParam String title,
+            @RequestParam String description,
+            @RequestParam String deadline,
+            HttpSession session
+    ) {
+        if (session.getAttribute("loggedInUser") == null) {
+            return "redirect:/login";
+        }
+        subprojectService.updateSubproject(subProjectId, title, description, deadline);
+
+        return "redirect:/project/dashboard/" + projectId;
     }
 }
