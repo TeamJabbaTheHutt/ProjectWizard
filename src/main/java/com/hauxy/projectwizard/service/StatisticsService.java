@@ -126,7 +126,6 @@ public class StatisticsService {
 
     public double hoursLeftFromTasksNotInDoneByProjectId(int projectId) {
         List<Task> allTasksToProject = projectService.getAllTasksByProjectId(projectId);
-        List<Subtask> allSubTasksToProject = projectService.getAllSubTasksByProjectId(projectId);
         double totalHoursLeft = 0;
 
         for (Task task : allTasksToProject) {

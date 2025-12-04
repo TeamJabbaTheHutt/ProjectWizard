@@ -65,8 +65,8 @@
         <div class="statisticsBarItems">
 
             <div class="progress-container">
-                <p class="startAndStopTitle" th:text="${dateToday} + ': Start of project'"></p>
-                <p class="startAndStopTitle" th:text="${getDeadLineByProjectId} + ': Deadline'"></p>
+                <p class="startAndStopTitle" th:text="${@statisticsService.getCreatedAtByProjectId(projectId)} + ': Start of project'"></p>
+                <p class="startAndStopTitle" th:text="${@statisticsService.getDeadLineByProjectId(projectId)} + ': Deadline'"></p>
 
                 <p class="days-left" th:text="${daysUntilDeadlineProject}"></p>
                 <div class="progress-bar">
