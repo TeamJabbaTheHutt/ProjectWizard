@@ -168,7 +168,7 @@ public class ProjectController {
             return "editProject";
         }
 
-        projectService.addMember(projectId, user.getUserId());
+        projectService.addMember(user.getUserId(), projectId);
 
         return "redirect:/project/" + projectId + "/edit";
     }

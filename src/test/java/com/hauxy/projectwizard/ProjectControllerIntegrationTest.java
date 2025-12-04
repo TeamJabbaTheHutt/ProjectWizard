@@ -18,7 +18,7 @@ import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TE
 @SpringBootTest
 @ActiveProfiles("test")
 @Sql(scripts = "/h2init.sql", executionPhase = BEFORE_TEST_METHOD)
-class ProjectServiceIntegrationTest {
+class ProjectControllerIntegrationTest {
 
     @Autowired
     private ProjectService projectService;

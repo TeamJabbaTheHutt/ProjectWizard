@@ -64,8 +64,8 @@ public class ProjectService {
         projectRepository.removeMember(projectId, memberId);
     }
 
-    public void addMember(int projectId, int userId) {
-        projectRepository.addUserToProject(projectId, userId);
+    public void addMember(int userId, int projectId) {
+        projectRepository.addUserToProject(userId, projectId);
     }
 
     public List<Subproject> getAllSubProjectsByProjectId(int projectId) {
