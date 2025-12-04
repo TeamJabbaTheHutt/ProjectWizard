@@ -1,6 +1,7 @@
 package com.hauxy.projectwizard.controller;
 
 import com.hauxy.projectwizard.exceptions.UserNotLoggedInException;
+import com.hauxy.projectwizard.model.Project;
 import com.hauxy.projectwizard.model.Subproject;
 import com.hauxy.projectwizard.model.User;
 import com.hauxy.projectwizard.service.StatisticsService;
@@ -27,24 +28,14 @@ public class StatisticsController {
     public String projectStatistics(@PathVariable("projectId") int projectId, Model model, HttpSession httpSession) {
         try {
             User user = (User) httpSession.getAttribute("loggedInUser");
+            user.getUserId();
+            // check om user er del af projektet?
         } catch (NullPointerException e) {
             throw new UserNotLoggedInException("you might not be logged in", e);
 
         }
-            model.addAttribute("hoursLeftFromTasksNotInDoneByProjectId", statisticsService.hoursLeftFromTasksNotInDoneByProjectId(projectId));
-            model.addAttribute("timeActualUsedForAllTasksAndSubtasks", statisticsService.timeActualUsedForAllTasksAndSubtasks(projectId));
-            model.addAttribute("timeDifferenceOnAllTasksAndSubtasks", statisticsService.timeDifferenceOnAllTasksAndSubtasks(projectId));
             model.addAttribute("dateToday", LocalDate.now());
-            model.addAttribute("timeEstimatedOnAllTasksAndSubtasks", statisticsService.timeEstimatedOnAllTasksAndSubtasks(projectId));
-            model.addAttribute("tasksDoneByProjectId", statisticsService.tasksInDoneByProjectId(projectId));
-            model.addAttribute("totalTasksByProjectId", statisticsService.totalTasksByProjectId(projectId));
             model.addAttribute("daysUntilDeadlineProject", statisticsService.formatDeadlineDays(statisticsService.daysUntilDeadlineProject(projectId, LocalDate.now())));
-            model.addAttribute("percentageOfProjectInDays", statisticsService.getPercentageOfProjectDone(projectId));
-            model.addAttribute("getDeadLineByProjectId", statisticsService.getDeadLineByProjectId(projectId));
-            model.addAttribute("getPercentageOfTasksDone", statisticsService.getPercentageOfTasksDone(projectId));
-            model.addAttribute("timeEstimatedOnTasksInDone", statisticsService.timeEstimatedOnTasksInDone(projectId));
-            // get all subprojects for stats?
-            model.addAttribute("getNumberOfSubprojects", statisticsService.getNumberOfSubprojects(projectId));
             model.addAttribute("subprojects", statisticsService.getSubprojects(projectId));
 
             return "projectStatistics";

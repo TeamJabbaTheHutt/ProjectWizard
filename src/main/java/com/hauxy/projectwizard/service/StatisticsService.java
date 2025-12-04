@@ -20,7 +20,6 @@ public class StatisticsService {
         this.subprojectService = subprojectService;
         this.subtaskService = subtaskService;
     }
-
     // ud fra problem formulering:
     /// summering af tidsforbrug, så man kan få overblik over tidsforbrug på projekter og delprojekter mv
     ///  fordeling af tidsforbrug på arbejdsdage, så man ved hvor mange timer der skal arbejdes hver dag, for at projektet bliver færdigt til tiden.
@@ -229,5 +228,6 @@ public class StatisticsService {
         }
         return result;
     }
+
 
 }

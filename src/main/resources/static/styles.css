@@ -847,12 +847,3 @@ a:active {
     box-shadow: 0 2px 4px rgba(0,0,0,0.15);
 }
 
-.statisticsValue.over {
-    color: #e63946;
-    font-weight: bold;
-}
-
-.statisticsValue.saved {
-    color: #2a9d8f;
-    font-weight: bold;
-}
