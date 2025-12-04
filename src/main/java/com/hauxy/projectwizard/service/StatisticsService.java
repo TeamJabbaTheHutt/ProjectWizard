@@ -141,7 +141,8 @@ public class StatisticsService {
     }
 
 
-    public String formatDeadlineDays(double days) {
+    public String formatDeadlineDays() {
+        double days = daysUntilDeadlineProject(project.getProjectId(), LocalDate.now());
         if (days < 0) {
             return Math.abs(days) + " days over deadline";
         } else if (days > 0) {
@@ -225,6 +226,10 @@ public class StatisticsService {
             result +=  task.getActualTime();
         }
         return result;
+    }
+
+    public List<User> getMembers() {
+        return project.getMembers();
     }
 
 }

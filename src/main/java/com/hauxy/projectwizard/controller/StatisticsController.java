@@ -28,7 +28,7 @@ public class StatisticsController {
     public String projectStatistics(@PathVariable("projectId") int projectId, Model model, HttpSession httpSession) {
         try {
             User user = (User) httpSession.getAttribute("loggedInUser");
-            user.getUserId();
+//            user.getUserId();
             // check om user er del af projektet?
 
         } catch (NullPointerException e) {
@@ -36,13 +36,8 @@ public class StatisticsController {
 
         }
         statisticsService.fetchData(projectId);
-
         // bruger springbean expression til at håndtere det store frontend call til statistikkerne.
-
         model.addAttribute("dateToday", LocalDate.now());
-        model.addAttribute("daysUntilDeadlineProject", statisticsService.formatDeadlineDays(statisticsService.daysUntilDeadlineProject(projectId, LocalDate.now())));
-        model.addAttribute("subprojects", statisticsService.getSubprojects());
-
         return "projectStatistics";
 
     }

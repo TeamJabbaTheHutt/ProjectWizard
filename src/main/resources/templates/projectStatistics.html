@@ -51,7 +51,7 @@
             </div>
             <div class="statisticsBox">
                 <div class="statisticsLabel">Estimated Hours for full project</div>
-                <div class="statisticsValue" th:text="${@statisticsService.timeEstimatedOnAllTasksAndSubtasks()}">0</div>
+                <div class="statisticsValue" th:text="${@statisticsService.timeEstimatedOnAllTasksAndSubtasks()}"></div>
             </div>
 
             <div class="statisticsBox">
@@ -68,7 +68,7 @@
                 <p class="startAndStopTitle" th:text="${@statisticsService.getCreatedAtByProjectId()} + ': Start of project'"></p>
                 <p class="startAndStopTitle" th:text="${@statisticsService.getDeadLineByProjectId()} + ': Deadline'"></p>
 
-                <p class="days-left" th:text="${daysUntilDeadlineProject}"></p>
+                <p class="days-left" th:text="${@statisticsService.formatDeadlineDays()}"></p>
                 <div class="progress-bar">
                     <div class="progress-fill"
                          th:style="'width:' + ${@statisticsService.getPercentageOfProjectDone()} + '%'">
@@ -89,13 +89,17 @@
                     <div class="statisticsValue" th:text="${@statisticsService.getNumberOfSubprojects()}"></div>
                 </div>
 
-                <div class="specificStatisticsSubprojectBox" th:each="subproject : ${subprojects}">
+                <div class="specificStatisticsSubprojectBox" th:each="subproject : ${@statisticsService.getSubprojects()}">
                     <p class="subprojectLabel" th:text="${subproject.title}"></p>
                     <p th:text="'Total Tasks: ' + ${@statisticsService.getAllTasksInSubproject()}"></p>
                     <p th:text="'Total Done: ' + ${@statisticsService.getNumberOfTasksInSubProjectsInDone()}"></p>
                     <p th:text="'Estimated hours: ' + ${@statisticsService.estimatedHoursForSubproject()}"></p>
                     <p th:text="'Actual hours: ' + ${@statisticsService.actualHoursForSubproject()}"></p>
 
+                </div>
+
+                <div class="specificStatisticsSubprojectBox" th:each="user : ${@statisticsService.getMembers()}">
+                    <p class="subprojectLabel" th:text="${user.getUsername()}"></p>
                 </div>
 
             </div>
