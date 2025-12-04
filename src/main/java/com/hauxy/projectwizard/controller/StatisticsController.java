@@ -35,13 +35,18 @@ public class StatisticsController {
             model.addAttribute("timeActualUsedForAllTasksAndSubtasks", statisticsService.timeActualUsedForAllTasksAndSubtasks(projectId));
             model.addAttribute("timeDifferenceOnAllTasksAndSubtasks", statisticsService.timeDifferenceOnAllTasksAndSubtasks(projectId));
             model.addAttribute("dateToday", LocalDate.now());
+            model.addAttribute("timeEstimatedOnAllTasksAndSubtasks", statisticsService.timeEstimatedOnAllTasksAndSubtasks(projectId));
             model.addAttribute("tasksDoneByProjectId", statisticsService.tasksInDoneByProjectId(projectId));
             model.addAttribute("totalTasksByProjectId", statisticsService.totalTasksByProjectId(projectId));
             model.addAttribute("daysUntilDeadlineProject", statisticsService.formatDeadlineDays(statisticsService.daysUntilDeadlineProject(projectId, LocalDate.now())));
             model.addAttribute("percentageOfProjectInDays", statisticsService.getPercentageOfProjectDone(projectId));
             model.addAttribute("getDeadLineByProjectId", statisticsService.getDeadLineByProjectId(projectId));
             model.addAttribute("getPercentageOfTasksDone", statisticsService.getPercentageOfTasksDone(projectId));
+            model.addAttribute("timeEstimatedOnTasksInDone", statisticsService.timeEstimatedOnTasksInDone(projectId));
             // get all subprojects for stats?
+            model.addAttribute("getNumberOfSubprojects", statisticsService.getNumberOfSubprojects(projectId));
+            model.addAttribute("subprojects", statisticsService.getSubprojects(projectId));
+
             return "projectStatistics";
 
     }

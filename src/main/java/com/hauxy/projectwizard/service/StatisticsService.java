@@ -25,7 +25,7 @@ public class StatisticsService {
     /// summering af tidsforbrug, så man kan få overblik over tidsforbrug på projekter og delprojekter mv
     ///  fordeling af tidsforbrug på arbejdsdage, så man ved hvor mange timer der skal arbejdes hver dag, for at projektet bliver færdigt til tiden.
 
-    // total estimering af alle tasks og subtasks af estimated time
+    // total estimering af alle tasks af estimated time
     public double timeEstimatedOnAllTasksAndSubtasks(int projectId) {
         double result = 0.0;
         List<Task> allTasksToProject = projectService.getAllTasksByProjectId(projectId);
@@ -37,10 +37,20 @@ public class StatisticsService {
         return result;
     }
 
+    public double timeEstimatedOnTasksInDone(int projectId) {
+        double result = 0.0;
+        List<Task> allTasksToProject = projectService.getAllTasksByProjectId(projectId);
+        for (Task task : allTasksToProject) {
+            if (task.getStatus() == Status.Done) {
+                result += task.getEstimate();
+            }
+        }
+        return result;
+    }
 
 
 
-    // total faktisk forbrugt tid af time actual af tasks og subtasks
+    // total faktisk forbrugt tid af time actual af tasks
     public double timeActualUsedForAllTasksAndSubtasks(int projectId) {
         double result = 0.0;
         List<Task> allTasksToProject = projectService.getAllTasksByProjectId(projectId);
@@ -118,26 +128,12 @@ public class StatisticsService {
                 totalHoursLeft += task.getEstimate();
             }
         }
-        for(Subtask subtask : allSubTasksToProject) {
-
-            if (subtask.getStatus() != Status.Done) {
-                totalHoursLeft += subtask.getEstimate();
-            }
-        }
         return totalHoursLeft;
     }
 
     public int totalTasksByProjectId(int projectId) {
         List<Task> allTasksToProject = projectService.getAllTasksByProjectId(projectId);
-        List<Subtask> allSubTasksToProject = projectService.getAllSubTasksByProjectId(projectId);
-        int totalTasksInBacklog = 0;
-        for (Task task : allTasksToProject) {
-            totalTasksInBacklog += 1;
-        }
-        for (Subtask subtask : allSubTasksToProject) {
-            totalTasksInBacklog += 1;
-        }
-        return totalTasksInBacklog;
+        return allTasksToProject.size();
     }
 
 
@@ -159,11 +155,6 @@ public class StatisticsService {
         return project.getDeadline();
     }
 
-//    public double totalDaysFromCreatedAtToDeadline(int projectId) {
-//        LocalDate startDate = getCreatedAtByProjectId(projectId);
-//        LocalDate endDate = getDeadLineByProjectId(projectId);
-//        return ChronoUnit.DAYS.between(startDate, endDate);
-//    }
 
     public double getPercentageOfProjectDone(int projectId) {
 
@@ -196,4 +187,47 @@ public class StatisticsService {
         percentage = Math.max(0, Math.min(100, percentage));
         return percentage;
     }
+
+
+    public int getNumberOfSubprojects(int projectId) {
+        List<Subproject> subprojects = projectService.getAllSubProjectsByProjectId(projectId);
+        return subprojects.size();
+    }
+
+    public int getNumberOfTasksInSubProjectsInDone(int subprojectId) {
+        List<Task> tasks = taskService.getAllTasksBySubprojectId(subprojectId);
+        int result = 0;
+        for (Task task : tasks) {
+            if (task.getStatus() == Status.Done) {
+                result += 1;
+            }
+        }
+        return result;
+
+    }
+    public int getAllTasksInSubproject(int subprojectId) {
+        List<Task> tasks = taskService.getAllTasksBySubprojectId(subprojectId);
+        return tasks.size();
+    }
+    public List<Subproject> getSubprojects(int projectId) {
+        return subprojectService.getAllSubProjectsByProjectId(projectId);
+    }
+
+    public double estimatedHoursForSubproject(int subprojectId) {
+        List<Task> tasks = taskService.getAllTasksBySubprojectId(subprojectId);
+        double result = 0;
+        for (Task task : tasks) {
+            result +=  task.getEstimate();
+        }
+        return result;
+    }
+    public double actualHoursForSubproject(int subprojectId) {
+        List<Task> tasks = taskService.getAllTasksBySubprojectId(subprojectId);
+        double result = 0;
+        for (Task task : tasks) {
+            result +=  task.getActualTime();
+        }
+        return result;
+    }
+
 }

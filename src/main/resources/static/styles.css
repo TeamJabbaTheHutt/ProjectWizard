@@ -719,10 +719,12 @@ a:active {
 /* STATISTICS*/
 
 .statisticsContainer {
+    margin-top: 100px;
     display: flex;
     justify-content: flex-start;
     gap: 15px;
     width: 90vw;
+    height: 90vh;
     flex-wrap: wrap;
     padding: 15px;
     border-radius: 10px;
@@ -769,12 +771,26 @@ a:active {
 
 
 .statisticsBarItems {
-    max-width: 100%;
-    margin-bottom: 1rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    flex-wrap: wrap;
+    padding: 15px;
+    border-radius: 10px;
 }
 
 .progress-container {
+    padding: 15px;
     width: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.startAndStopTitle {
+    margin: 0 0 4px 0;
+    font-size: 20px;
+    color: #555;
+    font-weight: 600;
 }
 
 .days-left {
@@ -786,7 +802,7 @@ a:active {
 
 .progress-bar {
     width: inherit;
-    height: 50px;
+    height: 25px;
     background: var(--main-color);
     border-radius: 2px;
     overflow: hidden;
@@ -797,6 +813,38 @@ a:active {
     background: #fd2df3;
     width: 0%;
     transition: width 0.4s ease;
+}
+.subprojectLabel {
+    font-weight: bold;
+    font-size: 18px;
+    color: #ffffff;
+}
+.statisticsSubprojectBox{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: #0071c1;
+    color: #cacaca;
+    padding: 10px 15px;
+    border-radius: 8px;
+    width: 200px;
+    height: 150px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+.specificStatisticsSubprojectBox {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    background: #0071c1;
+    color: #cacaca;
+    padding: 10px 15px;
+    border-radius: 8px;
+    width: 200px;
+    height: 150px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
 }
 
 .statisticsValue.over {

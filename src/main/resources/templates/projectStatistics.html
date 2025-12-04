@@ -33,7 +33,12 @@
             </div>
 
             <div class="statisticsBox">
-                <div class="statisticsLabel">Time Used Until Now</div>
+                <div class="statisticsLabel">Estimated Time On Tasks In Done</div>
+                <div class="statisticsValue" th:text="${timeEstimatedOnTasksInDone}">0</div>
+            </div>
+
+            <div class="statisticsBox">
+                <div class="statisticsLabel">Actual Time On Tasks In Done</div>
                 <div class="statisticsValue" th:text="${timeActualUsedForAllTasksAndSubtasks}">0</div>
             </div>
 
@@ -44,7 +49,10 @@
                      th:style="'color:' + (${timeDifferenceOnAllTasksAndSubtasks <= 0} ? 'red' : '#00ff19')">
                 </div>
             </div>
-
+            <div class="statisticsBox">
+                <div class="statisticsLabel">Estimated Hours for full project</div>
+                <div class="statisticsValue" th:text="${timeEstimatedOnAllTasksAndSubtasks}">0</div>
+            </div>
 
             <div class="statisticsBox">
                 <div class="statisticsLabel">Total tasks in backlog</div>
@@ -57,9 +65,9 @@
         <div class="statisticsBarItems">
 
             <div class="progress-container">
-                <p class="days-left" th:text="${dateToday} + ': Start of project'"></p>
-                <p class="days-left" th:text="${getDeadLineByProjectId} + ': Deadline'"></p>
-                <br><br>
+                <p class="startAndStopTitle" th:text="${dateToday} + ': Start of project'"></p>
+                <p class="startAndStopTitle" th:text="${getDeadLineByProjectId} + ': Deadline'"></p>
+
                 <p class="days-left" th:text="${daysUntilDeadlineProject}"></p>
                 <div class="progress-bar">
                     <div class="progress-fill"
@@ -68,13 +76,28 @@
                 </div>
 
 
-                <br><br>
+
                 <p class="days-left" th:text="${tasksDoneByProjectId} + ' Tasks in done out of ' + ${totalTasksByProjectId}"></p>
                 <div class="progress-bar">
                     <div class="progress-fill"
                          th:style="'width:' + ${getPercentageOfTasksDone} + '%'">
                     </div>
                 </div>
+
+                <div class="statisticsSubprojectBox">
+                    <div class="subprojectLabel">Subprojects</div>
+                    <div class="statisticsValue" th:text="${getNumberOfSubprojects}">0</div>
+                </div>
+
+                <div class="specificStatisticsSubprojectBox" th:each="subproject : ${subprojects}">
+                    <p class="subprojectLabel" th:text="${subproject.title}"></p>
+                    <p th:text="'Total Tasks: ' + ${@statisticsService.getAllTasksInSubproject(subproject.subProjectId)}"></p>
+                    <p th:text="'Total Done: ' + ${@statisticsService.getNumberOfTasksInSubProjectsInDone(subproject.subProjectId)}"></p>
+                    <p th:text="'Estimated hours: ' + ${@statisticsService.estimatedHoursForSubproject(subproject.subProjectId)}"></p>
+                    <p th:text="'Actual hours: ' + ${@statisticsService.actualHoursForSubproject(subproject.subProjectId)}"></p>
+
+                </div>
+
             </div>
         </div>
     </div>
