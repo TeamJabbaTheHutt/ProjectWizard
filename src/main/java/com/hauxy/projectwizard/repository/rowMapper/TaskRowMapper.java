@@ -23,14 +23,15 @@ public class TaskRowMapper implements RowMapper<Task> {
         task.setParentId(rs.getInt("parent_id"));
 
         // Get the assignee ID from the DB
-        int assigneeId = rs.getInt("assignee_id");
-        if (assigneeId != 0) {
-            User user = new User();
-            user.setUserId(assigneeId);
-            task.setAssignee(user);
-        } else {
-            task.setAssignee(null);
-        }
+        task.setAssigneeId(rs.getInt("assignee_id"));
+//        int assigneeId = rs.getInt("assignee_id");
+//        if (assigneeId != 0) {
+//            User user = new User();
+//            user.setUserId(assigneeId);
+//            task.setAssignee(user);
+//        } else {
+//            task.setAssignee(null);
+//        }
 
         task.setEstimate(rs.getDouble("estimated_time"));
         task.setActualTime(rs.getDouble("actual_time"));

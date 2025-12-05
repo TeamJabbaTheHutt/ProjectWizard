@@ -21,7 +21,11 @@ public class TaskService {
     }
 
     public List<Task> getAllTasksBySubprojectId(Integer subprojectId) {
-        return taskRepository.getTasksByProjectId(subprojectId);
+        List<Task> tasks = taskRepository.getTasksByProjectId(subprojectId);
+        for (Task task : tasks) {
+            task.setAssignee(userRepository.getUserById(task.getAssigneeId()));
+        }
+        return tasks;
     }
 
     public int createTask(String title, String description, Integer parentTaskId, LocalDate deadline) {

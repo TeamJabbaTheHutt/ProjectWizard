@@ -41,7 +41,7 @@ public class SubtaskDAO {
     }
 
     public void updateTask(Subtask subtask) {
-        String sql = "UPDATE task SET title = ?, subtask_description = ?, subtask_status = ?, estimated_time = ?, assignee_id = ?, actual_time = ? WHERE subtask_id = ?";
+        String sql = "UPDATE subtask SET title = ?, subtask_description = ?, subtask_status = ?, estimated_time = ?, assignee_id = ?, actual_time = ? WHERE subtask_id = ?";
         Integer assigneeId = subtask.getAssignee() != null ? subtask.getAssignee().getUserId() : null;
         jdbc.update(sql,
                 subtask.getTitle(),

@@ -10,9 +10,9 @@
 
 <div class="container edit-project-wrapper">
 
-    <h1>Edit Task</h1>
+    <h1>Edit subTask</h1>
 
-    <form th:action="@{'/task/subtask/' + ${subtask.getTaskId()} + '/' + ${projectId} + '/edit'}" method="post">
+    <form th:action="@{'/task/subtask/' + ${subtask.taskId} + '/' + ${projectId} + '/edit'}" method="post">
 
         <label for="title">Title:</label><br>
         <input type="text" id="title" name="title" th:value="${subtask.title}"><br><br>
@@ -24,14 +24,16 @@
 
         <p>Current Assignees:</p>
         <ul>
-            <li th:each="user : ${assignees}" th:text="${user.email}"></li>
+            <li th:each="user : ${subtask.getAssignee()}" th:text="${user.email}"></li>
         </ul>
 
-        <label for="removeUser">Remove user by email:</label><br>
-        <input type="text" id="removeUser" name="removeUserEmail" placeholder="email@example.com"><br><br>
 
+        <!--
+        <label for="removeUser">Remove user by email:</label><br>
+        <input type="text" id="removeUser" name="userEmail" placeholder="email@example.com"><br><br>
+        -->
         <button type="submit"
-                th:formaction="@{'/task/' + ${task.taskId} + '/remove-user'}"
+                th:formaction="@{'/task/subtask/' + ${subtask.taskId} + '/'+ ${projectId}+'/'+ ${parentId}+'/remove-user'}"
                 class="member-action-btn">
             Remove User
         </button>
@@ -39,10 +41,10 @@
         <br><br>
 
         <label for="addUser">Add user by email:</label><br>
-        <input type="text" id="addUser" name="newUserEmail" placeholder="email@example.com"><br><br>
+        <input type="text" id="addUser" name="userEmail" placeholder="email@example.com"><br><br>
 
         <button type="submit"
-                th:formaction="@{'/task/' + ${task.taskId} + '/add-user'}"
+                th:formaction="@{'/task/subtask/' + ${subtask.taskId} + '/'+ ${projectId}+ '/'+ ${parentId}+'/assign-user'}"
                 class="member-action-btn">
             Add User
         </button>

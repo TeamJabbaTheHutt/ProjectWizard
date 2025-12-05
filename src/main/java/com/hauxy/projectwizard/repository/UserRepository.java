@@ -23,4 +23,8 @@ public class UserRepository {
     public User getUserByEmail(String email) {
         return userDAO.getUserByEmail(email);
     }
+
+    public User getUserById(int id) {
+        return userDAO.getUserById(id);
+    }
 }

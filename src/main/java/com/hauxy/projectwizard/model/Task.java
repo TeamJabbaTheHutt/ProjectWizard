@@ -7,6 +7,7 @@ public class Task {
     private String title;
     private String description;
     private User assignee;
+    private int assigneeId;
     private Status status;
     private double estimate;
     private double actualTime;
@@ -26,6 +27,13 @@ public class Task {
 
     public void setDeadline(LocalDate deadline) {
         this.deadline = deadline;
+    }
+
+    public void setAssigneeId(int assigneeId) {
+        this.assigneeId = assigneeId;
+    }
+    public int getAssigneeId() {
+        return assigneeId;
     }
 
     public int getTaskId() {

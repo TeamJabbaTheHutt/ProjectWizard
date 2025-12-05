@@ -23,11 +23,15 @@ public class SubtaskService {
 
 
     public List<Subtask> getAllSubTasksByTaskId(int taskId) {
-        return subtaskRepository.getAllSubtasksByProjectId(taskId);
+        List<Subtask> subtasks = subtaskRepository.getAllSubtasksByProjectId(taskId);
+        for(Subtask subtask : subtasks) {
+            subtask.setAssignee(userRepository.getUserById(subtask.getAssigneeId()));
+        }
+        return subtasks;
     }
 
-    public Subtask getSubtaskById(int subtaskId) {
-        List<Subtask> subTasks = getAllSubTasksByTaskId(subtaskId);
+    public Subtask getSubtaskById(int subtaskId, int parentId) {
+        List<Subtask> subTasks = getAllSubTasksByTaskId(parentId);
         for (Subtask subtask : subTasks) {
             if (subtask.getTaskId() == subtaskId) {
                 return subtask;
@@ -46,16 +50,15 @@ public class SubtaskService {
 
     public boolean addUserToSubTask(int subtaskId, String email) {
         User user = userRepository.getUserByEmail(email);
+        System.out.println(user.getEmail());
         if (user == null) return false;
         Subtask subtask = subtaskRepository.getSubTaskById(subtaskId);
         subtask.setAssignee(user);
         subtaskRepository.updateTask(subtask);
         return true;
     }
-    public boolean removeUserFromSubTask(int taskId, String email) {
+    public boolean removeUserFromSubTask(int taskId) {
         Subtask subtask = subtaskRepository.getSubTaskById(taskId);
-        if (subtask == null || subtask.getAssignee() == null) return false;
-        if (!subtask.getAssignee().getEmail().equals(email)) return false;
         subtask.setAssignee(null);
         subtaskRepository.updateTask(subtask);
         return true;

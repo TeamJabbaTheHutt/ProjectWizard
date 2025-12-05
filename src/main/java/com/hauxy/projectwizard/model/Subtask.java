@@ -9,6 +9,7 @@ public class Subtask {
     private double estimate;
     private double actualTime;
 
+    private int assigneeId;
     private int parentId;
 
     public Subtask() {}
@@ -17,6 +18,13 @@ public class Subtask {
     public Subtask(String title, String description) {
         this.title = title;
         this.description = description;
+    }
+
+    public void setAssigneeId(int assigneeId) {
+        this.assigneeId = assigneeId;
+    }
+    public int getAssigneeId() {
+        return assigneeId;
     }
 
     public int getTaskId() {
