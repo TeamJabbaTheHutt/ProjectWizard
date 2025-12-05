@@ -25,26 +25,62 @@ public class SubtaskDAO {
         this.jdbc = jdbc;
     }
 
-//
-//    public List<Subtask> getTasksByProjectId(int projectId) {
-//        String sql = "SELECT * FROM subtask WHERE project_id = ?";
-//        List<Subtask> subtasks = jdbc.query(sql, subtaskRowMapper, projectId);
-//        return subtasks;
-//    }
     public List<Subtask> getAllSubtasks(int taskId) {
         String sql = "SELECT * FROM subtask WHERE parent_id = ?";
         List<Subtask> subtasks = jdbc.query(sql, subtaskRowMapper, taskId);
         return subtasks;
     }
 
-    public int updateSubtask(Subtask subtask) {
-        String sql = "UPDATE subtask SET title = ?, subtask_description = ? WHERE subtask_id = ?";
-        return jdbc.update(sql, subtask.getTitle(), subtask.getDescription(), subtask.getTaskId());
-    }
+
 
     public int createSubtask(Subtask subtask) {
         String sql = "INSERT INTO subtask (title, subtask_description, parent_id) VALUES (?, ?, ?)";
         return jdbc.update(sql, subtask.getTitle(), subtask.getDescription(), subtask.getParentId());
+    }
+
+    public Subtask getSubtaskById(int subtaskId) {
+        String sql = "SELECT * FROM subtask WHERE subtask_id = ?";
+        return jdbc.queryForObject(sql, subtaskRowMapper, subtaskId);
+    }
+
+    public boolean updateSubtask(Subtask subtask) {
+        try {
+            String sql = "UPDATE subtask SET title = ?, subtask_description = ?, subtask_status = ?, estimated_time = ?, actual_time = ? WHERE subtask_id = ?";
+
+            jdbc.update(sql,
+                    subtask.getTitle(),
+                    subtask.getDescription(),
+                    subtask.getStatus() != null ? subtask.getStatus().name() : "NoStatus",
+                    subtask.getEstimate(),
+                    subtask.getActualTime(),
+                    subtask.getSubtaskId()
+            );
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
+
+    public boolean setAssignee(int userId, int subtaskId) {
+        try {
+            String sql = "UPDATE subtask SET assignee_id = ? WHERE subtask_id = ?";
+            jdbc.update(sql, userId, subtaskId);
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean removeAssignee(int subtaskId) {
+        try {
+            String sql = "UPDATE subtask SET assignee_id = ? WHERE subtask_id = ?";
+            jdbc.update(sql,null, subtaskId);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
 }

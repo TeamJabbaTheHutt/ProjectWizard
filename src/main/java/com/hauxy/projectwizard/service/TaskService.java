@@ -13,15 +13,19 @@ import java.util.List;
 @Service
 public class TaskService {
     private final TaskRepository taskRepository;
-    private final UserRepository userRepository;
+    private final UserService userService;
 
-    public TaskService(TaskRepository taskRepository, UserRepository userRepository) {
+    public TaskService(TaskRepository taskRepository, UserService userService) {
         this.taskRepository = taskRepository;
-        this.userRepository = userRepository;
+        this.userService = userService;
     }
 
     public List<Task> getAllTasksBySubprojectId(Integer subprojectId) {
-        return taskRepository.getTasksByProjectId(subprojectId);
+        List<Task> tasks = taskRepository.getTasksByProjectId(subprojectId);
+        for (Task task : tasks) {
+            task.setAssignee(userService.getUserById(task.getAssigneeId()));
+        }
+        return tasks;
     }
 
     public int createTask(String title, String description, Integer parentTaskId, LocalDate deadline) {
@@ -33,38 +37,54 @@ public class TaskService {
         return taskRepository.createTask(task, parentTaskId);
     }
 
-    public Task getTaskById(int taskId, int subprojectId) {
-        List<Task> tasks = getAllTasksBySubprojectId(subprojectId);
-        for (Task task : tasks) {
-            if (task.getTaskId() == taskId) return task;
+    public Task getTaskById(int taskId) {
+//        List<Task> tasks = getAllTasksBySubprojectId(subprojectId);
+//        for (Task task : tasks) {
+//            if (task.getTaskId() == taskId) return task;
+//        }
+//        return null;
+        Task task = taskRepository.getTaskById(taskId);
+        task.setAssignee(userService.getUserById(task.getAssigneeId()));
+        return task;
+    }
+
+//    public void updateTask(int taskId, String title, String description, LocalDate deadline) {
+//        Task task = taskRepository.getTaskById(taskId);
+//        if (task == null) return;
+//        task.setTitle(title);
+//        task.setDescription(description);
+//        task.setDeadline(deadline);
+//        taskRepository.updateTask(task);
+//    }
+
+    public boolean updatetask(Task task) {
+        return taskRepository.updateTask(task);
+    }
+
+    public boolean addUserToTask(String email, int taskId) {
+//        User user = userRepository.getUserByEmail(email);
+//        if (user == null) return false;
+//        Task task = taskRepository.getTaskById(taskId);
+//        task.setAssignee(user);
+//        taskRepository.updateTask(task);
+//        return true;
+        if (userService.getUserByEmail(email) == null) {
+            return false;
+        } else {
+            taskRepository.setAssignee(userService.getUserByEmail(email).getUserId(), taskId);
+            return true;
         }
-        return null;
     }
 
-    public void updateTask(int taskId, String title, String description, LocalDate deadline) {
-        Task task = taskRepository.getTaskById(taskId);
-        if (task == null) return;
-        task.setTitle(title);
-        task.setDescription(description);
-        task.setDeadline(deadline);
-        taskRepository.updateTask(task);
-    }
+    public boolean removeUserFromTask(int taskId) {
+//        Task task = taskRepository.getTaskById(taskId);
+//        if (task == null || task.getAssignee() == null) return false;
+//        if (!task.getAssignee().getEmail().equals(email)) return false;
+//        task.setAssignee(null);
+//        taskRepository.updateTask(task);
+//        return true;
+        taskRepository.removeAssignee(taskId);
 
-    public boolean addUserToTask(int taskId, String email) {
-        User user = userRepository.getUserByEmail(email);
-        if (user == null) return false;
-        Task task = taskRepository.getTaskById(taskId);
-        task.setAssignee(user);
-        taskRepository.updateTask(task);
-        return true;
-    }
-
-    public boolean removeUserFromTask(int taskId, String email) {
-        Task task = taskRepository.getTaskById(taskId);
-        if (task == null || task.getAssignee() == null) return false;
-        if (!task.getAssignee().getEmail().equals(email)) return false;
-        task.setAssignee(null);
-        taskRepository.updateTask(task);
-        return true;
+        return false;
     }
 }
