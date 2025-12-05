@@ -1,7 +1,7 @@
 package com.hauxy.projectwizard.model;
 
 public class Subtask {
-    private int taskId;
+    private int subtaskId;
     private String title;
     private String description;
     private User assignee;
@@ -20,11 +20,11 @@ public class Subtask {
     }
 
     public int getTaskId() {
-        return taskId;
+        return subtaskId;
     }
 
     public void setTaskId(int taskId) {
-        this.taskId = taskId;
+        this.subtaskId = taskId;
     }
 
     public String getTitle() {

@@ -40,4 +40,23 @@ public class SubtaskDAO {
         return jdbc.update(sql, subtask.getTitle(), subtask.getDescription(), subtask.getTaskId());
     }
 
+    public void updateTask(Subtask subtask) {
+        String sql = "UPDATE task SET title = ?, subtask_description = ?, subtask_status = ?, estimated_time = ?, assignee_id = ?, actual_time = ? WHERE subtask_id = ?";
+        Integer assigneeId = subtask.getAssignee() != null ? subtask.getAssignee().getUserId() : null;
+        jdbc.update(sql,
+                subtask.getTitle(),
+                subtask.getDescription(),
+                subtask.getStatus() != null ? subtask.getStatus().name() : "NoStatus",
+                subtask.getEstimate(),
+                assigneeId,
+                subtask.getActualTime(),
+                subtask.getTaskId()
+        );
+    }
+
+    public Subtask getSubTaskById(int subTaskId) {
+        String sql = "SELECT * FROM subtask WHERE subtask_id = ?";
+        return jdbc.queryForObject(sql, subtaskRowMapper, subTaskId);
+    }
+
 }

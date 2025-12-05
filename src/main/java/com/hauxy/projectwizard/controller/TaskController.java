@@ -134,4 +134,70 @@ public String showCreateTaskForm(
 
         return "redirect:/task/" + taskId + "/edit";
     }
+
+    @GetMapping("/subtask/{subtaskId}/{projectId}/edit")
+    public String showEditSubTaskPage(
+            @PathVariable int projectId,
+            @PathVariable int subtaskId,
+            Model model
+    ) {
+
+        try {
+            Subtask subTask = subtaskService.getSubtaskById(subtaskId);
+            model.addAttribute("subtask", subTask);
+            model.addAttribute("assignee", subTask.getAssignee()); // now safe
+            model.addAttribute("projectId", projectId);
+
+        } catch (Exception e) {
+            return "redirect:/projectDashboard" + projectId;
+        }
+
+        return "editSubtask";
+    }
+
+    @PostMapping("/subtask/{subtaskId}/{projectId}/edit")
+    public String updateSubTask(
+            @PathVariable int projectId,
+            @PathVariable int subtaskId,
+            @RequestParam String title,
+            @RequestParam String description,
+            Model model
+    ) {
+        subtaskService.updateSubTask(subtaskId, title, description);
+        return "redirect:/projectDashboard/" + projectId;
+    }
+
+    @PostMapping("/subtask/{subtaskId}/assign-user")
+    public String assignUserToSubTask(
+            @PathVariable int subtaskId,
+            @RequestParam String userEmail,
+            RedirectAttributes redirectAttributes
+    ) {
+        boolean success = subtaskService.addUserToSubTask(subtaskId, userEmail);
+
+        if (!success) {
+            redirectAttributes.addFlashAttribute("errorMessage", "User not found or already assigned.");
+        }
+
+        return "redirect:/task/subtask/" + subtaskId + "/edit";
+    }
+
+    @PostMapping("/subtask/{subtaskId}/remove-user")
+    public String removeUserFromSubTask(
+            @PathVariable int subtaskId,
+            RedirectAttributes redirectAttributes
+    ) {
+        Subtask subtask = subtaskService.getSubtaskById(subtaskId);
+        if (subtask.getAssignee() != null) {
+            subtaskService.removeUserFromSubTask(subtaskId, subtask.getAssignee().getEmail());
+        } else {
+            redirectAttributes.addFlashAttribute("errorMessage", "No user assigned to this task.");
+        }
+
+        return "redirect:/task/subtask/" + subtaskId + "/edit";
+    }
+
+
+
+
 }
