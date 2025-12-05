@@ -91,17 +91,36 @@
 
                 <div class="specificStatisticsSubprojectBox" th:each="subproject : ${@statisticsService.getSubprojects()}">
                     <p class="subprojectLabel" th:text="${subproject.title}"></p>
-                    <p th:text="'Total Tasks: ' + ${@statisticsService.getAllTasksInSubproject()}"></p>
-                    <p th:text="'Total Done: ' + ${@statisticsService.getNumberOfTasksInSubProjectsInDone()}"></p>
-                    <p th:text="'Estimated hours: ' + ${@statisticsService.estimatedHoursForSubproject()}"></p>
-                    <p th:text="'Actual hours: ' + ${@statisticsService.actualHoursForSubproject()}"></p>
+                    <p>
+                        Total Tasks:
+                        <span class="subprojectValues"
+                              th:text="${@statisticsService.getAllTasksInSubproject()}"></span>
+                    </p>
+
+                    <p>
+                        Total Tasks Done:
+                        <span class="subprojectValues"
+                              th:text="${@statisticsService.getNumberOfTasksInSubProjectsInDone()}"></span>
+                    </p>
+
+                    <p>
+                        Estimated hours for Subproject:
+                        <span class="subprojectValues"
+                              th:text="${@statisticsService.estimatedHoursForSubproject()}"></span>
+                    </p>
+                    <p>
+                        Actual Hours Used:
+                        <span class="subprojectValues" th:text="${@statisticsService.actualHoursForSubproject()}"></span>
+                    </p>
 
                 </div>
 
-                <div class="specificStatisticsSubprojectBox" th:each="user : ${@statisticsService.getMembers()}">
-                    <p class="subprojectLabel" th:text="${user.getUsername()}"></p>
+                <div class="specificStatisticsSubprojectBox">
+                    <p class="subprojectLabel"
+                       th:each="user : ${@statisticsService.getMembers()}"
+                       th:text="${user.username}">
+                    </p>
                 </div>
-
             </div>
         </div>
     </div>

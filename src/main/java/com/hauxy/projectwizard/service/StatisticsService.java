@@ -229,7 +229,7 @@ public class StatisticsService {
     }
 
     public List<User> getMembers() {
-        return project.getMembers();
+        return projectService.getProjectMembers(project.getProjectId());
     }
 
 }
