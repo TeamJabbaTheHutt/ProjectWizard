@@ -719,10 +719,12 @@ a:active {
 /* STATISTICS*/
 
 .statisticsContainer {
+    margin-top: 50px;
     display: flex;
     justify-content: flex-start;
     gap: 15px;
     width: 90vw;
+    height: 80vh;
     flex-wrap: wrap;
     padding: 15px;
     border-radius: 10px;
@@ -730,14 +732,18 @@ a:active {
 
 .statisticsBoxItem {
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     gap: 15px;
     flex-wrap: wrap;
     max-width: 50vw;
     padding: 15px;
     border-radius: 10px;
 }
-
+@media (max-width: 1091px) {
+    .statisticsBoxItem {
+        max-width: none;
+    }
+}
 .statisticsBox {
     display: flex;
     flex-direction: column;
@@ -750,7 +756,7 @@ a:active {
     border-radius: 8px;
     width: 300px;
     height: 300px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 /* Text styles */
@@ -762,23 +768,43 @@ a:active {
 }
 
 .statisticsValue {
-    font-size: 25px;
+    font-size: 40px;
     font-weight: bold;
     color: white ;
 }
 
 
 .statisticsBarItems {
-    max-width: 100%;
-    margin-bottom: 1rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    width: 30vw;
+    flex-wrap: wrap;
+    padding: 15px;
+    border-radius: 10px;
 }
-
+@media (max-width: 1091px) {
+    .statisticsBarItems {
+        width: 90vw;
+    }
+}
 .progress-container {
-    width: inherit;
+    padding: 15px;
+    width: 100%;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.startAndStopTitle {
+    margin: 0 0 2px 0;
+    font-size: 20px;
+    color: #555;
+    font-weight: 600;
 }
 
 .days-left {
-    margin: 0 0 4px 0;
+    margin: 0 0 2px 0;
     font-size: 14px;
     color: #555;
     font-weight: 600;
@@ -786,7 +812,7 @@ a:active {
 
 .progress-bar {
     width: inherit;
-    height: 50px;
+    height: 25px;
     background: var(--main-color);
     border-radius: 2px;
     overflow: hidden;
@@ -798,13 +824,42 @@ a:active {
     width: 0%;
     transition: width 0.4s ease;
 }
-
-.statisticsValue.over {
-    color: #e63946;
+.subprojectLabel {
     font-weight: bold;
+    font-size: 18px;
+    color: #ffffff;
+}
+.statisticsSubprojectBox{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: #0071c1;
+    color: #cacaca;
+    padding: 10px 15px;
+    border-radius: 8px;
+    width: 100%;
+    height: 150px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
 }
 
-.statisticsValue.saved {
-    color: #2a9d8f;
-    font-weight: bold;
+.specificStatisticsSubprojectBox {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    background: #0071c1;
+    color: #cacaca;
+    padding: 10px 15px;
+    border-radius: 8px;
+    width: 100%;
+    height: 150px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
 }
+.subprojectValues {
+    font-weight: bold;
+    font-size: 20px;
+    color: #ffffff; /* example */
+}
+
+
