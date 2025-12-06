@@ -31,22 +31,6 @@ public class TaskController {
         this.subprojectService = subprojectService;
     }
 
-//    @GetMapping("/create/{projectId}")
-//    public String showCreateTaskForm(
-//            @PathVariable int projectId,
-//            @RequestParam(required = false) Integer parentTaskId,
-//            Model model) {
-//
-//        model.addAttribute("task", new Task());
-//        model.addAttribute("projectId", projectId);
-//
-//        if (parentTaskId != null) {
-//            Task parentTask = taskService.getTaskById(parentTaskId);
-//            model.addAttribute("parentTask", parentTask);
-//        }
-//
-//        return "createTask";
-//    }
     @GetMapping("/createTask/{projectId}/{parentId}")
     public String showCreateTaskForm(
             @PathVariable int projectId,
@@ -74,71 +58,6 @@ public class TaskController {
         );
 
         return "redirect:/projectDashboard/" + projectId;
-    }
-
-    @GetMapping("/{taskId}/{subprojectId}/{projectId}/edit")
-    public String showEditTaskPage(
-            @PathVariable int projectId,
-            @PathVariable int taskId,
-            @PathVariable int subprojectId,
-            Model model
-    ) {
-
-      try {
-          Task task = taskService.getTaskById(taskId,subprojectId);
-          model.addAttribute("task", task);
-          model.addAttribute("assignee", task.getAssignee()); // now safe
-          model.addAttribute("projectId", projectId);
-
-      } catch (Exception e) {
-          return "redirect:/projectDashboard" + projectId;
-      }
-
-        return "editTask";
-    }
-
-    @PostMapping("/{taskId}/{projectId}/edit")
-    public String updateTask(
-            @PathVariable int projectId,
-            @PathVariable int taskId,
-            @RequestParam String title,
-            @RequestParam String description,
-            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate deadline,
-            Model model
-    ) {
-        taskService.updateTask(taskId, title, description, deadline);
-        return "redirect:/projectDashboard/" + projectId;
-    }
-
-
-    @PostMapping("/{taskId}/assign-user")
-    public String assignUserToTask(
-            @PathVariable int taskId,
-            @RequestParam String userEmail,
-            RedirectAttributes redirectAttributes
-    ) {
-        boolean success = taskService.addUserToTask(taskId, userEmail);
-
-        if (!success) {
-            redirectAttributes.addFlashAttribute("errorMessage", "User not found or already assigned.");
-        }
-
-        return "redirect:/task/" + taskId + "/edit";
-    }
-
-    @PostMapping("/{taskId}/remove-user")
-    public String removeUserFromTask(
-            @PathVariable int taskId,
-            RedirectAttributes redirectAttributes
-    ) {
-        Task task = taskService.getTaskById(taskId, 0);
-        if (task.getAssignee() != null) {
-            taskService.removeUserFromTask(taskId, task.getAssignee().getEmail());
-        } else {
-            redirectAttributes.addFlashAttribute("errorMessage", "No user assigned to this task.");
-        }
-
-        return "redirect:/task/" + taskId + "/edit";
     }
 
     @GetMapping("/createSubproject/{projectId}")
@@ -201,5 +120,118 @@ public class TaskController {
 
         return "redirect:/project/dashboard/" + projectId;
     }
+
+
+    @GetMapping("/editTask/{taskId}/{projectId}")
+    public String editTask(@PathVariable int taskId, @PathVariable int projectId, Model model) {
+        model.addAttribute("task", taskService.getTaskById(taskId));
+        model.addAttribute("projectId", projectId);
+        return "editTask";
+    }
+
+    @PostMapping("/editTask/addAssignee")
+    public String editTaskAddAssignee(@RequestParam int taskId,
+                                      @RequestParam int projectId,
+                                      @RequestParam String userEmail,
+                                      RedirectAttributes redirectAttributes) {
+
+
+
+        boolean success = taskService.addUserToTask(userEmail, taskId);
+
+
+        if (!success) {
+            redirectAttributes.addFlashAttribute("errorMessage", "User not found or already assigned.");
+        }
+
+        return "redirect:/task/editTask/" + taskId + "/" + projectId;
+    }
+
+    @PostMapping("/editTask/removeAssignee")
+    public String editTaskRemoveAssignee(@RequestParam int taskId,
+                                      @RequestParam int projectId,
+                                      RedirectAttributes redirectAttributes) {
+
+
+        boolean success = taskService.removeUserFromTask(taskId);
+        if (!success) {
+            redirectAttributes.addFlashAttribute("errorMessage", "User not found or already assigned.");
+        }
+        return "redirect:/task/editTask/" + taskId + "/" + projectId;
+    }
+
+    @PostMapping("/editTask/save")
+    public String editTaskSave(@ModelAttribute Task task,
+                               @RequestParam int projectId,
+                               RedirectAttributes redirectAttributes) {
+
+        boolean success = taskService.updatetask(task);
+
+        if (!success) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Could not update task.");
+        }
+
+        return "redirect:/project/dashboard/" + projectId;
+    }
+
+
+    // mgormvoemvopmreopvmromvpermvmormovre
+
+    @GetMapping("/editSubtask/{subtaskId}/{projectId}")
+    public String editSubtask(@PathVariable int subtaskId, @PathVariable int projectId, Model model) {
+        model.addAttribute("subtask", subtaskService.getTaskById(subtaskId));
+        model.addAttribute("projectId", projectId);
+        return "editSubtask";
+    }
+
+    @PostMapping("/editSubtask/addAssignee")
+    public String editSubtaskAddAssignee(@RequestParam int subtaskId,
+                                      @RequestParam int projectId,
+                                      @RequestParam String userEmail,
+                                      RedirectAttributes redirectAttributes) {
+
+
+
+        boolean success = subtaskService.addUserToSubtask(userEmail, subtaskId);
+
+
+        if (!success) {
+            redirectAttributes.addFlashAttribute("errorMessage", "User not found or already assigned.");
+        }
+
+        return "redirect:/task/editSubtask/" + subtaskId + "/" + projectId;
+    }
+
+    @PostMapping("/editSubtask/removeAssignee")
+    public String editTSubaskRemoveAssignee(@RequestParam int subtaskId,
+                                         @RequestParam int projectId,
+                                         RedirectAttributes redirectAttributes) {
+
+
+        boolean success = subtaskService.removeUserFromTask(subtaskId);
+        if (!success) {
+            redirectAttributes.addFlashAttribute("errorMessage", "User not found or already assigned.");
+        }
+        return "redirect:/task/editSubtask/" + subtaskId + "/" + projectId;
+    }
+
+    @PostMapping("/editSubtask/save")
+    public String editSubtaskSave(@ModelAttribute Subtask subtask,
+                               @RequestParam int projectId,
+                               RedirectAttributes redirectAttributes) {
+
+        boolean success = subtaskService.updateSubtask(subtask);
+
+        if (!success) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Could not update task.");
+        }
+
+        return "redirect:/project/dashboard/" + projectId;
+    }
+
+
+
+
+
 }
 

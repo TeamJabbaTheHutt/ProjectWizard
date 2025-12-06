@@ -16,7 +16,6 @@ public class ProjectService {
     private final SubtaskService subtaskService;
 
 
-
     public ProjectService(ProjectRepository projectRepository,  SubprojectService subprojectService, TaskService taskService, SubtaskService subtaskService) {
         this.projectRepository = projectRepository;
         this.subprojectService = subprojectService;

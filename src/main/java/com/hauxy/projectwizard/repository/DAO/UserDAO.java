@@ -32,4 +32,12 @@ public class UserDAO {
             return null;
         }
     }
+    public User getUserById(int userId) {
+        String sql = "SELECT * FROM users WHERE user_id = ?";
+        try {
+            return jdbc.queryForObject(sql, userRowMapper, userId);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
 }

@@ -3,66 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Edit project</title>
+    <title>Edit Task</title>
     <link rel="stylesheet" th:href="@{/styles.css}">
 </head>
 <body>
 
 <div class="container edit-project-wrapper">
 
-    <h1>Edit Project</h1>
+    <h1>Edit subtask</h1>
 
-    <!-- UPDATE PROJECT -->
-    <form th:action="@{'/project/' + ${project.projectId} + '/edit'}" method="post">
+    <!-- Save changes form -->
+    <form th:action="@{/task/editSubtask/save}" method="post" th:object="${subtask}">
+        <!-- Hidden field for the Task ID -->
+        <input type="hidden" th:field="*{subtaskId}">
+        <input type="hidden" th:field="*{assigneeId}">
+        <input type="hidden" th:field="*{estimate}">
+        <input type="hidden" th:field="*{actualTime}">
+
+
+        <input type="hidden" name="projectId" th:value="${projectId}">
 
         <label for="title">Title:</label><br>
-        <input type="text" id="title" name="title" th:value="${project.title}"><br><br>
+        <input type="text" id="title" th:field="*{title}"><br><br>
 
         <label for="description">Description:</label><br>
-        <textarea id="description" name="description" th:text="${project.description}"></textarea><br><br>
+        <textarea id="description" th:field="*{description}"></textarea><br><br>
 
-        <label for="deadline">Deadline:</label><br>
-        <input type="date" id="deadline" name="deadline" th:value="${project.deadline}"><br><br>
-
-        <h3>Edit Members</h3>
-
-        <p>Current Members:</p>
-        <ul>
-            <li th:each="member : ${members}" th:text="${member.email}"></li>
-        </ul>
-
-        <!-- REMOVE MEMBER -->
-        <label for="removeMember">Remove member by email:</label><br>
-        <input type="text" id="removeMember" name="removeMemberEmail" placeholder="email@example.com"><br><br>
-
-        <button type="submit"
-                th:formaction="@{'/project/' + ${project.projectId} + '/remove-member'}"
-                class="member-action-btn">
-            Remove Member
-        </button>
-
-        <br><br>
-
-        <!-- ADD MEMBER -->
-        <label for="addMember">Add new member by email:</label><br>
-        <input type="text" id="addMember" name="newMemberEmail" placeholder="email@example.com"><br><br>
-
-        <button type="submit"
-                th:formaction="@{'/project/' + ${project.projectId} + '/add-member'}"
-                class="member-action-btn">
-            Add Member
-        </button>
-
-        <br><br>
-
-        <p th:if="${errorMessage}" th:text="${errorMessage}" style="color:red;"></p>
-
-        <!-- SAVE CHANGES -->
-        <button type="submit" class="save-changes-btn">
-            Save Changes
-        </button>
+        <button type="submit" class="save-changes-btn">Save Changes</button>
     </form>
+
+    <br><br>
+
+    <p>Current Assignee:</p>
+    <p th:text="${subtask.assignee != null ? subtask.assignee.email : 'no users assigned yet'}"></p>
+
+    <br><br>
+    <!-- Add assignee form -->
+    <form th:action="@{/task/editSubtask/removeAssignee}" method="post">
+        <input type="hidden" name="subtaskId" th:value="${subtask.subtaskId}">
+        <input type="hidden" name="projectId" th:value="${projectId}">
+        <button type="submit" class="member-action-btn">Remove assignee</button>
+    </form>
+
+    <br><br>
+
+    <!-- Add assignee form -->
+    <form th:action="@{/task/editSubtask/addAssignee}" method="post">
+        <input type="hidden" name="subtaskId" th:value="${subtask.subtaskId}">
+        <input type="hidden" name="projectId" th:value="${projectId}">
+
+        <label for="assigneeEmail">Add Assignee by Email:</label><br>
+        <input type="email" id="assigneeEmail" name="userEmail" placeholder="user@example.com" required><br><br>
+        <button type="submit" class="member-action-btn">Add Assignee</button>
+    </form>
+
+    <br><br>
+
+    <p th:if="${errorMessage}" th:text="${errorMessage}" style="color:red;"></p>
 </div>
+
 
 </body>
 </html>

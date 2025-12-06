@@ -27,7 +27,14 @@ public class TaskRepository {
         return taskDAO.getTaskById(taskId);
     }
 
-    public void updateTask(Task task) {
-        taskDAO.updateTask(task);
+    public boolean updateTask(Task task) {
+        return taskDAO.updateTask(task);
+    }
+
+    public boolean setAssignee(int userId, int taskId) {
+        return taskDAO.setAssignee(userId, taskId);
+    }
+    public boolean removeAssignee(int taskId) {
+        return taskDAO.removeAssignee(taskId);
     }
 }

@@ -13,6 +13,8 @@ public class Task {
     private int parentId;
     private LocalDate deadline;
 
+    private int assigneeId;
+
     public Task() {}
 
     public Task(String title, String description) {
@@ -44,6 +46,14 @@ public class Task {
     }
     public void setTaskId(int taskId) {
         this.taskId = taskId;
+    }
+
+    public int getAssigneeId() {
+        return assigneeId;
+    }
+
+    public void setAssigneeId(int assigneeId) {
+        this.assigneeId = assigneeId;
     }
 
     public String getTitle() {

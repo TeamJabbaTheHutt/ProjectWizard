@@ -5,6 +5,7 @@ import com.hauxy.projectwizard.repository.rowMapper.TaskRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Repository
@@ -41,17 +42,43 @@ public class TaskDAO {
         return jdbc.queryForObject(sql, taskRowMapper, taskId);
     }
 
-    public void updateTask(Task task) {
-        String sql = "UPDATE task SET title = ?, task_description = ?, task_status = ?, estimated_time = ?, assignee_id = ?, actual_time = ? WHERE task_id = ?";
-        Integer assigneeId = task.getAssignee() != null ? task.getAssignee().getUserId() : null;
-        jdbc.update(sql,
-                task.getTitle(),
-                task.getDescription(),
-                task.getStatus() != null ? task.getStatus().name() : "NoStatus",
-                task.getEstimate(),
-                assigneeId,
-                task.getActualTime(),
-                task.getTaskId()
-        );
+    public boolean updateTask(Task task) {
+        try {
+            String sql = "UPDATE task SET title = ?, task_description = ?, task_status = ?, estimated_time = ?, actual_time = ? WHERE task_id = ?";
+
+            jdbc.update(sql,
+                    task.getTitle(),
+                    task.getDescription(),
+                    task.getStatus() != null ? task.getStatus().name() : "NoStatus",
+                    task.getEstimate(),
+                    task.getActualTime(),
+                    task.getTaskId()
+            );
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
+
+
+    public boolean setAssignee(int userId, int taskId) {
+        try {
+            String sql = "UPDATE task SET assignee_id = ? WHERE task_id = ?";
+            jdbc.update(sql, userId, taskId);
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+    public boolean removeAssignee(int taskId) {
+        try {
+            String sql = "UPDATE task SET assignee_id = ? WHERE task_id = ?";
+            jdbc.update(sql,null, taskId);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
