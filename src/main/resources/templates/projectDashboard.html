@@ -1,0 +1,88 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Project</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <link rel="icon" type="image/x-icon" href="/static/images/black-logo.jpg">
+    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-left">
+            <img src="/images/black-logo-removebg-preview.jpg" alt="Logo" class="logo" />
+            <ul class="menu">
+                <li class="nav-item"><a th:href="@{/project/home}">Home</a></li>
+                <li class="nav-item"><a href="#">My Assignments</a></li>
+                <li class="nav-item"><a href="#">Help</a></li>
+            </ul>
+        </div>
+        <button type="submit" class="user-icon"><i class='bx  bxs-user'  ></i></button>
+    </nav>
+    <div class="dashboard-wrapper">
+        <h2 th:text="${project.title}" class="project-title"></h2>
+
+        <a class="btn create-btn"
+           th:href="@{'/subproject/create/' + ${project.projectId}}">
+            + Create Subproject
+        </a>
+
+        <div th:if="${#lists.isEmpty(subProjects)}" class="empty-message">
+            <p>No subprojects yet.</p>
+        </div>
+
+        <div class="subProject-wrapper">
+            <div class="subproject-block" th:each="subProject : ${subProjects}">
+
+                <!-- Collapsible -->
+                <details class="subproject-details">
+
+                    <summary class="subproject-summary">
+                        <span class="arrow"></span>
+
+                        <span class="subproject-id" th:text="${subProject.subProjectId}"></span>
+                        <span class="subproject-title" th:text="${subProject.title}"></span>
+                        <!--
+                        <span class="subproject-description" th:text="${subProject.description}"></span>
+                        <span class="subproject-created" th:text="${subProject.createdAt}"></span>
+                        <span class="subproject-deadline" th:text="${subProject.deadline}"></span> -->
+
+                        <a class="edit-button">Edit</a>
+                    </summary>
+
+                    <!-- Tasks -->
+                    <table class="tasks-table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Assignee</th>
+                                <th>Status</th>
+                                <th>Estimate</th>
+                                <th>Actual Time</th>
+                                <th>Deadline</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr th:each="task : ${subProject.tasks}">
+                                <td>
+                                    <a th:text="${task.title}"></a>
+                                </td>
+                                <td th:text="${task.description}"></td>
+                                <td th:text="${task.assignee != null ? task.assignee.username : 'Unassigned'}"></td>
+                                <td th:text="${task.status}"></td>
+                                <td th:text="${task.estimate}"></td>
+                                <td th:text="${task.actualTime}"></td>
+                                <td th:text="${task.deadline}"></td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </details>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

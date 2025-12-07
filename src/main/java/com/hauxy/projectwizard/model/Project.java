@@ -10,7 +10,7 @@ public class Project {
     private String description;
     private LocalDate createdAt;
     private LocalDate deadline;
-    private List<Task> tasks;
+    private List<Subproject> subProjects;
     private List<User> members;
 
     public Project(String title, String description, LocalDate deadline) {
@@ -53,12 +53,12 @@ public class Project {
         this.members = members;
     }
 
-    public List<Task> getTasks() {
-        return tasks;
+    public List<Subproject> getSubProjects() {
+        return subProjects;
     }
 
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
+    public void setSubProjects(List<Subproject> subProjects) {
+        this.subProjects = subProjects;
     }
 
     public void setCreatedAt(LocalDate createdAt) {
