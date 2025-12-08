@@ -12,7 +12,7 @@
 
     <h1>Edit Project</h1>
 
-    <!-- UPDATE PROJECT -->
+
     <form th:action="@{'/project/' + ${project.projectId} + '/edit'}" method="post">
 
         <label for="title">Title:</label><br>
@@ -31,7 +31,7 @@
             <li th:each="member : ${members}" th:text="${member.email}"></li>
         </ul>
 
-        <!-- REMOVE MEMBER -->
+
         <label for="removeMember">Remove member by email:</label><br>
         <input type="text" id="removeMember" name="removeMemberEmail" placeholder="email@example.com"><br><br>
 
@@ -43,7 +43,7 @@
 
         <br><br>
 
-        <!-- ADD MEMBER -->
+
         <label for="addMember">Add new member by email:</label><br>
         <input type="text" id="addMember" name="newMemberEmail" placeholder="email@example.com"><br><br>
 
@@ -57,7 +57,7 @@
 
         <p th:if="${errorMessage}" th:text="${errorMessage}" style="color:red;"></p>
 
-        <!-- SAVE CHANGES -->
+
         <button type="submit" class="save-changes-btn">
             Save Changes
         </button>

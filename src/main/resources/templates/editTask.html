@@ -12,9 +12,9 @@
 
     <h1>Edit Task</h1>
 
-    <!-- Save changes form -->
+
     <form th:action="@{/task/editTask/save}" method="post" th:object="${task}">
-        <!-- Hidden field for the Task ID -->
+
         <input type="hidden" th:field="*{taskId}">
         <input type="hidden" th:field="*{assigneeId}">
 
@@ -51,7 +51,7 @@
     <p th:text="${task.assignee != null ? task.assignee.email : 'no users assigned yet'}"></p>
 
     <br><br>
-    <!-- Add assignee form -->
+
     <form th:action="@{/task/editTask/removeAssignee}" method="post">
         <input type="hidden" name="taskId" th:value="${task.taskId}">
         <input type="hidden" name="projectId" th:value="${projectId}">
@@ -60,7 +60,7 @@
 
     <br><br>
 
-    <!-- Add assignee form -->
+
     <form th:action="@{/task/editTask/addAssignee}" method="post">
         <input type="hidden" name="taskId" th:value="${task.taskId}">
         <input type="hidden" name="projectId" th:value="${projectId}">
