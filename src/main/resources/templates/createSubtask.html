@@ -28,7 +28,7 @@
           th:action="@{/task/saveSubtask/{projectId}(projectId=${projectId})}"
           th:object="${subtask}" method="post">
 
-        <h1>Create New Task</h1>
+        <h1>Create New Subtask</h1>
 
         <input type="hidden" th:field="*{parentId}">
 

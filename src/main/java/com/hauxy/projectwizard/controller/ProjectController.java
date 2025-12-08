@@ -5,11 +5,8 @@ import com.hauxy.projectwizard.model.Project;
 import com.hauxy.projectwizard.model.User;
 import com.hauxy.projectwizard.repository.DAO.ProjectDAO;
 import com.hauxy.projectwizard.repository.DAO.UserDAO;
-import com.hauxy.projectwizard.service.ProjectService;
-import com.hauxy.projectwizard.service.SubprojectService;
-import com.hauxy.projectwizard.service.UserService;
+import com.hauxy.projectwizard.service.*;
 
-import com.hauxy.projectwizard.service.StatisticsService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.boot.autoconfigure.graphql.GraphQlProperties;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -25,13 +22,20 @@ public class ProjectController {
     private final ProjectService projectService;
     private final UserService userService;
     private final StatisticsService statisticsService;
+    private final SubprojectService subprojectService;
+    private final TaskService taskService;
+    private final SubtaskService subtaskService;
 
 
-
-    public ProjectController(ProjectService projectService, UserService userService, StatisticsService statisticsService, SubprojectService subprojectService) {
+    public ProjectController(ProjectService projectService, UserService userService, StatisticsService statisticsService, SubprojectService subprojectService,
+                             SubprojectService subtaskProjectService, TaskService taskService, SubtaskService subtaskService) {
         this.projectService = projectService;
         this.userService = userService;
         this.statisticsService = statisticsService;
+        this.subprojectService = subprojectService;
+        this.taskService = taskService;
+        this.subtaskService = subtaskService;
+
     }
 
     @GetMapping("/{projectId}/edit")
@@ -174,5 +178,11 @@ public class ProjectController {
     }
 
 
+    @GetMapping("dashboard/{projectId}")
+    public String projectDashboard(@PathVariable int projectId, Model model, HttpSession session) {
+        model.addAttribute("project", projectService.getProjectById(projectId));
+        model.addAttribute("subprojects", projectService.getAllSubProjectsByProjectId(projectId));
 
+        return "projectDashboard";
+    }
 }
