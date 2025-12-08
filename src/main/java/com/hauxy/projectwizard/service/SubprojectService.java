@@ -35,4 +35,8 @@ public class SubprojectService {
     public void updateSubproject(int subProjectId, String title, String description, String deadline) {
         subprojectRepository.updateSubproject(subProjectId, title, description, deadline);
     }
+
+    public boolean deleteSubproject(Subproject subproject) {
+        return subprojectRepository.deleteSubproject(subproject);
+    }
 }

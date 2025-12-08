@@ -89,4 +89,8 @@ public class ProjectService {
         return subtasks;
     }
 
+
+    public boolean deleteProject(Project project) {
+        return projectRepository.deleteProject(project);
+    }
 }

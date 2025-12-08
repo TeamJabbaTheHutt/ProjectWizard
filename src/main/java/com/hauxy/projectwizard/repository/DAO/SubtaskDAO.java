@@ -83,4 +83,15 @@ public class SubtaskDAO {
         }
     }
 
+
+    public boolean deleteSubtask(Subtask subtask) {
+        try {
+            String sql = "DELETE FROM subtask WHERE subtask_id = ?";
+            jdbc.update(sql, subtask.getSubtaskId());
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
 }

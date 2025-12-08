@@ -87,4 +87,8 @@ public class TaskService {
 
         return false;
     }
+
+    public boolean deleteTask(Task task) {
+        return taskRepository.deleteTask(task);
+    }
 }

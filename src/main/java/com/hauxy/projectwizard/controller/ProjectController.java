@@ -7,12 +7,14 @@ import com.hauxy.projectwizard.repository.DAO.ProjectDAO;
 import com.hauxy.projectwizard.repository.DAO.UserDAO;
 import com.hauxy.projectwizard.service.*;
 
+import com.hauxy.projectwizard.service.StatisticsService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.boot.autoconfigure.graphql.GraphQlProperties;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 
@@ -177,6 +179,17 @@ public class ProjectController {
         return "redirect:/project/" + projectId + "/edit";
     }
 
+
+    @PostMapping("/deleteProject")
+    public String deleteProject(@ModelAttribute Project project, HttpSession session, RedirectAttributes redirectAttributes) {
+        boolean success = projectService.deleteProject(project);
+
+        if (!success) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Could not delete subproject.");
+        }
+
+        return "redirect:/project/home/";
+    }
 
     @GetMapping("dashboard/{projectId}")
     public String projectDashboard(@PathVariable int projectId, Model model, HttpSession session) {

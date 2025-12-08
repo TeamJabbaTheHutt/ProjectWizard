@@ -64,4 +64,8 @@ public class SubtaskService {
         return false;
     }
 
+    public boolean deleteSubtask(Subtask subtask) {
+        return subtaskRepository.deleteSubtask(subtask);
+    }
+
 }
