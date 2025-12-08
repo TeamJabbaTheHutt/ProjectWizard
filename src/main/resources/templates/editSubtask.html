@@ -17,8 +17,7 @@
         <!-- Hidden field for the Task ID -->
         <input type="hidden" th:field="*{subtaskId}">
         <input type="hidden" th:field="*{assigneeId}">
-        <input type="hidden" th:field="*{estimate}">
-        <input type="hidden" th:field="*{actualTime}">
+
 
 
         <input type="hidden" name="projectId" th:value="${projectId}">
@@ -28,6 +27,21 @@
 
         <label for="description">Description:</label><br>
         <textarea id="description" th:field="*{description}"></textarea><br><br>
+
+        <label for="status">Status:</label><br>
+        <select id="status" th:field="*{status}" class="dropdown-member-style">
+            <option th:value="NoStatus">No Status</option>
+            <option th:value="InProgress">In Progress</option>
+            <option th:value="InReview">In Review</option>
+            <option th:value="Done">Done</option>
+        </select>
+        <br><br>
+
+        <label for="estimate">Estimated Time:</label><br>
+        <input type="text" id="estimate" th:field="*{estimate}" placeholder="Enter estimated hours"><br><br>
+
+        <label for="actualTime">Actual Time Spent:</label><br>
+        <input type="text" id="actualTime" th:field="*{actualTime}" placeholder="Enter actual hours"><br><br>
 
         <button type="submit" class="save-changes-btn">Save Changes</button>
     </form>
