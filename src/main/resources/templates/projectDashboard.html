@@ -1,0 +1,127 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <link rel="icon" type="image/x-icon" href="/static/images/black-logo.jpg">
+    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+</head>
+<body class="homepageBody">
+
+<nav class="navbar">
+    <div class="navbar-left">
+        <img src="/images/black-logo-removebg-preview.jpg" alt="Logo" class="logo" />
+        <ul class="menu">
+            <li class="nav-item"><a href="#">Home</a></li>
+            <li class="nav-item"><a href="#">My Projects</a></li>
+            <li class="nav-item"><a href="#">Help</a></li>
+        </ul>
+    </div>
+    <button type="submit" class="user-icon"><i class='bx  bxs-user'  ></i></button>
+</nav>
+
+
+<div class="dashboardProject">
+    <h3 class="dashboardProjectTitle" th:text="${project.getTitle()}"></h3>
+    <form th:action="@{/project/deleteProject}" method="post" style="display:inline;">
+        <input type="hidden" name="projectId" th:value="${projectId}">
+        <button type="submit" class="editLink">Delete</button>
+    </form>
+    <a th:href="@{'/statistics/project/'+ ${projectId}}"
+       class="editLink">Statistics</a>
+    <br><br>
+
+    <div class="columnHeader rowGrid">
+        <span>Title</span>
+        <span>Status</span>
+        <span>Estimate</span>
+        <span>Actual</span>
+
+    </div>
+
+    <div class="dashboardSubproject" th:each="subproject : ${subprojects}">
+        <details class="subprojectBox">
+
+
+            <summary class="subprojectTitle" th:text="${subproject.title}"></summary>
+
+
+            <div class="subprojectMeta">
+                <span th:text="'Created: ' + ${subproject.createdAt}"></span>
+                <span th:text="'Deadline: ' + ${subproject.deadline}"></span>
+                <a th:href="@{'/task/subproject/' + ${subproject.subProjectId} + '/' + ${projectId} + '/edit'}"
+                   class="editLink">Edit</a>
+                <form th:action="@{/task/deleteSubproject}" method="post" style="display:inline;">
+                    <input type="hidden" name="subprojectId" th:value="${subproject.subProjectId}">
+                    <input type="hidden" name="projectId" th:value="${projectId}">
+                    <button type="submit" class="editLink">Delete</button>
+                </form>
+
+            </div>
+
+
+            <div class="dashboardTaskToSubproject"
+                 th:each="task : ${@taskService.getAllTasksBySubprojectId(subproject.getSubProjectId())}">
+
+                <details class="taskBox">
+
+
+                    <summary>
+                        <div class="rowGrid taskRow">
+                            <span class="titleCol" th:text="${task.title}"></span>
+                            <span class="statusCol" th:text="${task.status}"></span>
+                            <span class="estimateCol" th:text="${task.estimate} + 'h'"></span>
+                            <span class="actualCol" th:text="${task.actualTime} + 'h'"></span>
+                            <a th:href="@{'/task/editTask/' + ${task.taskId} + '/' + ${projectId}}"
+                               class="editLink">Edit</a>
+                            <form th:action="@{/task/deleteTask}" method="post" style="display:inline;">
+                                <input type="hidden" name="taskId" th:value="${task.taskId}">
+                                <input type="hidden" name="projectId" th:value="${projectId}">
+                                <button type="submit" class="editLink">Delete</button>
+                            </form>
+                        </div>
+                    </summary>
+
+
+                    <div class="dashboardSubtaskToTask"
+                         th:each="subtask : ${@subtaskService.getAllSubTasksByTaskId(task.getTaskId())}">
+
+                        <div class="rowGrid subtaskRow">
+                            <span class="titleCol" th:text="${subtask.title}"></span>
+                            <span class="statusCol" th:text="${subtask.status}"></span>
+                            <span class="estimateCol" th:text="${subtask.estimate} + 'h'"></span>
+                            <span class="actualCol" th:text="${subtask.actualTime} + 'h'"></span>
+                            <a th:href="@{'/task/editSubtask/' + ${subtask.subtaskId} + '/' + ${projectId}}"
+                               class="editLink">Edit</a>
+                            <form th:action="@{/task/deleteSubtask}" method="post" style="display:inline;">
+                                <input type="hidden" name="subtaskId" th:value="${subtask.subtaskId}">
+                                <input type="hidden" name="projectId" th:value="${projectId}">
+                                <button type="submit" class="editLink">Delete</button>
+                            </form>
+                        </div>
+
+                    </div>
+                    <br>
+                    <a th:href="@{'/task/createSubtask/' + ${projectId} + '/' + ${task.taskId}}"
+                       class="dashboardAddSubtask">Add new Subtask</a>
+                </details>
+            </div>
+            <br>
+            <a th:href="@{'/task/createTask/' + ${projectId} + '/' + ${subproject.subProjectId}}"
+               class="dashboardAddTask">Add new Task</a>
+        </details>
+    </div>
+    <br>
+    <a th:href="@{'/task/createSubproject/' + ${projectId}}"
+       class="editLink">Add New Subproject</a>
+
+</div>
+
+
+
+
+</body>
+</html>
