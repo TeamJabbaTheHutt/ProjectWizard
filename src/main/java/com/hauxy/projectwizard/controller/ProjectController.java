@@ -3,19 +3,14 @@ package com.hauxy.projectwizard.controller;
 import com.hauxy.projectwizard.exceptions.UserNotLoggedInException;
 import com.hauxy.projectwizard.model.Project;
 import com.hauxy.projectwizard.model.User;
-import com.hauxy.projectwizard.repository.DAO.ProjectDAO;
-import com.hauxy.projectwizard.repository.DAO.UserDAO;
 import com.hauxy.projectwizard.service.*;
-
 import com.hauxy.projectwizard.service.StatisticsService;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.boot.autoconfigure.graphql.GraphQlProperties;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import java.time.LocalDate;
 
 @Controller
@@ -69,12 +64,7 @@ public class ProjectController {
     }
 
     @PostMapping("/createProject")
-    public String createProject(@RequestParam String title,
-                                @RequestParam String description,
-                                @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate deadline,
-                                Model model,
-                                HttpSession session) {
-
+    public String createProject(@RequestParam String title, @RequestParam String description, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate deadline, Model model, HttpSession session) {
         User user = (User) session.getAttribute("loggedInUser");
 
         if (user == null) {
@@ -96,10 +86,6 @@ public class ProjectController {
         }
     }
 
-
-
-
-
     @GetMapping("/home")
     public String home(Model model, HttpSession httpSession) {
         try {
@@ -111,15 +97,8 @@ public class ProjectController {
         }
     }
 
-
     @PostMapping("/{projectId}/edit")
-    public String updateProject(
-            @PathVariable int projectId,
-            @RequestParam String title,
-            @RequestParam String description,
-            @RequestParam String deadline,
-            HttpSession session
-    ) {
+    public String updateProject(@PathVariable int projectId, @RequestParam String title, @RequestParam String description, @RequestParam String deadline, HttpSession session) {
         if (session.getAttribute("loggedInUser") == null) {
             return "redirect:/login";
         }
@@ -130,12 +109,7 @@ public class ProjectController {
     }
 
     @PostMapping("/{projectId}/remove-member")
-    public String removeMember(
-            @PathVariable int projectId,
-            @RequestParam("removeMemberEmail") String email,
-            HttpSession session,
-            Model model
-    ) {
+    public String removeMember(@PathVariable int projectId, @RequestParam("removeMemberEmail") String email, HttpSession session, Model model) {
         if (session.getAttribute("loggedInUser") == null) {
             return "redirect:/login";
         }
@@ -155,12 +129,8 @@ public class ProjectController {
     }
 
     @PostMapping("/{projectId}/add-member")
-    public String addMember(
-            @PathVariable int projectId,
-            @RequestParam("newMemberEmail") String email,
-            Model model,
-            HttpSession session
-    ) {
+    public String addMember(@PathVariable int projectId, @RequestParam("newMemberEmail") String email, Model model, HttpSession session) {
+
         if (session.getAttribute("loggedInUser") == null) {
             return "redirect:/login";
         }
@@ -174,7 +144,7 @@ public class ProjectController {
             return "editProject";
         }
 
-        projectService.addMember(user.getUserId(), projectId);
+        projectService.addUserToProject(user.getUserId(), projectId);
 
         return "redirect:/project/" + projectId + "/edit";
     }

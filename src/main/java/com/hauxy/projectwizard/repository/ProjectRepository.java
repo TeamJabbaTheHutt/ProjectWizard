@@ -3,9 +3,7 @@ package com.hauxy.projectwizard.repository;
 import com.hauxy.projectwizard.model.Project;
 import com.hauxy.projectwizard.model.User;
 import com.hauxy.projectwizard.repository.DAO.ProjectDAO;
-import com.hauxy.projectwizard.repository.DAO.UserDAO;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
 @Repository
