@@ -1,6 +1,9 @@
 package com.hauxy.projectwizard;
 
 import com.hauxy.projectwizard.controller.TaskController;
+import com.hauxy.projectwizard.model.*;
+import com.hauxy.projectwizard.service.SubprojectService;
+import com.hauxy.projectwizard.service.SubtaskService;
 import com.hauxy.projectwizard.service.TaskService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,13 +11,15 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import java.time.LocalDate;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(TaskController.class)
 public class TaskControllerTest {
@@ -24,41 +29,56 @@ public class TaskControllerTest {
 
     @MockitoBean
     private TaskService taskService;
+    @MockitoBean
+    private SubtaskService subtaskService;
+    @MockitoBean
+    private SubprojectService subprojectService;
 
     @Test
     void checkIfTaskCreateRedirectToProjectsDashboard() throws Exception {
-        int projectId = 42;
+        mockMvc.perform(get("/task/createTask/1/1"))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("task"))
+                .andExpect(view().name("createTask"));
 
-        when(taskService.createTask("Test Task", "This is a test task", projectId, null))
-                .thenReturn(1);
+    }
 
-        mockMvc.perform(post("/task/create")
-                        .param("title", "Test Task")
-                        .param("description", "This is a test task")
-                        .param("projectId", String.valueOf(projectId))
-                )
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/projectDashboard/" + projectId));
-        verify(taskService).createTask("Test Task", "This is a test task", projectId, null);
+
+    @Test
+    void testSaveTask() throws Exception {
+        Task task = new Task("test", "testdesc");
+        task.setParentId(1);
+        task.setDeadline(LocalDate.now());
+
+        when(        taskService.createTask(
+                task.getTitle(),
+                task.getDescription(),
+                task.getParentId(),
+                task.getDeadline()
+        )).thenReturn(1);
+
+        mockMvc.perform(post("/task/saveTask/1"))
+                .andExpect(status().is3xxRedirection());
+
     }
 
     @Test
     void checkIfSubtaskCreateRedirectToProjectsDashboard() throws Exception {
-        int projectId = 42;
-        int parentTaskId = 7;
+        mockMvc.perform(get("/task/createSubtask/1/1"))
+                .andExpect(model().attributeExists("subtask"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("createSubtask"));
 
-
-        when(taskService.createTask("Subtask", "Subtask description", projectId, LocalDate.of(2025, 1, 1)))
-                .thenReturn(1);
-
-        mockMvc.perform(post("/task/create")
-                        .param("title", "Subtask")
-                        .param("description", "Subtask description")
-                        .param("projectId", String.valueOf(projectId))
-                        .param("parentTaskId", String.valueOf(parentTaskId))
-                )
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/projectDashboard/" + projectId));
-        verify(taskService).createTask("Subtask", "Subtask description", projectId, LocalDate.of(2025, 1, 1));
     }
+
+    @Test
+    void testSaveSubtask() throws Exception {
+        mockMvc.perform(post("/task/saveSubtask/1")
+                        .param("title", "Test Subtask")
+                        .param("description", "Test description"))
+                .andExpect(status().is3xxRedirection());
+
+        verify(subtaskService).createSubtask(any(Subtask.class));
+    }
+
 }
