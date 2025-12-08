@@ -38,10 +38,6 @@ public class ProjectDAO {
         return jdbc.update(sql, userId, projectId);
     }
 
-    //getUserPerProject from user id
-
-    // for at kunne få all usererens projects for user id, skal jeg først finde all projekter der tilhører useren ud fra userens ID
-
     public List<Project> getUsersProjectsByUserId(int userId) {
         List<Integer> usersProjectIds;
         List<Project> usersProjects = new ArrayList<>();

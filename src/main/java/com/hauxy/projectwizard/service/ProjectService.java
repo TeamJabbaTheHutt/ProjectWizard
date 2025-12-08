@@ -23,23 +23,10 @@ public class ProjectService {
         this.subtaskService = subtaskService;
     }
 
-    public String createNewProject(Project project) {
-        if (projectRepository.createNewProject(project) == 1) {
-            return "Success";
-        }
-        return "Failure";
-    }
-
     @Transactional
     public void createProjectWithCreator(Project project, int userId) {
-
-        // Create new project
         projectRepository.createNewProject(project);
-
-        // Fetch project ID only IF project was created
         int projectId = projectRepository.getLastCreatedProjectId();
-
-        // Add user to the list of members on the project
         projectRepository.addUserToProject(userId, projectId);
     }
 
@@ -63,13 +50,14 @@ public class ProjectService {
         projectRepository.removeMember(projectId, memberId);
     }
 
-    public void addMember(int userId, int projectId) {
+    public void addUserToProject(int userId, int projectId) {
         projectRepository.addUserToProject(userId, projectId);
     }
 
     public List<Subproject> getAllSubProjectsByProjectId(int projectId) {
         return subprojectService.getAllSubProjectsByProjectId(projectId);
     }
+
     public List<Task> getAllTasksByProjectId(int projectId) {
         List<Subproject> subprojects = getAllSubProjectsByProjectId(projectId);
         List<Task> tasks = new ArrayList<>();
@@ -80,6 +68,7 @@ public class ProjectService {
 
         return tasks;
     }
+
     public List<Subtask> getAllSubTasksByProjectId(int projectId) {
         List<Task> tasks = getAllTasksByProjectId(projectId);
         List<Subtask> subtasks = new ArrayList<>();
