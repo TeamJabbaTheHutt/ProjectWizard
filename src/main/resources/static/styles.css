@@ -35,9 +35,7 @@ li{
     display: flex;
     background: black;
     border-radius: 0px;
-    padding: 2px 20px;
     margin: 0 auto;
-    width: 100%;
     justify-content: space-between;
     align-items: center;
     position: fixed;
@@ -45,7 +43,6 @@ li{
     left: 0;
     width: 100%;
     padding: 10px 30px;
-    background: black;
     z-index: 999;
     box-sizing: border-box;
 }
@@ -128,7 +125,6 @@ a:active {
     width: 100%;
     height: 100%;
     background: transparent;
-    border: none;
     outline: none;
     border: 2px solid rgba(255, 255, 255, .2);
     border-radius: 10px;
@@ -324,7 +320,6 @@ a:active {
     text-decoration: none;
 }
 .landingPageBody {
-    font-family: Arial;
     background-image: url("images/landingBackground2.jpg");
     background-size: cover;
     background-repeat: no-repeat;
@@ -414,6 +409,7 @@ a:active {
 
 
 
+
 /* HOME PAGE */
 .homepageBody {
     background-image: url("images/homepageBackground.jpg");
@@ -456,7 +452,6 @@ a:active {
 .project-card {
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
     display: block;
-    /*background-color: #004b80;*/
     background-image: url("images/projectCardBackground.jpg");
     background-size: cover;
     color: white;
@@ -513,8 +508,8 @@ a:active {
     display: flex;
     background-image: none;
     flex-direction: column;
-    justify-content: center; /* center vertically */
-    align-items: center;     /* center horizontally */
+    justify-content: center;
+    align-items: center;
     text-align: center;
     background-color: #d9d9d9;
     color: #333;
@@ -550,10 +545,14 @@ a:active {
     color: #a30000;
 }
 
+
+
+
+
 /* EDIT PROJECT PAGE */
 .edit-project-wrapper {
     width: 90%;
-    max-width: 1100px;       /* gør formen bred */
+    max-width: 1100px;
     background: var(--main-color);
     color: var(--text-color);
     padding: 40px 50px;
@@ -562,21 +561,21 @@ a:active {
     box-shadow: 2px 2px 12px rgba(0,0,0,0.3);
 }
 
-/* Overskrift */
+
 .edit-project-wrapper h1 {
     text-align: center;
     margin-bottom: 25px;
     font-size: 36px;
 }
 
-/* Labels */
+
 .edit-project-wrapper label {
     font-weight: bold;
     color: white;
     margin-top: 10px;
 }
 
-/* Inputs og textarea */
+
 .edit-project-wrapper input,
 .edit-project-wrapper textarea {
     width: 100%;
@@ -600,7 +599,7 @@ a:active {
     color: rgba(255,255,255,0.7);
 }
 
-/* Knapper */
+
 .edit-project-wrapper button {
     background-color: var(--accent-color);
     color: white;
@@ -617,7 +616,7 @@ a:active {
     background-color: var(--accent-color-hover);
 }
 
-/* Liste med medlemmer */
+
 .edit-project-wrapper ul {
     padding-left: 0;
     margin-bottom: 20px;
@@ -629,9 +628,9 @@ a:active {
 }
 
 
-/* --- SMALL BUTTONS FOR REMOVE/ADD MEMBER --- */
+
 .edit-project-wrapper .member-action-btn {
-    background-color: rgba(255, 255, 255, 0.15); /* meget diskret */
+    background-color: rgba(255, 255, 255, 0.15);
     padding: 8px 15px;
     font-size: 14px;
     border-radius: 6px;
@@ -642,7 +641,7 @@ a:active {
     background-color: rgba(255, 255, 255, 0.3);
 }
 
-/* --- MAIN BUTTON: SAVE CHANGES (STOR BLÅ KNAP) --- for merge*/
+
 .edit-project-wrapper .save-changes-btn {
     display: block;
     width: 100%;
@@ -704,18 +703,6 @@ a:active {
     content: "▼";
 }
 
-
-.new-project-wrapper {
-    animation: fadeIn 0.25s ease-out;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-
-
-/* Dropdown der matcher "Remove Assignee" knappen */
 .dropdown-member-style {
     width: 100%;
     background-color: rgba(255, 255, 255, 0.15);
@@ -726,21 +713,24 @@ a:active {
     color: white;
     cursor: pointer;
     margin-top: 5px;
-    appearance: none; /* fjerner default pil */
+    appearance: none;
 }
 
-/* Hover-effekt som knappen */
+
 .dropdown-member-style:hover,
 .dropdown-member-style:focus {
     background-color: rgba(255, 255, 255, 0.3);
     outline: none;
 }
 
-/* Dropdown options skal være læsbare */
+
 .dropdown-member-style option {
     color: black;
     background: white;
 }
+
+
+
 
 /* STATISTICS*/
 
@@ -993,9 +983,7 @@ a:active {
     margin-left: 40px;
 
 }
-.editLink:hover {
 
-}
 summary {
     list-style: none;
     cursor: pointer;
