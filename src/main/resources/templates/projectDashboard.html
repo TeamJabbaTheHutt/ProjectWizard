@@ -41,10 +41,10 @@
     <div class="dashboardSubproject" th:each="subproject : ${subprojects}">
         <details class="subprojectBox">
 
-            <!-- Subproject title -->
+
             <summary class="subprojectTitle" th:text="${subproject.title}"></summary>
 
-            <!-- Subproject meta info -->
+
             <div class="subprojectMeta">
                 <span th:text="'Created: ' + ${subproject.createdAt}"></span>
                 <span th:text="'Deadline: ' + ${subproject.deadline}"></span>
@@ -55,13 +55,13 @@
 
             </div>
 
-            <!-- Tasks -->
+
             <div class="dashboardTaskToSubproject"
                  th:each="task : ${@taskService.getAllTasksBySubprojectId(subproject.getSubProjectId())}">
 
                 <details class="taskBox">
 
-                    <!-- Task row -->
+
                     <summary>
                         <div class="rowGrid taskRow">
                             <span class="titleCol" th:text="${task.title}"></span>
@@ -75,7 +75,7 @@
                         </div>
                     </summary>
 
-                    <!-- Subtasks -->
+
                     <div class="dashboardSubtaskToTask"
                          th:each="subtask : ${@subtaskService.getAllSubTasksByTaskId(task.getTaskId())}">
 
