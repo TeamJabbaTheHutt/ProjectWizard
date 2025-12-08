@@ -715,6 +715,32 @@ a:active {
 }
 
 
+/* Dropdown der matcher "Remove Assignee" knappen */
+.dropdown-member-style {
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.15);
+    border: none;
+    border-radius: 6px;
+    padding: 12px 15px;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+    margin-top: 5px;
+    appearance: none; /* fjerner default pil */
+}
+
+/* Hover-effekt som knappen */
+.dropdown-member-style:hover,
+.dropdown-member-style:focus {
+    background-color: rgba(255, 255, 255, 0.3);
+    outline: none;
+}
+
+/* Dropdown options skal være læsbare */
+.dropdown-member-style option {
+    color: black;
+    background: white;
+}
 
 /* STATISTICS*/
 
