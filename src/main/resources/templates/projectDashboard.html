@@ -26,10 +26,14 @@
 
 <div class="dashboardProject">
     <h3 class="dashboardProjectTitle" th:text="${project.getTitle()}"></h3>
+    <form th:action="@{/project/deleteProject}" method="post" style="display:inline;">
+        <input type="hidden" name="projectId" th:value="${projectId}">
+        <button type="submit" class="editLink">Delete</button>
+    </form>
     <a th:href="@{'/statistics/project/'+ ${projectId}}"
        class="editLink">Statistics</a>
     <br><br>
-    <!-- Column headers -->
+
     <div class="columnHeader rowGrid">
         <span>Title</span>
         <span>Status</span>
@@ -50,8 +54,11 @@
                 <span th:text="'Deadline: ' + ${subproject.deadline}"></span>
                 <a th:href="@{'/task/subproject/' + ${subproject.subProjectId} + '/' + ${projectId} + '/edit'}"
                    class="editLink">Edit</a>
-                <a th:href="@{'/task/subproject/' + ${subproject.subProjectId} + '/' + ${projectId} + '/edit'}"
-                   class="editLink">Delete</a>
+                <form th:action="@{/task/deleteSubproject}" method="post" style="display:inline;">
+                    <input type="hidden" name="subprojectId" th:value="${subproject.subProjectId}">
+                    <input type="hidden" name="projectId" th:value="${projectId}">
+                    <button type="submit" class="editLink">Delete</button>
+                </form>
 
             </div>
 
@@ -70,8 +77,11 @@
                             <span class="actualCol" th:text="${task.actualTime} + 'h'"></span>
                             <a th:href="@{'/task/editTask/' + ${task.taskId} + '/' + ${projectId}}"
                                class="editLink">Edit</a>
-                            <a th:href="@{'/task/subproject/' + ${subproject.subProjectId} + '/' + ${projectId} + '/edit'}"
-                               class="editLink">Delete</a>
+                            <form th:action="@{/task/deleteTask}" method="post" style="display:inline;">
+                                <input type="hidden" name="taskId" th:value="${task.taskId}">
+                                <input type="hidden" name="projectId" th:value="${projectId}">
+                                <button type="submit" class="editLink">Delete</button>
+                            </form>
                         </div>
                     </summary>
 
@@ -86,8 +96,11 @@
                             <span class="actualCol" th:text="${subtask.actualTime} + 'h'"></span>
                             <a th:href="@{'/task/editSubtask/' + ${subtask.subtaskId} + '/' + ${projectId}}"
                                class="editLink">Edit</a>
-                            <a th:href="@{'/task/subproject/' + ${subproject.subProjectId} + '/' + ${projectId} + '/edit'}"
-                               class="editLink">Delete</a>
+                            <form th:action="@{/task/deleteSubtask}" method="post" style="display:inline;">
+                                <input type="hidden" name="subtaskId" th:value="${subtask.subtaskId}">
+                                <input type="hidden" name="projectId" th:value="${projectId}">
+                                <button type="submit" class="editLink">Delete</button>
+                            </form>
                         </div>
 
                     </div>

@@ -181,14 +181,14 @@ public class ProjectController {
 
 
     @PostMapping("/deleteProject")
-    public String deleteProject(@ModelAttribute Project project, HttpSession session, RedirectAttributes redirectAttributes) {
-        boolean success = projectService.deleteProject(project);
+    public String deleteProject(@RequestParam int projectId, HttpSession session, RedirectAttributes redirectAttributes) {
+        boolean success = projectService.deleteProject(projectService.getProjectById(projectId));
 
         if (!success) {
             redirectAttributes.addFlashAttribute("errorMessage", "Could not delete subproject.");
         }
 
-        return "redirect:/project/home/";
+        return "redirect:/project/home";
     }
 
     @GetMapping("dashboard/{projectId}")
