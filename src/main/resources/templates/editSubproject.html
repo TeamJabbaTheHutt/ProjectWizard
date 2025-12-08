@@ -12,7 +12,7 @@
 
     <h1>Edit Subproject</h1>
 
-    <!-- UPDATE PROJECT -->
+
     <form th:action="@{'/task/subproject/'+ ${subproject.subProjectId} + '/' + ${subproject.parentId} + '/save'}" method="post">
 
         <label for="title">Title:</label><br>
@@ -24,7 +24,7 @@
         <label for="deadline">Deadline:</label><br>
         <input type="date" id="deadline" name="deadline" th:value="${subproject.deadline}"><br><br>
 
-        <!-- SAVE CHANGES -->
+
         <button type="submit" class="save-changes-btn">
             Save Changes
         </button>

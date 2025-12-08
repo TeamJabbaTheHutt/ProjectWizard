@@ -12,9 +12,9 @@
 
     <h1>Edit subtask</h1>
 
-    <!-- Save changes form -->
+
     <form th:action="@{/task/editSubtask/save}" method="post" th:object="${subtask}">
-        <!-- Hidden field for the Task ID -->
+
         <input type="hidden" th:field="*{subtaskId}">
         <input type="hidden" th:field="*{assigneeId}">
 
@@ -52,7 +52,7 @@
     <p th:text="${subtask.assignee != null ? subtask.assignee.email : 'no users assigned yet'}"></p>
 
     <br><br>
-    <!-- Add assignee form -->
+
     <form th:action="@{/task/editSubtask/removeAssignee}" method="post">
         <input type="hidden" name="subtaskId" th:value="${subtask.subtaskId}">
         <input type="hidden" name="projectId" th:value="${projectId}">
@@ -61,7 +61,7 @@
 
     <br><br>
 
-    <!-- Add assignee form -->
+
     <form th:action="@{/task/editSubtask/addAssignee}" method="post">
         <input type="hidden" name="subtaskId" th:value="${subtask.subtaskId}">
         <input type="hidden" name="projectId" th:value="${projectId}">
