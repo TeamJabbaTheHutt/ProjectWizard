@@ -81,4 +81,14 @@ public class TaskDAO {
             return false;
         }
     }
+
+    public boolean deleteTask(Task task) {
+        try {
+            String sql = "DELETE FROM task WHERE task_id = ?";
+            jdbc.update(sql, task.getTaskId());
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

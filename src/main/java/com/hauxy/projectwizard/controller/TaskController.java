@@ -232,6 +232,38 @@ public class TaskController {
 
 
 
+    @PostMapping("/deleteSubproject")
+    public String deleteSubproject(@ModelAttribute Subproject subproject, @RequestParam int projectId, HttpSession session, RedirectAttributes redirectAttributes) {
+        boolean success = subprojectService.deleteSubproject(subproject);
+
+        if (!success) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Could not delete subproject.");
+        }
+
+        return "redirect:/project/dashboard/" + projectId;
+    }
+
+    @PostMapping("/deleteTask")
+    public String deleteTask(@ModelAttribute Task task, @RequestParam int projectId, HttpSession session, RedirectAttributes redirectAttributes) {
+        boolean success = taskService.deleteTask(task);
+
+        if (!success) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Could not delete task.");
+        }
+        return "redirect:/project/dashboard/" + projectId;
+    }
+
+    @PostMapping("/deleteSubtask")
+    public String deleteSubtask(@ModelAttribute Subtask subtask, @RequestParam int projectId, HttpSession session, RedirectAttributes redirectAttributes) {
+        boolean success = subtaskService.deleteSubtask(subtask);
+
+        if (!success) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Could not delete subtask.");
+        }
+        return "redirect:/project/dashboard/" + projectId;
+    }
+
+
 
 }
 

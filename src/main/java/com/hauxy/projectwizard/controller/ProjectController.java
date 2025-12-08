@@ -16,6 +16,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 
@@ -173,6 +174,17 @@ public class ProjectController {
         return "redirect:/project/" + projectId + "/edit";
     }
 
+
+    @PostMapping("/deleteProject")
+    public String deleteProject(@ModelAttribute Project project, HttpSession session, RedirectAttributes redirectAttributes) {
+        boolean success = projectService.deleteProject(project);
+
+        if (!success) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Could not delete subproject.");
+        }
+
+        return "redirect:/project/home/";
+    }
 
 
 }

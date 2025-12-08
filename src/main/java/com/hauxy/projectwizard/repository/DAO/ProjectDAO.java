@@ -101,4 +101,14 @@ public class ProjectDAO {
         jdbc.update(sql, projectId, userId);
     }
 
+    public boolean deleteProject(Project project) {
+        try {
+            String sql = "DELETE FROM project WHERE project_id = ?";
+            jdbc.update(sql, project.getProjectId());
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
 }

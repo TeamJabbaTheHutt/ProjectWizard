@@ -39,4 +39,8 @@ public class SubtaskRepository {
     public boolean removeAssignee(int subtaskId) {
         return subtaskDAO.removeAssignee(subtaskId);
     }
+
+    public boolean deleteSubtask(Subtask subtask) {
+        return subtaskDAO.deleteSubtask(subtask);
+    }
 }

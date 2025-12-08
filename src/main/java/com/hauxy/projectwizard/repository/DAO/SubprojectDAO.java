@@ -45,4 +45,15 @@ public class SubprojectDAO {
         jdbc.update(sql, title, description, java.sql.Date.valueOf(deadline), subProjectId);
     }
 
+    public boolean deleteSubproject(Subproject subproject) {
+        try {
+            String sql = "DELETE FROM sub_project WHERE sub_project_id = ?";
+            jdbc.update(sql, subproject.getSubProjectId());
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
+
 }

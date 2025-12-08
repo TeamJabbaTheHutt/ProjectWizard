@@ -12,6 +12,7 @@ import org.springframework.test.context.jdbc.Sql;
 
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -66,6 +67,23 @@ public class ProjectRepositoryTest {
             assertThat(project.getCreatedAt()).isEqualTo(LocalDate.of(2024, 1, 1));
             assertThat(project.getDeadline()).isEqualTo(LocalDate.of(2025, 1, 1));
             assertThat(project.getProjectId() == 1);
+        }
+
+    }
+
+    @Test
+    void removeProject() {
+
+        Project projectTest = new Project();
+        projectTest.setProjectId(1);
+        boolean success = projectRepository.deleteProject(projectTest);
+
+        assertThat(success).isTrue();
+
+        List<Project> projects = projectRepository.getAllProjects();
+
+        for (Project project : projects) {
+            assertThat(project.getProjectId()).isNotEqualTo(1);
         }
 
     }

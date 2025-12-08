@@ -27,4 +27,8 @@ public class SubprojectRepository {
     public void updateSubproject(int subProjectId, String title, String description, String deadline) {
         subprojectDAO.updateSubproject(subProjectId, title, description, deadline);
     }
+
+    public boolean deleteSubproject(Subproject  subproject) {
+        return subprojectDAO.deleteSubproject(subproject);
+    }
 }
