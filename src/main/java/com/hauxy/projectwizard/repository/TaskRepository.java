@@ -34,6 +34,7 @@ public class TaskRepository {
     public boolean setAssignee(int userId, int taskId) {
         return taskDAO.setAssignee(userId, taskId);
     }
+
     public boolean removeAssignee(int taskId) {
         return taskDAO.removeAssignee(taskId);
     }

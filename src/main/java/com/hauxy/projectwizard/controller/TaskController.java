@@ -5,19 +5,13 @@ import com.hauxy.projectwizard.model.Task;
 import com.hauxy.projectwizard.model.User;
 import com.hauxy.projectwizard.service.SubtaskService;
 import com.hauxy.projectwizard.service.TaskService;
-import org.springframework.format.annotation.DateTimeFormat;
 import com.hauxy.projectwizard.model.*;
 import com.hauxy.projectwizard.service.SubprojectService;
-import com.hauxy.projectwizard.service.SubtaskService;
-import com.hauxy.projectwizard.service.TaskService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.time.LocalDate;
-import java.util.List;
 
 @Controller
 @RequestMapping("/task")
@@ -165,7 +159,7 @@ public class TaskController {
                                @RequestParam int projectId,
                                RedirectAttributes redirectAttributes) {
 
-        boolean success = taskService.updatetask(task);
+        boolean success = taskService.updateTask(task);
 
         if (!success) {
             redirectAttributes.addFlashAttribute("errorMessage", "Could not update task.");
@@ -175,7 +169,6 @@ public class TaskController {
     }
 
 
-    // mgormvoemvopmreopvmromvpermvmormovre
 
     @GetMapping("/editSubtask/{subtaskId}/{projectId}")
     public String editSubtask(@PathVariable int subtaskId, @PathVariable int projectId, Model model) {
@@ -203,9 +196,9 @@ public class TaskController {
     }
 
     @PostMapping("/editSubtask/removeAssignee")
-    public String editTSubaskRemoveAssignee(@RequestParam int subtaskId,
-                                         @RequestParam int projectId,
-                                         RedirectAttributes redirectAttributes) {
+    public String editTSubtaskRemoveAssignee(@RequestParam int subtaskId,
+                                             @RequestParam int projectId,
+                                             RedirectAttributes redirectAttributes) {
 
 
         boolean success = subtaskService.removeUserFromTask(subtaskId);
@@ -262,7 +255,6 @@ public class TaskController {
         }
         return "redirect:/project/dashboard/" + projectId;
     }
-
 
 
 }
