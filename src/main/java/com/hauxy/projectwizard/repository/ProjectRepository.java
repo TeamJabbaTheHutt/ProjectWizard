@@ -52,5 +52,8 @@ public class ProjectRepository {
         projectDAO.removeMemberFromProject(projectId, memberId);
     }
 
+    public boolean deleteProject(Project project) {
+        return projectDAO.deleteProject(project);
+    }
 
 }
