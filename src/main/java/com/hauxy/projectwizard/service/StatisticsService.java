@@ -196,34 +196,51 @@ public class StatisticsService {
         return subprojects.size();
     }
 
-    public int getNumberOfTasksInSubProjectsInDone() {
+    public int getNumberOfTasksInSubProjectsInDone(int subprojectId) {
         int result = 0;
         for (Task task : tasks) {
-            if (task.getStatus() == Status.Done) {
-                result += 1;
+            if (task.getParentId() == subprojectId) {
+                if (task.getStatus() == Status.Done) {
+                    result += 1;
+                }
             }
+
         }
         return result;
 
     }
-    public int getAllTasksInSubproject() {
-        return tasks.size();
+    public int getAllTasksInSubproject(int subprojectId) {
+        int total = 0;
+        for (Task task : tasks) {
+            if (task.getParentId() == subprojectId) {
+                total += 1;
+            }
+        }
+        return total;
     }
     public List<Subproject> getSubprojects() {
         return subprojects;
     }
 
-    public double estimatedHoursForSubproject() {
+    public double estimatedHoursForSubproject(int subprojectId) {
         double result = 0;
         for (Task task : tasks) {
-            result +=  task.getEstimate();
+            if (task.getParentId() == subprojectId) {
+                result +=  task.getEstimate();
+
+            }
         }
         return result;
     }
-    public double actualHoursForSubproject() {
+    public double actualHoursForSubproject(int subprojectId) {
         double result = 0;
         for (Task task : tasks) {
-            result +=  task.getActualTime();
+            if(task.getParentId() == subprojectId){
+                if (task.getStatus() == Status.Done) {
+                    result +=  task.getActualTime();
+                }
+            }
+
         }
         return result;
     }
