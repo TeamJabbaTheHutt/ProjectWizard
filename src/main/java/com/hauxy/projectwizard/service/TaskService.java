@@ -2,9 +2,7 @@ package com.hauxy.projectwizard.service;
 
 import com.hauxy.projectwizard.model.Status;
 import com.hauxy.projectwizard.model.Task;
-import com.hauxy.projectwizard.model.User;
 import com.hauxy.projectwizard.repository.TaskRepository;
-import com.hauxy.projectwizard.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -33,41 +31,21 @@ public class TaskService {
         task.setTitle(title);
         task.setDescription(description);
         task.setDeadline(deadline);
-        task.setStatus(Status.NoStatus); // default status
+        task.setStatus(Status.NoStatus);
         return taskRepository.createTask(task, parentTaskId);
     }
 
     public Task getTaskById(int taskId) {
-//        List<Task> tasks = getAllTasksBySubprojectId(subprojectId);
-//        for (Task task : tasks) {
-//            if (task.getTaskId() == taskId) return task;
-//        }
-//        return null;
         Task task = taskRepository.getTaskById(taskId);
         task.setAssignee(userService.getUserById(task.getAssigneeId()));
         return task;
     }
 
-//    public void updateTask(int taskId, String title, String description, LocalDate deadline) {
-//        Task task = taskRepository.getTaskById(taskId);
-//        if (task == null) return;
-//        task.setTitle(title);
-//        task.setDescription(description);
-//        task.setDeadline(deadline);
-//        taskRepository.updateTask(task);
-//    }
-
-    public boolean updatetask(Task task) {
+    public boolean updateTask(Task task) {
         return taskRepository.updateTask(task);
     }
 
     public boolean addUserToTask(String email, int taskId) {
-//        User user = userRepository.getUserByEmail(email);
-//        if (user == null) return false;
-//        Task task = taskRepository.getTaskById(taskId);
-//        task.setAssignee(user);
-//        taskRepository.updateTask(task);
-//        return true;
         if (userService.getUserByEmail(email) == null) {
             return false;
         } else {
@@ -77,15 +55,7 @@ public class TaskService {
     }
 
     public boolean removeUserFromTask(int taskId) {
-//        Task task = taskRepository.getTaskById(taskId);
-//        if (task == null || task.getAssignee() == null) return false;
-//        if (!task.getAssignee().getEmail().equals(email)) return false;
-//        task.setAssignee(null);
-//        taskRepository.updateTask(task);
-//        return true;
-        taskRepository.removeAssignee(taskId);
-
-        return false;
+        return taskRepository.removeAssignee(taskId);
     }
 
     public boolean deleteTask(Task task) {

@@ -1,9 +1,7 @@
 package com.hauxy.projectwizard.service;
 
 import com.hauxy.projectwizard.model.Subtask;
-import com.hauxy.projectwizard.model.Task;
 import com.hauxy.projectwizard.repository.SubtaskRepository;
-import com.hauxy.projectwizard.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

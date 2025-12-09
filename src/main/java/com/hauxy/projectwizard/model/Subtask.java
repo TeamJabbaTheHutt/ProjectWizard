@@ -59,14 +59,6 @@ public class Subtask {
         this.parentId = parentId;
     }
 
-//    public int getProjectId() {
-//        return projectId;
-//    }
-//
-//    public void setProjectId(int projectId) {
-//        this.projectId = projectId;
-//    }
-
     public double getEstimate() {
         return estimate;
     }
