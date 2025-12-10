@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Help & Guide</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+
+<body>
+
+
+<nav class="navbar">
+    <div class="navbar-left">
+        <a href="/" class="logo-link">
+            <img src="/images/black-logo-removebg-preview.jpg" alt="Logo" class="logo">
+        </a>
+
+        <ul class="menu">
+            <li class="nav-item"><a th:href="@{/project/home}">Home</a></li>
+            <li class="nav-item"><a th:href="@{/project/help}">Help</a></li>
+        </ul>
+    </div>
+
+    <button class="user-icon" th:text="${session.username}">User</button>
+</nav>
+
+
+<div class="page-wrapper">
+    <div class="new-project-wrapper" style="max-width: 900px; text-align: left;">
+        <h1>Help & Support</h1>
+
+        <p style="margin-bottom: 20px;">
+            Welcome to the help center! Here you’ll find simple explanations of how to use the system:
+            projects, tasks, subprojects, and member management.
+        </p>
+
+
+        <h2 style="margin-top: 20px;">📌 Creating a Project</h2>
+        <ul style="margin: 10px 0 20px 20px;">
+            <li>➤ Go to <strong>Home</strong> → click <strong>“+ Add Project”</strong>.</li>
+            <li>➤ Enter a title, description, deadline.</li>
+            <li>➤ Press <strong>Create</strong>.</li>
+        </ul>
+
+
+        <h2>📁 Project Dashboard</h2>
+        <p>The dashboard shows all tasks and subtasks in a structured hierarchy.</p>
+
+        <ul style="margin: 10px 0 20px 20px;">
+            <li>📂 <strong>Subprojects</strong> · The highest level of your structure.</li>
+            <li>📝 <strong>Tasks</strong> · Tasks that belong to a subproject.</li>
+            <li>🔧 <strong>Subtasks</strong> · Small steps under a task.</li>
+        </ul>
+
+
+        <h2>👥 Adding Members</h2>
+        <ul style="margin: 10px 0 20px 20px;">
+            <li>➤ Open the project.</li>
+            <li>➤ Scroll to the members section.</li>
+            <li>➤ Select a user from the dropdown.</li>
+            <li>➤ Press <strong>Add Member</strong>.</li>
+        </ul>
+
+
+        <h2>🛠 Editing a Task</h2>
+        <ul style="margin: 10px 0 20px 20px;">
+            <li>➤ Press the <strong>Edit</strong> button next to a task.</li>
+            <li>➤ Change title, description, estimate, status, or assignee.</li>
+            <li>➤ Save changes.</li>
+        </ul>
+
+
+        <h2>📊 Statistics Page</h2>
+        <p>
+            The statistics page displays:
+        </p>
+
+        <ul style="margin: 10px 0 20px 20px;">
+            <li>✔ Total tasks</li>
+            <li>✔ Completed tasks</li>
+            <li>✔ Tasks in progress</li>
+            <li>✔ Progress bars for deadlines</li>
+            <li>✔ Subproject progress overview</li>
+        </ul>
+
+
+        <h2>❓ Need More Help?</h2>
+        <p>
+            If something doesn't work or you found a bug, contact the development team.
+        </p>
+
+        <ul style="margin: 10px 0 20px 20px;">
+            <li><a href="https://github.com/nikholt1" target="_blank">nikholt1</a></li>
+            <li><a href="https://github.com/Manden9753" target="_blank">Manden9753</a></li>
+            <li><a href="https://github.com/EllaCostello" target="_blank">EllaCostello</a></li>
+            <li><a href="https://github.com/iotuz" target="_blank">iotuz</a></li>
+        </ul>
+
+        <p style="margin-top: 40px; font-size: 14px; text-align: center; color: #e5e5e5;">
+            Made with ❤️ by the ProjectWizard
+        </p>
+    </div>
+</div>
+
+</body>
+</html>
