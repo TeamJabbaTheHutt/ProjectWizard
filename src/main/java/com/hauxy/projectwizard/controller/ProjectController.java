@@ -165,7 +165,7 @@ public class ProjectController {
     public String projectDashboard(@PathVariable int projectId, Model model, HttpSession session) {
         model.addAttribute("project", projectService.getProjectById(projectId));
         model.addAttribute("subprojects", projectService.getAllSubProjectsByProjectId(projectId));
-
+        model.addAttribute("members", projectService.getProjectMembers(projectId));
         return "projectDashboard";
     }
 }

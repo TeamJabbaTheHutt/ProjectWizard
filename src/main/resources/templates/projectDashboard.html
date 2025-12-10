@@ -32,13 +32,24 @@
     </form>
     <a th:href="@{'/statistics/project/'+ ${projectId}}"
        class="editLink">Statistics</a>
+    <a th:href="@{'/project/'+  ${projectId} +'/edit'}"
+       class="editLink">Edit</a>
     <br><br>
-
+    <select name="member" class="dropdown-member-style">
+        <option value="" selected disabled>Members</option>
+        <option th:each="member : ${members}"
+                th:text="'Username: ' + ${member.username} + ' | Email:' + ${member.email} ">
+        </option>
+    </select>
+    <br><br>
     <div class="columnHeader rowGrid">
         <span>Title</span>
+        <span>Assignee</span>
         <span>Status</span>
         <span>Estimate</span>
         <span>Actual</span>
+        <span></span>
+        <span></span>
 
     </div>
 
@@ -72,6 +83,7 @@
                     <summary>
                         <div class="rowGrid taskRow">
                             <span class="titleCol" th:text="${task.title}"></span>
+                            <span class="statusCol" th:text="${task.assignee != null ? task.assignee.username : ''}"></span>
                             <span class="statusCol" th:text="${task.status}"></span>
                             <span class="estimateCol" th:text="${task.estimate} + 'h'"></span>
                             <span class="actualCol" th:text="${task.actualTime} + 'h'"></span>
@@ -91,12 +103,13 @@
 
                         <div class="rowGrid subtaskRow">
                             <span class="titleCol" th:text="${subtask.title}"></span>
+                            <span class="statusCol" th:text="${subtask.assignee != null ? subtask.assignee.username : ''}"></span>
                             <span class="statusCol" th:text="${subtask.status}"></span>
                             <span class="estimateCol" th:text="${subtask.estimate} + 'h'"></span>
                             <span class="actualCol" th:text="${subtask.actualTime} + 'h'"></span>
                             <a th:href="@{'/task/editSubtask/' + ${subtask.subtaskId} + '/' + ${projectId}}"
                                class="editLink">Edit</a>
-                            <form th:action="@{/task/deleteSubtask}" method="post" style="display:inline;">
+                            <form class="editLink" th:action="@{/task/deleteSubtask}" method="post" style="display:inline;">
                                 <input type="hidden" name="subtaskId" th:value="${subtask.subtaskId}">
                                 <input type="hidden" name="projectId" th:value="${projectId}">
                                 <button type="submit" class="editLink">Delete</button>

@@ -94,23 +94,23 @@
                     <p>
                         Total Tasks:
                         <span class="subprojectValues"
-                              th:text="${@statisticsService.getAllTasksInSubproject()}"></span>
+                              th:text="${@statisticsService.getAllTasksInSubproject(subproject.subProjectId)}"></span>
                     </p>
 
                     <p>
                         Total Tasks Done:
                         <span class="subprojectValues"
-                              th:text="${@statisticsService.getNumberOfTasksInSubProjectsInDone()}"></span>
+                              th:text="${@statisticsService.getNumberOfTasksInSubProjectsInDone(subproject.subProjectId)}"></span>
                     </p>
 
                     <p>
                         Estimated hours for Subproject:
                         <span class="subprojectValues"
-                              th:text="${@statisticsService.estimatedHoursForSubproject()}"></span>
+                              th:text="${@statisticsService.estimatedHoursForSubproject(subproject.subProjectId)}"></span>
                     </p>
                     <p>
                         Actual Hours Used:
-                        <span class="subprojectValues" th:text="${@statisticsService.actualHoursForSubproject()}"></span>
+                        <span class="subprojectValues" th:text="${@statisticsService.actualHoursForSubproject(subproject.subProjectId)}"></span>
                     </p>
 
                 </div>
