@@ -18,21 +18,11 @@ import java.time.LocalDate;
 public class ProjectController {
     private final ProjectService projectService;
     private final UserService userService;
-    private final StatisticsService statisticsService;
-    private final SubprojectService subprojectService;
-    private final TaskService taskService;
-    private final SubtaskService subtaskService;
 
 
-    public ProjectController(ProjectService projectService, UserService userService, StatisticsService statisticsService, SubprojectService subprojectService,
-                             SubprojectService subtaskProjectService, TaskService taskService, SubtaskService subtaskService) {
+    public ProjectController(ProjectService projectService, UserService userService) {
         this.projectService = projectService;
         this.userService = userService;
-        this.statisticsService = statisticsService;
-        this.subprojectService = subprojectService;
-        this.taskService = taskService;
-        this.subtaskService = subtaskService;
-
     }
 
     @GetMapping("/{projectId}/edit")

@@ -28,15 +28,8 @@ public class ProjectControllerTest {
     @MockitoBean
     private ProjectService projectService;
     @MockitoBean
-    private StatisticsService statisticsService;
-    @MockitoBean
-    private TaskService taskService;
-    @MockitoBean
-    private SubtaskService subtaskService;
-    @MockitoBean
     private UserService userService;
-    @MockitoBean
-    private SubprojectService subprojectService;
+
 
     @Test
     void getProjectByUserIdTestListContainsProjects() throws Exception {
