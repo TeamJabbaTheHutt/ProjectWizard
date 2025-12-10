@@ -158,4 +158,11 @@ public class ProjectController {
         model.addAttribute("members", projectService.getProjectMembers(projectId));
         return "projectDashboard";
     }
+
+        @GetMapping("/help")
+        public String helpPage() {
+            return "help"; // corresponds to help.html in templates
+        }
 }
+
+
