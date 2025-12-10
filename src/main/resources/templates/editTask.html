@@ -7,6 +7,16 @@
     <link rel="stylesheet" th:href="@{/styles.css}">
 </head>
 <body>
+<nav class="navbar">
+    <div class="navbar-left">
+        <img src="/images/black-logo-removebg-preview.jpg" alt="Logo" class="logo" />
+        <ul class="menu">
+            <li class="nav-item"><a th:href="@{/project/home}">Home</a></li>
+            <li class="nav-item"><a th:href="@{/project/help}">Help</a></li>
+        </ul>
+    </div>
+    <button type="submit" class="user-icon"><i class='bx bxs-user'></i></button>
+</nav>
 
 <div class="container edit-project-wrapper">
 
