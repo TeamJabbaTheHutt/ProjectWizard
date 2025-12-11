@@ -829,44 +829,6 @@ a:active {
 .create-btn:hover {
     background-color: #2f6ee3;
 }
-
-.subproject-block {
-    margin-bottom: 1.5rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 0.5rem;
-    background: #fafafa;
-}
-
-.subproject-summary {
-    display: grid;
-    grid-template-columns: 30px 60px 200px 1fr 140px 140px 100px;
-    align-items: center;
-    gap: 10px;
-    padding: 0.7rem;
-    background: #f7f7f7;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 600;
-}
-
-.subproject-details summary::-webkit-details-marker {
-    display: none;
-}
-
-.subproject-summary .arrow {
-    display: inline-block;
-    transition: transform 0.2s ease;
-}
-
-.subproject-details:not([open]) .arrow::before {
-    content: "▶";
-}
-
-.subproject-details[open] .arrow::before {
-    content: "▼";
-}
-
 .edit-button {
     padding: 4px 10px;
     background: #4488ff;
@@ -882,19 +844,150 @@ a:active {
     background: #2f6ee3;
 }
 
+/* ----------------------------
+   Subproject block & header
+---------------------------- */
+.subproject-block {
+    margin-bottom: 1.5rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 0.5rem;
+    background: #fafafa;
+}
+
+.subproject-summary {
+    display: grid;
+    grid-template-columns: 30px 60px 200px 1fr;
+    align-items: center;
+    gap: 10px;
+    padding: 0.7rem;
+    background: #f7f7f7;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.subproject-details summary::-webkit-details-marker { display: none; }
+
+.subproject-details:not([open]) .arrow::before { content: "▶"; }
+.subproject-details[open] .arrow::before { content: "▼"; }
+
+.subproject-meta-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    background: #fff;
+}
+.subproject-meta-table th,
+.subproject-meta-table td {
+    border: 1px solid #ddd;
+    padding: 0.5rem;
+}
+.subproject-meta-table th {
+    width: 160px;
+    background: #f0f0f0;
+    font-weight: 600;
+}
+
+/* ----------------------------
+   Tasks table and subtasks
+---------------------------- */
+
 .tasks-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 1rem;
+    font-family: Arial, sans-serif;
+    color: #333333;
 }
 
 .tasks-table th,
 .tasks-table td {
-    border: 1px solid #ddd;
-    padding: 0.5rem;
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
 }
 
 .tasks-table th {
-    background: #f0f0f0;
-    text-align: left;
+    background-color: #0d47a1;
+    color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 1;
 }
+
+.task-details summary span {
+    display: flex;
+    align-items: center;
+    padding: 0 4px;
+    line-height: 1.5em;
+}
+
+.task-details summary {
+    list-style: none;
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 40px 200px 300px 140px 100px 100px 100px 120px 80px;
+    align-items: center;
+    background-color: #e3f2fd;
+    padding: 8px 6px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.task-details summary::-webkit-details-marker {
+    display: none;
+}
+
+.task-details summary:hover {
+    background-color: #bbdefb;
+}
+
+
+.task-arrow::before {
+    content: '▶';
+    display: flex;
+    width: 18px;
+    text-align: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+    height: 100%;
+}
+
+.task-details[open] .task-arrow::before {
+    content: '▼';
+}
+
+.subtasks-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 5px;
+}
+
+.subtasks-table th,
+.subtasks-table td {
+    border: 1px solid #90caf9;
+    padding: 6px 8px;
+    text-align: left;
+    font-size: 0.9em;
+}
+
+.subtasks-table th {
+    background-color: #1976d2;
+    color: #fff;
+}
+
+.subtasks-table tbody tr:nth-child(even) {
+    background-color: #e3f2fd;
+}
+.subtasks-table tbody tr:nth-child(odd) {
+    background-color: #bbdefb;
+}
+
+
+
+
+
+
+
+
+

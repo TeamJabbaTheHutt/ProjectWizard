@@ -31,30 +31,65 @@
         <div th:if="${#lists.isEmpty(subProjects)}" class="empty-message">
             <p>No subprojects yet.</p>
         </div>
+        <a class="edit-button" th:href="@{'/project/'+  ${projectId} +'/edit'}" >Edit</a>
+        <a th:href="@{'/statistics/project/'+ ${projectId}}"
+           class="statistics-Link">Statistics</a>
+        <form th:action="@{/project/deleteProject}" method="post" style="display:inline;">
+            <input type="hidden" name="projectId" th:value="${projectId}">
+            <button type="submit" class="editLink">Delete</button>
+        </form>
 
         <div class="subProject-wrapper">
             <div class="subproject-block" th:each="subProject : ${subProjects}">
-
                 <!-- Collapsible -->
                 <details class="subproject-details">
 
                     <summary class="subproject-summary">
                         <span class="arrow"></span>
-
                         <span class="subproject-id" th:text="${subProject.subProjectId}"></span>
                         <span class="subproject-title" th:text="${subProject.title}"></span>
-                        <!--
-                        <span class="subproject-description" th:text="${subProject.description}"></span>
-                        <span class="subproject-created" th:text="${subProject.createdAt}"></span>
-                        <span class="subproject-deadline" th:text="${subProject.deadline}"></span> -->
-
-                        <a class="edit-button">Edit</a>
                     </summary>
 
-                    <!-- Tasks -->
+                    <table class="subproject-meta-table">
+                        <tbody>
+                            <tr>
+                                <th>ID</th>
+                                <td th:text="${subProject.subProjectId}"></td>
+                            </tr>
+                            <tr>
+                                <th>Title</th>
+                                <td th:text="${subProject.title}"></td>
+                            </tr>
+                            <tr>
+                                <th>Description</th>
+                                <td th:text="${subProject.description}"></td>
+                            </tr>
+                            <tr>
+                                <th>Created</th>
+                                <td th:text="${subProject.createdAt}"></td>
+                            </tr>
+                            <tr>
+                                <th>Deadline</th>
+                                <td th:text="${subProject.deadline}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
                     <table class="tasks-table">
+                        <colgroup>
+                            <col style="width: 40px;">
+                            <col style="width: 200px;">
+                            <col style="width: 300px;">
+                            <col style="width: 140px;">
+                            <col style="width: 100px;">
+                            <col style="width: 100px;">
+                            <col style="width: 100px;">
+                            <col style="width: 120px;">
+                            <col style="width: 80px;">
+                        </colgroup>
                         <thead>
                             <tr>
+                                <th></th>
                                 <th>Title</th>
                                 <th>Description</th>
                                 <th>Assignee</th>
@@ -62,21 +97,66 @@
                                 <th>Estimate</th>
                                 <th>Actual Time</th>
                                 <th>Deadline</th>
+                                <th></th>
                             </tr>
                         </thead>
+                        <tbody th:each="task : ${@taskService.getAllTasksBySubprojectId(subProject.subProjectId)}">
+                            <tr>
+                                <td colspan="9" class="task-row-cell">
+                                    <details class="task-details">
+                                        <summary class="task-summary">
 
-                        <tbody>
-                            <tr th:each="task : ${subProject.tasks}">
-                                <td>
-                                    <a th:text="${task.title}"></a>
+                                            <span class="task-arrow"
+                                                  th:if="${@subtaskService.getAllSubTasksByTaskId(task.taskId).size() > 0}"></span>
+                                            <span th:unless="${@subtaskService.getAllSubTasksByTaskId(task.taskId).size() > 0}"></span>
+
+                                            <span th:text="${task.title}"></span>
+                                            <span th:text="${task.description}"></span>
+                                            <span th:text="${task.assignee != null ? task.assignee.username : 'Unassigned'}"></span>
+                                            <span th:text="${task.status}"></span>
+                                            <span th:text="${task.estimate}"></span>
+                                            <span th:text="${task.actualTime}"></span>
+                                            <span th:text="${task.deadline}"></span>
+                                            <button class="edit-button">Edit</button>
+                                        </summary>
+
+                                        <!-- Nested subtasks table -->
+                                        <table class="subtasks-table">
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Title</th>
+                                                    <th>Description</th>
+                                                    <th>Assignee</th>
+                                                    <th>Status</th>
+                                                    <th>Estimate</th>
+                                                    <th>Actual Time</th>
+                                                    <th>Deadline</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr th:each="subtask : ${@subtaskService.getAllSubTasksByTaskId(task.taskId)}">
+                                                    <td></td>
+                                                    <td th:text="${subtask.title}"></td>
+                                                    <td th:text="${subtask.description}"></td>
+                                                    <td th:text="${subtask.assignee != null ? subtask.assignee.username : 'Unassigned'}"></td>
+                                                    <td th:text="${subtask.status}"></td>
+                                                    <td th:text="${subtask.estimate}"></td>
+                                                    <td th:text="${subtask.actualTime}"></td>
+                                                    <td th:text="${task.deadline}"></td>
+                                                    <td><button class="edit-button">Edit</button></td>
+                                                </tr>
+
+                                                <tr class="add-subtask-row">
+                                                    <td colspan="9">
+                                                        <a href="#"></a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </details>
                                 </td>
-                                <td th:text="${task.description}"></td>
-                                <td th:text="${task.assignee != null ? task.assignee.username : 'Unassigned'}"></td>
-                                <td th:text="${task.status}"></td>
-                                <td th:text="${task.estimate}"></td>
-                                <td th:text="${task.actualTime}"></td>
-                                <td th:text="${task.deadline}"></td>
-
                             </tr>
                         </tbody>
                     </table>

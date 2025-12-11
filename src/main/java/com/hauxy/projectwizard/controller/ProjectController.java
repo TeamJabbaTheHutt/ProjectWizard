@@ -1,10 +1,7 @@
 package com.hauxy.projectwizard.controller;
 
 import com.hauxy.projectwizard.exceptions.UserNotLoggedInException;
-import com.hauxy.projectwizard.model.Project;
-import com.hauxy.projectwizard.model.Subproject;
-import com.hauxy.projectwizard.model.Task;
-import com.hauxy.projectwizard.model.User;
+import com.hauxy.projectwizard.model.*;
 import com.hauxy.projectwizard.repository.DAO.ProjectDAO;
 import com.hauxy.projectwizard.repository.DAO.UserDAO;
 import com.hauxy.projectwizard.service.*;
@@ -17,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,14 +27,16 @@ public class ProjectController {
     private final StatisticsService statisticsService;
     private final SubprojectService subprojectService;
     private final TaskService taskService;
+    private final SubtaskService subtaskService;
 
 
-    public ProjectController(ProjectService projectService, UserService userService, StatisticsService statisticsService, SubprojectService subprojectService, TaskService taskService) {
+    public ProjectController(ProjectService projectService, UserService userService, StatisticsService statisticsService, SubprojectService subprojectService, TaskService taskService, SubtaskService subtaskService) {
         this.projectService = projectService;
         this.userService = userService;
         this.statisticsService = statisticsService;
         this.subprojectService = subprojectService;
         this.taskService = taskService;
+        this.subtaskService = subtaskService;
     }
 
     @GetMapping("/{projectId}/edit")
@@ -113,18 +113,27 @@ public class ProjectController {
     @GetMapping("/dashboard/{projectId}")
     public String showProjectDashboard(@PathVariable int projectId, Model model, HttpSession httpSession) {
 
-        User user = (User) httpSession.getAttribute("loggedInUser");
+        // User user = (User) httpSession.getAttribute("loggedInUser");
         model.addAttribute("project", projectService.getProjectById(projectId));
 
-        List<Subproject> subProjects = subprojectService.getAllSubProjectsByProjectId(projectId);
+         List<Subproject> subProjects = subprojectService.getAllSubProjectsByProjectId(projectId);
 
         for (Subproject sp : subProjects) {
             List<Task> tasks = taskService.getAllTasksBySubprojectId(sp.getSubProjectId());
+
+            for (Task task : tasks) {
+                List<Subtask> subtasks = subtaskService.getAllSubTasksByTaskId(task.getTaskId());
+                if (subtasks == null) {
+                    subtasks = new ArrayList<>();
+                }
+                task.setSubtasks(subtasks);
+            }
             sp.setTasks(tasks);
+
         }
 
-        model.addAttribute("subProjects", subProjects);
 
+        model.addAttribute("subProjects", subprojectService.getAllSubProjectsByProjectId(projectId));
         return "projectDashboard";
     }
 
