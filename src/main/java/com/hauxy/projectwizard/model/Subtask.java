@@ -1,13 +1,14 @@
 package com.hauxy.projectwizard.model;
 
 public class Subtask {
-    private int taskId;
+    private int subtaskId;
     private String title;
     private String description;
     private User assignee;
     private Status status;
     private double estimate;
     private double actualTime;
+    private int assigneeId;
 
     private int parentId;
 
@@ -19,12 +20,19 @@ public class Subtask {
         this.description = description;
     }
 
-    public int getTaskId() {
-        return taskId;
+    public int getSubtaskId() {
+        return subtaskId;
     }
 
-    public void setTaskId(int taskId) {
-        this.taskId = taskId;
+    public void setSubtaskId(int subtaskId) {
+        this.subtaskId = subtaskId;
+    }
+
+    public void setAssigneeId(int assigneeId) {
+        this.assigneeId = assigneeId;
+    }
+    public int getAssigneeId() {
+        return assigneeId;
     }
 
     public String getTitle() {
@@ -50,14 +58,6 @@ public class Subtask {
     public void setParentId(int parentId) {
         this.parentId = parentId;
     }
-
-//    public int getProjectId() {
-//        return projectId;
-//    }
-//
-//    public void setProjectId(int projectId) {
-//        this.projectId = projectId;
-//    }
 
     public double getEstimate() {
         return estimate;

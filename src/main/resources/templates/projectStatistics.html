@@ -11,44 +11,55 @@
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="navbar-left">
-            <img src="/images/black-logo-removebg-preview.jpg" alt="Logo" class="logo" />
-            <ul class="menu">
-                <li class="nav-item"><a href="#">Home</a></li>
-                <li class="nav-item"><a href="#">My Projects</a></li>
-                <li class="nav-item"><a href="#">Help</a></li>
-            </ul>
-        </div>
-        <button type="submit" class="user-icon"><i class='bx  bxs-user'  ></i></button>
-    </nav>
+<nav class="navbar">
+    <div class="navbar-left">
+        <img src="/images/black-logo-removebg-preview.jpg" alt="Logo" class="logo" />
+        <ul class="menu">
+            <li class="nav-item"><a th:href="@{/project/home}">Home</a></li>
+            <li class="nav-item"><a th:href="@{/project/dashboard/{projectId}(projectId=${projectId})}">Current project</a></li>
+            <li class="nav-item"><a th:href="@{/project/help}">Help</a></li>
+        </ul>
+    </div>
+    <button type="submit" class="user-icon"><i class='bx bxs-user'></i></button>
+</nav>
 
     <div class="statisticsContainer">
-
+        <a th:href="@{/project/dashboard/{projectId}(projectId=${projectId})}"
+           class="backButton">
+            <i class='bxr bx-arrow-left'></i>
+        </a>
         <div class="statisticsBoxItem">
 
             <div class="statisticsBox">
                 <div class="statisticsLabel">Estimated Hours until done</div>
-                <div class="statisticsValue" th:text="${hoursLeftFromTasksNotInDoneByProjectId}">0</div>
+                <div class="statisticsValue" th:text="${@statisticsService.hoursLeftFromTasksNotInDoneByProjectId()}"></div>
             </div>
 
             <div class="statisticsBox">
-                <div class="statisticsLabel">Time Used Until Now</div>
-                <div class="statisticsValue" th:text="${timeActualUsedForAllTasksAndSubtasks}">0</div>
+                <div class="statisticsLabel">Estimated Time On Tasks In Done</div>
+                <div class="statisticsValue" th:text="${@statisticsService.timeEstimatedOnTasksInDone()}"></div>
             </div>
 
             <div class="statisticsBox">
-                <div class="statisticsLabel" th:text="${timeDifferenceOnAllTasksAndSubtasks <= 0} ? 'Time used over the estimate' : 'Time saved in hours'"></div>
+                <div class="statisticsLabel">Actual Time On Tasks In Done</div>
+                <div class="statisticsValue" th:text="${@statisticsService.timeActualUsedForAllTasksAndSubtasks()}"></div>
+            </div>
+
+            <div class="statisticsBox">
+                <div class="statisticsLabel" th:text="${@statisticsService.timeDifferenceOnAllTasksAndSubtasks() <= 0} ? 'Time used over the estimate' : 'Time saved in hours'"></div>
                 <div class="statisticsValue"
-                     th:text="${timeDifferenceOnAllTasksAndSubtasks}"
-                     th:style="'color:' + (${timeDifferenceOnAllTasksAndSubtasks <= 0} ? 'red' : '#00ff19')">
+                     th:text="${@statisticsService.timeDifferenceOnAllTasksAndSubtasks()}"
+                     th:style="'color:' + (${@statisticsService.timeDifferenceOnAllTasksAndSubtasks() <= 0} ? 'red' : '#00ff19')">
                 </div>
             </div>
-
+            <div class="statisticsBox">
+                <div class="statisticsLabel">Estimated Hours for full project</div>
+                <div class="statisticsValue" th:text="${@statisticsService.timeEstimatedOnAllTasksAndSubtasks()}"></div>
+            </div>
 
             <div class="statisticsBox">
                 <div class="statisticsLabel">Total tasks in backlog</div>
-                <div class="statisticsValue" th:text="${totalTasksByProjectId}">0</div>
+                <div class="statisticsValue" th:text="${@statisticsService.totalTasksByProjectId()}"></div>
             </div>
 
         </div>
@@ -57,23 +68,61 @@
         <div class="statisticsBarItems">
 
             <div class="progress-container">
-                <p class="days-left" th:text="${dateToday} + ': Start of project'"></p>
-                <p class="days-left" th:text="${getDeadLineByProjectId} + ': Deadline'"></p>
-                <br><br>
-                <p class="days-left" th:text="${daysUntilDeadlineProject}"></p>
+                <p class="startAndStopTitle" th:text="${@statisticsService.getCreatedAtByProjectId()} + ': Start of project'"></p>
+                <p class="startAndStopTitle" th:text="${@statisticsService.getDeadLineByProjectId()} + ': Deadline'"></p>
+
+                <p class="days-left" th:text="${@statisticsService.formatDeadlineDays()}"></p>
                 <div class="progress-bar">
                     <div class="progress-fill"
-                         th:style="'width:' + ${percentageOfProjectInDays} + '%'">
+                         th:style="'width:' + ${@statisticsService.getPercentageOfProjectDone()} + '%'">
                     </div>
                 </div>
 
 
-                <br><br>
-                <p class="days-left" th:text="${tasksDoneByProjectId} + ' Tasks in done out of ' + ${totalTasksByProjectId}"></p>
+
+                <p class="days-left" th:text="${@statisticsService.tasksInDoneByProjectId()} + ' Tasks in done out of ' + ${@statisticsService.totalTasksByProjectId()}"></p>
                 <div class="progress-bar">
                     <div class="progress-fill"
-                         th:style="'width:' + ${getPercentageOfTasksDone} + '%'">
+                         th:style="'width:' + ${@statisticsService.getPercentageOfTasksDone()} + '%'">
                     </div>
+                </div>
+
+                <div class="statisticsSubprojectBox">
+                    <div class="subprojectLabel">Subprojects</div>
+                    <div class="statisticsValue" th:text="${@statisticsService.getNumberOfSubprojects()}"></div>
+                </div>
+
+                <div class="specificStatisticsSubprojectBox" th:each="subproject : ${@statisticsService.getSubprojects()}">
+                    <p class="subprojectLabel" th:text="${subproject.title}"></p>
+                    <p>
+                        Total Tasks:
+                        <span class="subprojectValues"
+                              th:text="${@statisticsService.getAllTasksInSubproject(subproject.subProjectId)}"></span>
+                    </p>
+
+                    <p>
+                        Total Tasks Done:
+                        <span class="subprojectValues"
+                              th:text="${@statisticsService.getNumberOfTasksInSubProjectsInDone(subproject.subProjectId)}"></span>
+                    </p>
+
+                    <p>
+                        Estimated hours for Subproject:
+                        <span class="subprojectValues"
+                              th:text="${@statisticsService.estimatedHoursForSubproject(subproject.subProjectId)}"></span>
+                    </p>
+                    <p>
+                        Actual Hours Used:
+                        <span class="subprojectValues" th:text="${@statisticsService.actualHoursForSubproject(subproject.subProjectId)}"></span>
+                    </p>
+
+                </div>
+
+                <div class="specificStatisticsSubprojectBox">
+                    <p class="subprojectLabel"
+                       th:each="user : ${@statisticsService.getMembers()}"
+                       th:text="${user.username}">
+                    </p>
                 </div>
             </div>
         </div>

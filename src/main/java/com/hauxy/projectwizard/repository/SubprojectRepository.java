@@ -20,4 +20,15 @@ public class SubprojectRepository {
     public List<Subproject> getAllSubprojectsByProjectId(int projectId) {
         return subprojectDAO.getAllSubProjectsByProjectId(projectId);
     }
+    public int createSubproject(Subproject subproject) {
+        return subprojectDAO.createSubproject(subproject);
+    }
+
+    public void updateSubproject(int subProjectId, String title, String description, String deadline) {
+        subprojectDAO.updateSubproject(subProjectId, title, description, deadline);
+    }
+
+    public boolean deleteSubproject(Subproject  subproject) {
+        return subprojectDAO.deleteSubproject(subproject);
+    }
 }

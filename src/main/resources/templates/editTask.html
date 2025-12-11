@@ -1,0 +1,90 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Edit Task</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+<nav class="navbar">
+    <div class="navbar-left">
+        <img src="/images/black-logo-removebg-preview.jpg" alt="Logo" class="logo" />
+        <ul class="menu">
+            <li class="nav-item"><a th:href="@{/project/home}">Home</a></li>
+            <li class="nav-item"><a th:href="@{/project/help}">Help</a></li>
+        </ul>
+    </div>
+    <button type="submit" class="user-icon"><i class='bx bxs-user'></i></button>
+</nav>
+
+<div class="container edit-project-wrapper">
+
+    <h1>Edit Task</h1>
+
+
+    <form th:action="@{/task/editTask/save}" method="post" th:object="${task}">
+
+        <input type="hidden" th:field="*{taskId}">
+        <input type="hidden" th:field="*{assigneeId}">
+
+
+        <input type="hidden" name="projectId" th:value="${projectId}">
+
+        <label for="title">Title:</label><br>
+        <input type="text" id="title" th:field="*{title}"><br><br>
+
+        <label for="description">Description:</label><br>
+        <textarea id="description" th:field="*{description}"></textarea><br><br>
+
+        <label for="status">Status:</label><br>
+        <select id="status" th:field="*{status}" class="dropdown-member-style">
+            <option th:value="NoStatus">No Status</option>
+            <option th:value="InProgress">In Progress</option>
+            <option th:value="InReview">In Review</option>
+            <option th:value="Done">Done</option>
+        </select>
+        <br><br>
+
+        <label for="estimate">Estimated Time:</label><br>
+        <input type="text" id="estimate" th:field="*{estimate}" placeholder="Enter estimated hours"><br><br>
+
+        <label for="actualTime">Actual Time Spent:</label><br>
+        <input type="text" id="actualTime" th:field="*{actualTime}" placeholder="Enter actual hours"><br><br>
+
+        <button type="submit" class="save-changes-btn">Save Changes</button>
+    </form>
+
+    <br><br>
+
+    <p>Current Assignee:</p>
+    <p th:text="${task.assignee != null ? task.assignee.email : 'no users assigned yet'}"></p>
+
+    <br><br>
+
+    <form th:action="@{/task/editTask/removeAssignee}" method="post">
+        <input type="hidden" name="taskId" th:value="${task.taskId}">
+        <input type="hidden" name="projectId" th:value="${projectId}">
+        <button type="submit" class="member-action-btn">Remove Assignee</button>
+    </form>
+
+    <br><br>
+
+
+    <form th:action="@{/task/editTask/addAssignee}" method="post">
+        <input type="hidden" name="taskId" th:value="${task.taskId}">
+        <input type="hidden" name="projectId" th:value="${projectId}">
+
+        <label for="assigneeEmail">Add Assignee by Email:</label><br>
+        <input type="email" id="assigneeEmail" name="userEmail" placeholder="user@example.com" required><br><br>
+        <button type="submit" class="member-action-btn">Add Assignee</button>
+    </form>
+
+    <br><br>
+
+    <p th:if="${errorMessage}" th:text="${errorMessage}" style="color:red;"></p>
+</div>
+
+
+</body>
+</html>

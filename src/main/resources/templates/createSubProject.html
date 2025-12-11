@@ -1,0 +1,57 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Subproject</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <link rel="icon" type="image/x-icon" href="/static/images/black-logo.jpg">
+    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="navbar-left">
+        <img src="/images/black-logo-removebg-preview.jpg" alt="Logo" class="logo" />
+        <ul class="menu">
+            <li class="nav-item"><a th:href="@{/project/home}">Home</a></li>
+            <li class="nav-item"><a th:href="@{/project/help}">Help</a></li>
+        </ul>
+    </div>
+    <button type="submit" class="user-icon"><i class='bx  bxs-user'  ></i></button>
+</nav>
+
+<div class="page-wrapper">
+
+    <form class="new-project-wrapper"
+          th:action="@{/task/saveSubproject/{projectId}(projectId=${projectId})}"
+          th:object="${subproject}" method="post">
+
+        <h1>Create Subproject</h1>
+
+        <input type="hidden" th:field="*{parentId}">
+
+
+        <div th:if="${error}" class="login-error-display-area error">
+            <p th:text="${error}"></p>
+        </div>
+
+        <div class="input-box">
+            <input th:field="*{title}" id="task-title" type="text" placeholder="Task Title" required>
+        </div>
+
+        <div class="input-box">
+            <input th:field="*{description}" id="task-description" type="text" placeholder="Description" required>
+        </div>
+        <div class="input-box">
+            <input id="task-deadline" type="date" th:field="*{deadline}" th:attr="min=${todaysDate}">
+        </div>
+
+        <button class="login-btn" type="submit">Create Subproject</button>
+
+    </form>
+
+</div>
+
+</body>
+</html>

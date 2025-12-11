@@ -1,6 +1,7 @@
 package com.hauxy.projectwizard;
 
 import com.hauxy.projectwizard.service.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,11 +28,16 @@ public class StatisticsServiceIntegrationTest {
     @Autowired
     SubprojectService subprojectService;
 
+    @BeforeEach
+    public void setup() {
+        statisticsService.fetchData(1);
+    }
+
 
     @Test
     public void timeEstimatedOnAllTasksAndSubtasksTest() {
         // act
-        double result = statisticsService.timeEstimatedOnAllTasksAndSubtasks(1);
+        double result = statisticsService.timeEstimatedOnAllTasksAndSubtasks();
         // assert
         assertThat(result).isEqualTo(2.5);
     }
@@ -39,7 +45,7 @@ public class StatisticsServiceIntegrationTest {
     @Test
     public void timeActualUsedForAllTasksAndSubtasksTest() {
         //act
-        double result = statisticsService.timeActualUsedForAllTasksAndSubtasks(1);
+        double result = statisticsService.timeActualUsedForAllTasksAndSubtasks();
         // assert
         assertThat(result).isEqualTo(0.0);
     }
@@ -47,7 +53,7 @@ public class StatisticsServiceIntegrationTest {
     @Test
     public void timeDifferenceOnAllTasksAndSubtasks() {
         //act
-        double result = statisticsService.timeDifferenceOnAllTasksAndSubtasks(1);
+        double result = statisticsService.timeDifferenceOnAllTasksAndSubtasks();
 
         // assert
         assertThat(result).isEqualTo(0.0);
@@ -63,43 +69,43 @@ public class StatisticsServiceIntegrationTest {
 
     @Test
     public void tasksInDoneByProjectIdTest() {
-        int result =  statisticsService.tasksInDoneByProjectId(1);
+        int result =  statisticsService.tasksInDoneByProjectId();
         assertThat(result).isEqualTo(0);
     }
 
     @Test
     public void hoursLeftFromTasksNotInDoneByProjectIdTest() {
-        double result = statisticsService.hoursLeftFromTasksNotInDoneByProjectId(1);
-        assertThat(result).isEqualTo(5.0);
+        double result = statisticsService.hoursLeftFromTasksNotInDoneByProjectId();
+        assertThat(result).isEqualTo(2.5);
     }
 
     @Test
     public void totalTasksByProjectId() {
-        int result = statisticsService.totalTasksByProjectId(1);
-        assertThat(result).isEqualTo(2);
+        int result = statisticsService.totalTasksByProjectId();
+        assertThat(result).isEqualTo(1);
     }
 
     @Test
     public void getCreatedAtByProjectIdTest() {
-        LocalDate result = statisticsService.getCreatedAtByProjectId(1);
+        LocalDate result = statisticsService.getCreatedAtByProjectId();
         assertThat(result).isEqualTo(LocalDate.of(2024,1,1));
     }
 
     @Test
     public void getDeadLineByProjectIdTest() {
-        LocalDate result = statisticsService.getDeadLineByProjectId(1);
+        LocalDate result = statisticsService.getDeadLineByProjectId();
         assertThat(result).isEqualTo(LocalDate.of(2025,1,1));
     }
 
     @Test
     public void getPercentageOfProjectDone() {
-        double  result = statisticsService.getPercentageOfProjectDone(1);
+        double  result = statisticsService.getPercentageOfProjectDone();
         assertThat(result).isEqualTo(100.0);
     }
 
     @Test
     public void getPercentageOfTasksDone() {
-        double result = statisticsService.getPercentageOfTasksDone(1);
+        double result = statisticsService.getPercentageOfTasksDone();
         assertThat(result).isEqualTo(0.0);
     }
 

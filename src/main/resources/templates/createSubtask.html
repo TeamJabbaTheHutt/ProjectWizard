@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Create Project</title>
+    <title>Create Subtask</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{/styles.css}">
     <link rel="icon" type="image/x-icon" href="/static/images/black-logo.jpg">
@@ -10,37 +10,46 @@
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="navbar-left">
+<nav class="navbar">
+    <div class="navbar-left">
         <img src="/images/black-logo-removebg-preview.jpg" alt="Logo" class="logo" />
         <ul class="menu">
             <li class="nav-item"><a th:href="@{/project/home}">Home</a></li>
             <li class="nav-item"><a th:href="@{/project/help}">Help</a></li>
         </ul>
-        </div>
-        <button type="submit" class="user-icon"><i class='bx  bxs-user'  ></i></button>
-    </nav>
-<div class="page-wrapper">
-    <form class="new-project-wrapper"
-          th:action="@{/project/createProject}"
-          method="post">
-        <h1>Create New Project</h1>
+    </div>
+    <button type="submit" class="user-icon"><i class='bx bxs-user'></i></button>
+</nav>
 
-        <div th:if="${error}" class="error-message">
+<div class="page-wrapper">
+
+    <form class="new-project-wrapper"
+          th:action="@{/task/saveSubtask/{projectId}(projectId=${projectId})}"
+          th:object="${subtask}" method="post">
+
+        <h1>Create New Subtask</h1>
+
+        <input type="hidden" th:field="*{parentId}">
+
+
+        <div th:if="${error}" class="login-error-display-area error">
             <p th:text="${error}"></p>
         </div>
 
         <div class="input-box">
-            <input id="project-title" name="title" placeholder="Title" required>
+            <input th:field="*{title}" id="task-title" type="text" placeholder="Task Title" required>
         </div>
+
         <div class="input-box">
-            <input id="project-description" name="description" placeholder="Description" required>
+            <input th:field="*{description}" id="task-description" type="text" placeholder="Description" required>
         </div>
-        <div class="input-box">
-            <input id="project-deadline" name="deadline" type="date" placeholder="DeadLine" th:attr="min=${todaysDate}">
-        </div>
-        <button class="login-btn" type="submit">Create project</button>
+
+
+        <button class="login-btn" type="submit">Create Subtask</button>
+
     </form>
+
 </div>
+
 </body>
 </html>

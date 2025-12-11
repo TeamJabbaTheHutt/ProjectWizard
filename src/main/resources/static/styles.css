@@ -35,9 +35,7 @@ li{
     display: flex;
     background: black;
     border-radius: 0px;
-    padding: 2px 20px;
     margin: 0 auto;
-    width: 100%;
     justify-content: space-between;
     align-items: center;
     position: fixed;
@@ -45,7 +43,6 @@ li{
     left: 0;
     width: 100%;
     padding: 10px 30px;
-    background: black;
     z-index: 999;
     box-sizing: border-box;
 }
@@ -128,7 +125,6 @@ a:active {
     width: 100%;
     height: 100%;
     background: transparent;
-    border: none;
     outline: none;
     border: 2px solid rgba(255, 255, 255, .2);
     border-radius: 10px;
@@ -324,7 +320,6 @@ a:active {
     text-decoration: none;
 }
 .landingPageBody {
-    font-family: Arial;
     background-image: url("images/landingBackground2.jpg");
     background-size: cover;
     background-repeat: no-repeat;
@@ -414,6 +409,7 @@ a:active {
 
 
 
+
 /* HOME PAGE */
 .homepageBody {
     background-image: url("images/homepageBackground.jpg");
@@ -456,7 +452,6 @@ a:active {
 .project-card {
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
     display: block;
-    /*background-color: #004b80;*/
     background-image: url("images/projectCardBackground.jpg");
     background-size: cover;
     color: white;
@@ -513,8 +508,8 @@ a:active {
     display: flex;
     background-image: none;
     flex-direction: column;
-    justify-content: center; /* center vertically */
-    align-items: center;     /* center horizontally */
+    justify-content: center;
+    align-items: center;
     text-align: center;
     background-color: #d9d9d9;
     color: #333;
@@ -553,7 +548,7 @@ a:active {
 /* EDIT PROJECT PAGE */
 .edit-project-wrapper {
     width: 90%;
-    max-width: 1100px;       /* gør formen bred */
+    max-width: 1100px;
     background: var(--main-color);
     color: var(--text-color);
     padding: 40px 50px;
@@ -562,21 +557,21 @@ a:active {
     box-shadow: 2px 2px 12px rgba(0,0,0,0.3);
 }
 
-/* Overskrift */
+
 .edit-project-wrapper h1 {
     text-align: center;
     margin-bottom: 25px;
     font-size: 36px;
 }
 
-/* Labels */
+
 .edit-project-wrapper label {
     font-weight: bold;
     color: white;
     margin-top: 10px;
 }
 
-/* Inputs og textarea */
+
 .edit-project-wrapper input,
 .edit-project-wrapper textarea {
     width: 100%;
@@ -600,7 +595,7 @@ a:active {
     color: rgba(255,255,255,0.7);
 }
 
-/* Knapper */
+
 .edit-project-wrapper button {
     background-color: var(--accent-color);
     color: white;
@@ -617,7 +612,7 @@ a:active {
     background-color: var(--accent-color-hover);
 }
 
-/* Liste med medlemmer */
+
 .edit-project-wrapper ul {
     padding-left: 0;
     margin-bottom: 20px;
@@ -629,9 +624,9 @@ a:active {
 }
 
 
-/* --- SMALL BUTTONS FOR REMOVE/ADD MEMBER --- */
+
 .edit-project-wrapper .member-action-btn {
-    background-color: rgba(255, 255, 255, 0.15); /* meget diskret */
+    background-color: rgba(255, 255, 255, 0.15);
     padding: 8px 15px;
     font-size: 14px;
     border-radius: 6px;
@@ -642,7 +637,7 @@ a:active {
     background-color: rgba(255, 255, 255, 0.3);
 }
 
-/* --- MAIN BUTTON: SAVE CHANGES (STOR BLÅ KNAP) --- for merge*/
+
 .edit-project-wrapper .save-changes-btn {
     display: block;
     width: 100%;
@@ -704,40 +699,81 @@ a:active {
     content: "▼";
 }
 
-
-.new-project-wrapper {
-    animation: fadeIn 0.25s ease-out;
+.dropdown-member-style {
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.15);
+    border: none;
+    border-radius: 6px;
+    padding: 12px 15px;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+    margin-top: 5px;
+    appearance: none;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to   { opacity: 1; transform: translateY(0); }
+
+.dropdown-member-style:hover,
+.dropdown-member-style:focus {
+    background-color: rgba(255, 255, 255, 0.3);
+    outline: none;
 }
+
+
+.dropdown-member-style option {
+    color: black;
+    background: white;
+}
+
 
 
 
 /* STATISTICS*/
 
 .statisticsContainer {
+    margin-top: 50px;
     display: flex;
     justify-content: flex-start;
     gap: 15px;
     width: 90vw;
+    height: 80vh;
     flex-wrap: wrap;
-    padding: 15px;
+    padding: 35px;
     border-radius: 10px;
 }
 
+.backButton {
+    background-color: var(--main-color);
+    color: white;
+    border: none;
+    padding: 10px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    height: 45px;
+}
+.bx-arrow-left {
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.backButton:hover {
+    background-color: #fd2df3
+}
 .statisticsBoxItem {
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     gap: 15px;
     flex-wrap: wrap;
     max-width: 50vw;
     padding: 15px;
     border-radius: 10px;
 }
-
+@media (max-width: 1091px) {
+    .statisticsBoxItem {
+        max-width: none;
+    }
+}
 .statisticsBox {
     display: flex;
     flex-direction: column;
@@ -750,10 +786,10 @@ a:active {
     border-radius: 8px;
     width: 300px;
     height: 300px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
 }
 
-/* Text styles */
+
 .statisticsLabel {
     font-size: 15px;
     font-weight: bold;
@@ -762,23 +798,43 @@ a:active {
 }
 
 .statisticsValue {
-    font-size: 25px;
+    font-size: 40px;
     font-weight: bold;
     color: white ;
 }
 
 
 .statisticsBarItems {
-    max-width: 100%;
-    margin-bottom: 1rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    width: 30vw;
+    flex-wrap: wrap;
+    padding: 15px;
+    border-radius: 10px;
 }
-
+@media (max-width: 1091px) {
+    .statisticsBarItems {
+        width: 90vw;
+    }
+}
 .progress-container {
-    width: inherit;
+    padding: 15px;
+    width: 100%;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.startAndStopTitle {
+    margin: 0 0 2px 0;
+    font-size: 20px;
+    color: #555;
+    font-weight: 600;
 }
 
 .days-left {
-    margin: 0 0 4px 0;
+    margin: 0 0 2px 0;
     font-size: 14px;
     color: #555;
     font-weight: 600;
@@ -786,7 +842,7 @@ a:active {
 
 .progress-bar {
     width: inherit;
-    height: 50px;
+    height: 25px;
     background: var(--main-color);
     border-radius: 2px;
     overflow: hidden;
@@ -798,15 +854,42 @@ a:active {
     width: 0%;
     transition: width 0.4s ease;
 }
-
-.statisticsValue.over {
-    color: #e63946;
+.subprojectLabel {
     font-weight: bold;
+    font-size: 18px;
+    color: #ffffff;
+}
+.statisticsSubprojectBox{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: #0071c1;
+    color: #cacaca;
+    padding: 10px 15px;
+    border-radius: 8px;
+    width: 100%;
+    height: 150px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
 }
 
-.statisticsValue.saved {
-    color: #2a9d8f;
+.specificStatisticsSubprojectBox {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    background: #0071c1;
+    color: #cacaca;
+    padding: 10px 15px;
+    border-radius: 8px;
+    width: 100%;
+    height: 150px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+}
+.subprojectValues {
     font-weight: bold;
+    font-size: 20px;
+    color: #ffffff;
 }
 
 .project-title {

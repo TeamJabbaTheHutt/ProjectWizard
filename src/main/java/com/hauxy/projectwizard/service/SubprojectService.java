@@ -1,7 +1,6 @@
 package com.hauxy.projectwizard.service;
 
 import com.hauxy.projectwizard.model.Subproject;
-import com.hauxy.projectwizard.model.Task;
 import com.hauxy.projectwizard.repository.SubprojectRepository;
 import com.hauxy.projectwizard.repository.SubtaskRepository;
 import org.springframework.stereotype.Service;
@@ -28,6 +27,17 @@ public class SubprojectService {
             }
         }
         return null;
+    }
+    public int createSubproject(Subproject subproject) {
+        return subprojectRepository.createSubproject(subproject);
+    }
+
+    public void updateSubproject(int subProjectId, String title, String description, String deadline) {
+        subprojectRepository.updateSubproject(subProjectId, title, description, deadline);
+    }
+
+    public boolean deleteSubproject(Subproject subproject) {
+        return subprojectRepository.deleteSubproject(subproject);
     }
 
 }

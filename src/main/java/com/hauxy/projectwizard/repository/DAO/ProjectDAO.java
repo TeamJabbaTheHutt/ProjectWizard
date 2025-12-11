@@ -38,10 +38,6 @@ public class ProjectDAO {
         return jdbc.update(sql, userId, projectId);
     }
 
-    //getUserPerProject from user id
-
-    // for at kunne få all usererens projects for user id, skal jeg først finde all projekter der tilhører useren ud fra userens ID
-
     public List<Project> getUsersProjectsByUserId(int userId) {
         List<Integer> usersProjectIds;
         List<Project> usersProjects = new ArrayList<>();
@@ -99,6 +95,16 @@ public class ProjectDAO {
     public void removeMemberFromProject(int projectId, int userId) {
         String sql = "DELETE FROM users_to_project WHERE project_id = ? AND user_id = ?";
         jdbc.update(sql, projectId, userId);
+    }
+
+    public boolean deleteProject(Project project) {
+        try {
+            String sql = "DELETE FROM project WHERE project_id = ?";
+            jdbc.update(sql, project.getProjectId());
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
 }
