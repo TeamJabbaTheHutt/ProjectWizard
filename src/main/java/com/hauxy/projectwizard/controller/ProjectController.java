@@ -110,7 +110,7 @@ public class ProjectController {
         // User user = (User) httpSession.getAttribute("loggedInUser");
         model.addAttribute("project", projectService.getProjectById(projectId));
 
-         List<Subproject> subProjects = subprojectService.getAllSubProjectsByProjectId(projectId);
+        List<Subproject> subProjects = subprojectService.getAllSubProjectsByProjectId(projectId);
 
         for (Subproject sp : subProjects) {
             List<Task> tasks = taskService.getAllTasksBySubprojectId(sp.getSubProjectId());
@@ -194,3 +194,4 @@ public class ProjectController {
 
         return "redirect:/project/home";
     }
+}

@@ -3,6 +3,7 @@
     --main-color: #004b80;
     --accent-color: #99c5ff;
     --accent-color-hover: #69aaff;
+    --background-color: rgba(248, 243, 237, 0.95);
 }
 
 * {
@@ -17,7 +18,8 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: rgba(248, 243, 237, 0.84);
+    background: rgba(248, 243, 237, 0.95);
+    position: relative;
 }
 li{
     list-style-type: none;
@@ -33,17 +35,18 @@ li{
 
 .navbar {
     display: flex;
-    background: black;
-    border-radius: 0px;
-    margin: 0 auto;
     justify-content: space-between;
     align-items: center;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
+    height: 60px;
+    background: black;
+    z-index: 1000;
+    border-radius: 0px;
+    margin: 0 auto;
     padding: 10px 30px;
-    z-index: 999;
     box-sizing: border-box;
 }
 
@@ -760,6 +763,8 @@ a:active {
 .backButton:hover {
     background-color: #fd2df3
 }
+
+
 .statisticsBoxItem {
     display: flex;
     justify-content: flex-start;
@@ -927,27 +932,174 @@ a:active {
     background: #2f6ee3;
 }
 
+/* DASHBOARD */
+.project-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: 0;
+    z-index: 1000;
+    width: 100%;
+    padding: 10px 30px;
+    box-sizing: border-box;
+}
+
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding-top: 70px;
+}
+
+.dashboard-backButton {
+    position: fixed;
+    top: 80px;
+    left: 20px;
+    display: inline-flex;
+    align-items: center;
+    font-size: 16px;
+    color: #333;
+    text-decoration: none;
+    z-index: 1010;
+}
+
+.dashboard-backButton i {
+    margin-right: 6px;
+}
+
+.dashboard-backButton:hover {
+    color: #007BFF;
+}
+
+.project-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 80px;
+    background: var(--background-color);
+    z-index: 999;
+    padding: 12px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.project-title-dashboard {
+    flex-grow: 1;
+    margin: 0;
+}
+
+.project-actions > * {
+    margin-left: 10px;
+}
+
+.project-actions a,
+.project-actions button {
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+}
+
+.project-edit-button {
+    background-color: #007bff;
+    color: white;
+}
+.project-statistics-button {
+    background-color: #E91E63;
+    color: white;
+}
+
+.project-delete-button {
+    background-color: #FF3B30;
+    color: white;
+}
+
+
+.project-actions a:hover,
+.project-actions button:hover {
+    transform: scale(1.03);
+    filter: brightness(0.9); /* subtle darken */
+}
+
+
+.dashboard-wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+    vertical-align: top;
+}
+
+.dashboard-backButton {
+    position: absolute;
+    top: 75px;
+    left: 20px;
+    font-size: 26px;
+    text-decoration: none;
+    color: #0d47a1;
+    font-weight: bold;
+}
+
+.add-subproject-button {
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+    padding: 10px 14px;
+    background-color: #2196f3;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.2s ease;
+}
+
+.add-subproject-button:hover {
+    background-color: #1976d2;
+}
+
 /* ----------------------------
    Subproject block & header
 ---------------------------- */
+
+.subProject-wrapper {
+    width: 100%;
+}
+
 .subproject-block {
     margin-bottom: 1.5rem;
     border: 1px solid #ccc;
     border-radius: 8px;
-    padding: 0.5rem;
+    padding: 0;
     background: #fafafa;
+    width: 100%;
 }
 
 .subproject-summary {
+    width: 90vw;
     display: grid;
     grid-template-columns: 30px 60px 200px 1fr;
     align-items: center;
     gap: 10px;
-    padding: 0.7rem;
+    padding: 0.7rem 1rem;
     background: #f7f7f7;
     border-radius: 6px;
     cursor: pointer;
     font-weight: 600;
+
+}
+
+.subproject-details {
+    width: 100%;
+    display: block;
 }
 
 .subproject-details summary::-webkit-details-marker { display: none; }
@@ -991,7 +1143,7 @@ a:active {
 }
 
 .tasks-table th {
-    background-color: #0d47a1;
+    background-color: #1f1f31;
     color: #fff;
     position: sticky;
     top: 0;
@@ -1064,6 +1216,30 @@ a:active {
 }
 .subtasks-table tbody tr:nth-child(odd) {
     background-color: #bbdefb;
+}
+
+.add-subtask-row td {
+    background: #e3f2fd;
+    text-align: center;
+    padding: 12px;
+    border-top: 1px solid #90caf9;
+}
+
+.add-subtask-btn {
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+    padding: 10px 14px;
+    background-color: #2196f3;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.2s ease;
+}
+
+.add-subtask-btn:hover {
+    background-color: #1976d2;
 }
 
 

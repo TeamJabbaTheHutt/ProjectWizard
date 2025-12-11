@@ -6,38 +6,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{/styles.css}">
     <link rel="icon" type="image/x-icon" href="/static/images/black-logo.jpg">
-    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+    <link th:href="@{https://cdn.boxicons.com/fonts/basic/boxicons.min.css}" rel='stylesheet'>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="navbar-left">
-            <img src="/images/black-logo-removebg-preview.jpg" alt="Logo" class="logo" />
-            <ul class="menu">
-                <li class="nav-item"><a th:href="@{/project/home}">Home</a></li>
-                <li class="nav-item"><a href="#">My Assignments</a></li>
-                <li class="nav-item"><a href="#">Help</a></li>
-            </ul>
+<nav class="navbar project-navbar">
+    <div class="navbar-left">
+        <img src="/images/black-logo-removebg-preview.jpg" alt="Logo" class="logo" />
+        <ul class="menu">
+            <li class="nav-item"><a th:href="@{/project/home}">Home</a></li>
+            <li class="nav-item"><a href="#">My Assignments</a></li>
+            <li class="nav-item"><a href="#">Help</a></li>
+        </ul>
+    </div>
+    <button type="submit" class="user-icon"><i class='bx  bxs-user'  ></i></button>
+</nav>
+<a th:href="@{/project/home}" class="dashboard-backButton">
+    <i class='bx bx-arrow-back'></i>
+</a>
+<div class="dashboard-container">
+
+
+    <div class="project-header">
+        <h2 th:text="${project.title}" class="project-title-dashboard"></h2>
+
+        <div class="project-actions">
+            <a class="project-edit-button" th:href="@{'/project/'+  ${projectId} +'/edit'}" >Edit</a>
+            <a th:href="@{'/statistics/project/'+ ${projectId}}"
+               class="project-statistics-button">Statistics</a>
+            <form th:action="@{/project/deleteProject}" method="post" style="display:inline;">
+                <input type="hidden" name="projectId" th:value="${projectId}">
+                <button type="submit" class="project-delete-button">Delete</button>
+            </form>
         </div>
-        <button type="submit" class="user-icon"><i class='bx  bxs-user'  ></i></button>
-    </nav>
+    </div>
+
     <div class="dashboard-wrapper">
-        <h2 th:text="${project.title}" class="project-title"></h2>
-
-        <a class="btn create-btn"
-           th:href="@{'/subproject/create/' + ${project.projectId}}">
-            + Create Subproject
-        </a>
-
         <div th:if="${#lists.isEmpty(subProjects)}" class="empty-message">
             <p>No subprojects yet.</p>
         </div>
-        <a class="edit-button" th:href="@{'/project/'+  ${projectId} +'/edit'}" >Edit</a>
-        <a th:href="@{'/statistics/project/'+ ${projectId}}"
-           class="statistics-Link">Statistics</a>
-        <form th:action="@{/project/deleteProject}" method="post" style="display:inline;">
-            <input type="hidden" name="projectId" th:value="${projectId}">
-            <button type="submit" class="editLink">Delete</button>
-        </form>
+
 
         <div class="subProject-wrapper">
             <div class="subproject-block" th:each="subProject : ${subProjects}">
@@ -150,19 +157,33 @@
 
                                                 <tr class="add-subtask-row">
                                                     <td colspan="9">
-                                                        <a href="#"></a>
+                                                        <a th:href="@{/task/createSubtask/{projectId}/{parentId}(projectId=${subProject.subProjectId}, parentId=${task.taskId})}"
+                                                           class="add-subtask-btn">+ Add Subtask</a>
                                                     </td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </details>
+
                                 </td>
                             </tr>
+                            <!-- <th:block th:each="task, iterStat : ${@taskService.getAllTasksBySubprojectId(subProject.subProjectId)}">
+                                <a class="add-task-button"
+                                   th:if="${iterStat.last}"
+                                   th:href="@{/task/createTask/{projectId}/{parentId}(projectId=${project.projectId}, parentId=${task.taskId})}">
+                                    + Add Task
+                                </a>
+                            </th:block> -->
                         </tbody>
                     </table>
                 </details>
             </div>
+            <a class="add-subproject-button"
+               th:href="@{'/task/createSubproject/' + ${project.getProjectId()}}">
+                + Add Subproject
+            </a>
         </div>
     </div>
+</div>
 </body>
 </html>
