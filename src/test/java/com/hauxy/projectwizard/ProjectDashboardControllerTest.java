@@ -5,6 +5,7 @@ import com.hauxy.projectwizard.model.*;
 import com.hauxy.projectwizard.service.ProjectService;
 import com.hauxy.projectwizard.service.SubprojectService;
 import com.hauxy.projectwizard.service.TaskService;
+import com.hauxy.projectwizard.service.LoginService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -33,6 +34,9 @@ class ProjectDashboardControllerTest {
 
     @MockitoBean
     private TaskService taskService;
+
+    @MockitoBean
+    private LoginService loginService;
 
     @Test
     void testProjectDashboardRendersCorrectly() throws Exception {
