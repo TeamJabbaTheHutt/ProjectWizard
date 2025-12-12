@@ -2,6 +2,11 @@ package com.hauxy.projectwizard.controller;
 
 import com.hauxy.projectwizard.exceptions.DatabaseOperationException;
 import com.hauxy.projectwizard.exceptions.UserNotLoggedInException;
+import com.hauxy.projectwizard.model.*;
+import com.hauxy.projectwizard.repository.DAO.ProjectDAO;
+import com.hauxy.projectwizard.repository.DAO.UserDAO;
+import com.hauxy.projectwizard.service.*;
+
 import com.hauxy.projectwizard.model.Project;
 import com.hauxy.projectwizard.model.User;
 import com.hauxy.projectwizard.service.*;
@@ -14,20 +19,31 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/project")
 public class ProjectController {
     private final ProjectService projectService;
     private final UserService userService;
+    private final StatisticsService statisticsService;
+    private final SubprojectService subprojectService;
+    private final TaskService taskService;
+    private final SubtaskService subtaskService;
     private final LoginService loginService;
     private User user;
     private HttpSession session;
 
-
-    public ProjectController(ProjectService projectService, UserService userService, LoginService loginService, HttpSession session) {
+    public ProjectController(ProjectService projectService, UserService userService, StatisticsService statisticsService, SubprojectService subprojectService, TaskService taskService, SubtaskService subtaskService, LoginService loginService, HttpSession session) {
         this.projectService = projectService;
         this.userService = userService;
+        this.statisticsService = statisticsService;
+        this.subprojectService = subprojectService;
+        this.taskService = taskService;
+        this.subtaskService = subtaskService;
         this.loginService = loginService;
         this.session = session;
     }
@@ -90,6 +106,34 @@ public class ProjectController {
 
     }
 
+    @GetMapping("/dashboard/{projectId}")
+    public String showProjectDashboard(@PathVariable int projectId, Model model) {
+
+        user = loginService.checkIfLoggedInAndGetUser(session);
+
+        try {
+            model.addAttribute("project", projectService.getProjectById(projectId));
+            List<Subproject> subProjects = subprojectService.getAllSubProjectsByProjectId(projectId);
+    
+            for (Subproject sp : subProjects) {
+                List<Task> tasks = taskService.getAllTasksBySubprojectId(sp.getSubProjectId());
+    
+                for (Task task : tasks) {
+                    List<Subtask> subtasks = subtaskService.getAllSubTasksByTaskId(task.getTaskId());
+                    if (subtasks == null) {
+                        subtasks = new ArrayList<>();
+                    }
+                    task.setSubtasks(subtasks);
+                }
+                sp.setTasks(tasks);
+            }
+            model.addAttribute("subProjects", subprojectService.getAllSubProjectsByProjectId(projectId));
+        } catch(EmptyResultDataAccessException e) {
+            throw new DatabaseOperationException("Project doest not exist or cannot be found", e);
+        }
+        return "projectDashboard";
+    }
+
     @PostMapping("/{projectId}/edit")
     public String updateProject(@PathVariable int projectId, @RequestParam String title, @RequestParam String description, @RequestParam String deadline) {
 
@@ -149,27 +193,4 @@ public class ProjectController {
 
         return "redirect:/project/home";
     }
-
-    @GetMapping("dashboard/{projectId}")
-    public String projectDashboard(@PathVariable int projectId, Model model) {
-        user = loginService.checkIfLoggedInAndGetUser(session);
-
-
-        try {
-            model.addAttribute("project", projectService.getProjectById(projectId));
-            model.addAttribute("subprojects", projectService.getAllSubProjectsByProjectId(projectId));
-            model.addAttribute("members", projectService.getProjectMembers(projectId));
-
-        } catch (EmptyResultDataAccessException e) {
-            throw new DatabaseOperationException("Project does not exist or cannot be found", e);
-        }
-        return "projectDashboard";
-    }
-
-        @GetMapping("/help")
-        public String helpPage() {
-            return "help"; // corresponds to help.html in templates
-        }
 }
-
-

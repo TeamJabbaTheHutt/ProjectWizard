@@ -1,6 +1,7 @@
 package com.hauxy.projectwizard.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Subproject {
     // for merge
@@ -10,6 +11,7 @@ public class Subproject {
     private String description;
     private LocalDate createdAt;
     private LocalDate deadline;
+    private List<Task> tasks;
 
     public Subproject() {}
 
@@ -69,5 +71,13 @@ public class Subproject {
 
     public void setDeadline(LocalDate deadline) {
         this.deadline = deadline;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 }
