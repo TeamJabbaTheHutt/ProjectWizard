@@ -107,29 +107,30 @@ public class ProjectController {
     }
 
     @GetMapping("/dashboard/{projectId}")
-    public String showProjectDashboard(@PathVariable int projectId, Model model, HttpSession httpSession) {
+    public String showProjectDashboard(@PathVariable int projectId, Model model) {
 
-        // User user = (User) httpSession.getAttribute("loggedInUser");
-        model.addAttribute("project", projectService.getProjectById(projectId));
+        user = loginService.checkIfLoggedInAndGetUser(session);
 
-        List<Subproject> subProjects = subprojectService.getAllSubProjectsByProjectId(projectId);
-
-        for (Subproject sp : subProjects) {
-            List<Task> tasks = taskService.getAllTasksBySubprojectId(sp.getSubProjectId());
-
-            for (Task task : tasks) {
-                List<Subtask> subtasks = subtaskService.getAllSubTasksByTaskId(task.getTaskId());
-                if (subtasks == null) {
-                    subtasks = new ArrayList<>();
+        try {
+            model.addAttribute("project", projectService.getProjectById(projectId));
+            List<Subproject> subProjects = subprojectService.getAllSubProjectsByProjectId(projectId);
+    
+            for (Subproject sp : subProjects) {
+                List<Task> tasks = taskService.getAllTasksBySubprojectId(sp.getSubProjectId());
+    
+                for (Task task : tasks) {
+                    List<Subtask> subtasks = subtaskService.getAllSubTasksByTaskId(task.getTaskId());
+                    if (subtasks == null) {
+                        subtasks = new ArrayList<>();
+                    }
+                    task.setSubtasks(subtasks);
                 }
-                task.setSubtasks(subtasks);
+                sp.setTasks(tasks);
             }
-            sp.setTasks(tasks);
-
+            model.addAttribute("subProjects", subprojectService.getAllSubProjectsByProjectId(projectId));
+        } catch(EmptyResultDataAccessException e) {
+            throw new DatabaseOperationException("Project doest not exist or cannot be found", e);
         }
-
-
-        model.addAttribute("subProjects", subprojectService.getAllSubProjectsByProjectId(projectId));
         return "projectDashboard";
     }
 
