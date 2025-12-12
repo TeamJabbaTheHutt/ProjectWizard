@@ -9,6 +9,7 @@ public class Project {
     private String description;
     private LocalDate createdAt;
     private LocalDate deadline;
+    private List<Subproject> subProjects;
     private List<User> members;
 
     public Project(String title, String description, LocalDate deadline) {
@@ -49,6 +50,14 @@ public class Project {
 
     public void setMembers(List<User> members) {
         this.members = members;
+    }
+
+    public List<Subproject> getSubProjects() {
+        return subProjects;
+    }
+
+    public void setSubProjects(List<Subproject> subProjects) {
+        this.subProjects = subProjects;
     }
 
     public void setCreatedAt(LocalDate createdAt) {

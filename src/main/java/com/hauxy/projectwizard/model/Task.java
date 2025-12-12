@@ -1,6 +1,7 @@
 package com.hauxy.projectwizard.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Task {
     private int taskId;
@@ -12,6 +13,7 @@ public class Task {
     private double actualTime;
     private int parentId;
     private LocalDate deadline;
+    private List<Subtask> subtasks;
 
     private int assigneeId;
 
@@ -98,5 +100,13 @@ public class Task {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<Subtask> getSubtasks() {
+        return subtasks;
+    }
+
+    public void setSubtasks(List<Subtask> subtasks) {
+        this.subtasks = subtasks;
     }
 }
