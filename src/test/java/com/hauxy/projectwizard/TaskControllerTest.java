@@ -57,8 +57,7 @@ public class TaskControllerTest {
         when(        taskService.createTask(
                 task.getTitle(),
                 task.getDescription(),
-                task.getParentId(),
-                task.getDeadline()
+                task.getParentId()
         )).thenReturn(1);
 
         mockMvc.perform(post("/task/saveTask/1"))
