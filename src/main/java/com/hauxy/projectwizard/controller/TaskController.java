@@ -1,13 +1,17 @@
 package com.hauxy.projectwizard.controller;
 
+import com.hauxy.projectwizard.exceptions.DatabaseOperationException;
+import com.hauxy.projectwizard.exceptions.UserNotLoggedInException;
 import com.hauxy.projectwizard.model.Subtask;
 import com.hauxy.projectwizard.model.Task;
 import com.hauxy.projectwizard.model.User;
+import com.hauxy.projectwizard.service.LoginService;
 import com.hauxy.projectwizard.service.SubtaskService;
 import com.hauxy.projectwizard.service.TaskService;
 import com.hauxy.projectwizard.model.*;
 import com.hauxy.projectwizard.service.SubprojectService;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,17 +23,21 @@ public class TaskController {
     private final TaskService taskService;
     private final SubtaskService subtaskService;
     private final SubprojectService subprojectService;
-    public TaskController(TaskService taskService, SubtaskService subtaskService,  SubprojectService subprojectService) {
+    private final LoginService loginService;
+    private User user;
+    private HttpSession session;
+
+    public TaskController(TaskService taskService, SubtaskService subtaskService,  SubprojectService subprojectService, LoginService loginService, HttpSession session) {
         this.taskService = taskService;
         this.subtaskService = subtaskService;
         this.subprojectService = subprojectService;
+        this.loginService = loginService;
+        this.session = session;
     }
 
     @GetMapping("/createTask/{projectId}/{parentId}")
-    public String showCreateTaskForm(
-            @PathVariable int projectId,
-            @PathVariable int parentId,
-            Model model) {
+    public String showCreateTaskForm(@PathVariable int projectId, @PathVariable int parentId, Model model) {
+        user = loginService.checkIfLoggedInAndGetUser(session);
 
         Task task = new Task();
         model.addAttribute("projectId", projectId);
@@ -41,6 +49,8 @@ public class TaskController {
     }
 
 
+
+    // denne skal inspectes for logic check __________________________________________________________________::
     @PostMapping("/saveTask/{projectId}")
     public String saveTask(@ModelAttribute Task task, @PathVariable int projectId) {
         System.out.println(task.getParentId());
@@ -56,6 +66,8 @@ public class TaskController {
 
     @GetMapping("/createSubproject/{projectId}")
     public String createSubproject(@PathVariable int projectId, Model model) {
+        user = loginService.checkIfLoggedInAndGetUser(session);
+
         Subproject subproject = new Subproject();
         subproject.setParentId(projectId);
         model.addAttribute("subproject", subproject);
@@ -71,6 +83,8 @@ public class TaskController {
 
     @GetMapping("/createSubtask/{projectId}/{parentId}")
     public String createSubtask(@PathVariable int projectId,@PathVariable int parentId, Model model) {
+        user = loginService.checkIfLoggedInAndGetUser(session);
+
         Subtask subtask = new Subtask();
         subtask.setParentId(parentId);
         model.addAttribute("subtask", subtask);
@@ -84,16 +98,18 @@ public class TaskController {
     }
 
     @GetMapping("/subproject/{subprojectId}/{projectId}/edit")
-    public String showEditSubprojectPage(@PathVariable int projectId, @PathVariable int subprojectId, Model model, HttpSession httpSession) {
+    public String showEditSubprojectPage(@PathVariable int projectId, @PathVariable int subprojectId, Model model) {
 
-        User user = (User) httpSession.getAttribute("loggedInUser");
+        user = loginService.checkIfLoggedInAndGetUser(session);
 
-        if (user == null) {
-            return "redirect:/login";
+        try {
+            Subproject subproject = subprojectService.getSubprojectById(subprojectId, projectId);
+            System.out.println(subproject.getDeadline());
+            model.addAttribute("subproject", subproject);
+        } catch (EmptyResultDataAccessException e) {
+            throw new DatabaseOperationException("Project does not exist or cannot be found", e);
         }
-        Subproject subproject = subprojectService.getSubprojectById(subprojectId, projectId);
-        System.out.println(subproject.getDeadline());
-        model.addAttribute("subproject", subproject);
+
 
         return "editSubproject";
     }
@@ -104,8 +120,7 @@ public class TaskController {
             @PathVariable int projectId,
             @RequestParam String title,
             @RequestParam String description,
-            @RequestParam String deadline,
-            HttpSession session
+            @RequestParam String deadline
     ) {
         if (session.getAttribute("loggedInUser") == null) {
             return "redirect:/login";
@@ -118,8 +133,17 @@ public class TaskController {
 
     @GetMapping("/editTask/{taskId}/{projectId}")
     public String editTask(@PathVariable int taskId, @PathVariable int projectId, Model model) {
-        model.addAttribute("task", taskService.getTaskById(taskId));
-        model.addAttribute("projectId", projectId);
+        user = loginService.checkIfLoggedInAndGetUser(session);
+
+
+        try {
+            model.addAttribute("task", taskService.getTaskById(taskId));
+            model.addAttribute("projectId", projectId);
+        } catch (EmptyResultDataAccessException e) {
+            throw new DatabaseOperationException("Task does not exist or cannot be found", e);
+        }
+
+
         return "editTask";
     }
 
@@ -172,8 +196,15 @@ public class TaskController {
 
     @GetMapping("/editSubtask/{subtaskId}/{projectId}")
     public String editSubtask(@PathVariable int subtaskId, @PathVariable int projectId, Model model) {
-        model.addAttribute("subtask", subtaskService.getTaskById(subtaskId));
-        model.addAttribute("projectId", projectId);
+        user = loginService.checkIfLoggedInAndGetUser(session);
+
+        try {
+            model.addAttribute("subtask", subtaskService.getTaskById(subtaskId));
+            model.addAttribute("projectId", projectId);
+        } catch (EmptyResultDataAccessException e) {
+            throw new DatabaseOperationException("Subtask does not exist or cannot be found", e);
+        }
+
         return "editSubtask";
     }
 
@@ -226,7 +257,7 @@ public class TaskController {
 
 
     @PostMapping("/deleteSubproject")
-    public String deleteSubproject(@RequestParam int subprojectId, @RequestParam int projectId, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String deleteSubproject(@RequestParam int subprojectId, @RequestParam int projectId, RedirectAttributes redirectAttributes) {
         boolean success = subprojectService.deleteSubproject(subprojectService.getSubprojectById(subprojectId, projectId));
 
         if (!success) {
@@ -237,7 +268,7 @@ public class TaskController {
     }
 
     @PostMapping("/deleteTask")
-    public String deleteTask(@RequestParam int taskId, @RequestParam int projectId, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String deleteTask(@RequestParam int taskId, @RequestParam int projectId, RedirectAttributes redirectAttributes) {
         boolean success = taskService.deleteTask(taskService.getTaskById(taskId));
 
         if (!success) {
@@ -247,7 +278,7 @@ public class TaskController {
     }
 
     @PostMapping("/deleteSubtask")
-    public String deleteSubtask(@RequestParam int subtaskId, @RequestParam int projectId, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String deleteSubtask(@RequestParam int subtaskId, @RequestParam int projectId, RedirectAttributes redirectAttributes) {
         boolean success = subtaskService.deleteSubtask(subtaskService.getTaskById(subtaskId));
 
         if (!success) {

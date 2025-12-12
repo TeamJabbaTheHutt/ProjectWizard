@@ -39,13 +39,13 @@ public class UserController {
                 httpSession.setAttribute("loggedInUser", user);
                 return "redirect:/project/home";
             } else {
-                model.addAttribute("message", "❌ Failed to create user, try again");
+                model.addAttribute("message", "Failed to create user, try again");
                 model.addAttribute("messageType", "error");
                 return "register";
             }
 
         } else {
-            model.addAttribute("message", "❌ A user with this email already exist");
+            model.addAttribute("message", "A user with this email already exist");
             model.addAttribute("messageType", "error");
             return "register";
         }
