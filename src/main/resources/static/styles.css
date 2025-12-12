@@ -1029,3 +1029,19 @@ summary {
     font-weight: bold;
     padding: 5px;
 }
+
+
+/* ERROR 500 page */
+.container-error-500 {
+    color: var(--text-color);
+    min-height: 50vh;
+    min-width: 50vw;
+    border-radius: 8px;
+    display: flex;
+    background-color: var(--main-color);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+}

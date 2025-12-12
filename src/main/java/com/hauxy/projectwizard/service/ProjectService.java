@@ -1,7 +1,10 @@
 package com.hauxy.projectwizard.service;
 
+import com.hauxy.projectwizard.exceptions.DatabaseOperationException;
 import com.hauxy.projectwizard.model.*;
 import com.hauxy.projectwizard.repository.ProjectRepository;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,6 +43,7 @@ public class ProjectService {
 
     public Project getProjectById(int id) {
         return projectRepository.getProjectById(id);
+
     }
 
     public List<User> getProjectMembers(int projectId) {

@@ -1,6 +1,9 @@
 package com.hauxy.projectwizard.service;
 
+import com.hauxy.projectwizard.exceptions.DatabaseOperationException;
 import com.hauxy.projectwizard.model.*;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -34,10 +37,16 @@ public class StatisticsService {
 
     // total estimering af alle tasks af estimated time
     public void fetchData(int projectId) {
-        this.project = projectService.getProjectById(projectId);
-        this.subprojects = projectService.getAllSubProjectsByProjectId(projectId);
-        this.tasks = projectService.getAllTasksByProjectId(projectId);
-        this.subtasks = projectService.getAllSubTasksByProjectId(projectId);
+        try {
+            this.project = projectService.getProjectById(projectId);
+            this.subprojects = projectService.getAllSubProjectsByProjectId(projectId);
+            this.tasks = projectService.getAllTasksByProjectId(projectId);
+            this.subtasks = projectService.getAllSubTasksByProjectId(projectId);
+        } catch (EmptyResultDataAccessException e) {
+            e.printStackTrace();
+            throw new DatabaseOperationException("Project does not exist or cannot be found", e);
+        }
+
     }
 
 
