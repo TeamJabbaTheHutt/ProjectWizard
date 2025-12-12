@@ -1010,7 +1010,7 @@ a:active {
     color: white;
 }
 .project-statistics-button {
-    background-color: #E91E63;
+    background-color: #3da83d;
     color: white;
 }
 
@@ -1028,7 +1028,7 @@ a:active {
 
 
 .dashboard-wrapper {
-    max-width: 1400px;
+    width: 1400px;
     margin: 0 auto;
     padding: 20px;
     vertical-align: top;
@@ -1050,7 +1050,7 @@ a:active {
     width: 100%;
     margin: 0 auto;
     padding: 10px 14px;
-    background-color: #2196f3;
+    background-color: #3da83d;
     color: white;
     text-align: center;
     text-decoration: none;
@@ -1069,6 +1069,9 @@ a:active {
 
 .subProject-wrapper {
     width: 100%;
+    max-width: 1400px;
+    padding: 20px;
+    margin: 0 auto;
 }
 
 .subproject-block {
@@ -1081,8 +1084,9 @@ a:active {
 }
 
 .subproject-summary {
-    width: 90vw;
-    max-width: 1400px;
+    width: 100%;
+    box-sizing: border-box;
+    max-width: none;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -1092,6 +1096,8 @@ a:active {
     border-radius: 6px;
     cursor: pointer;
     font-weight: 600;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .subproject-info {
@@ -1106,28 +1112,49 @@ a:active {
 }
 
 .subproject-actions {
+    flex-shrink: 0;
     display: flex;
     gap: 8px;
 }
 
-.subproject-actions a {
+.subproject-actions a,
+.subproject-actions button {
     padding: 6px 12px;
     font-size: 14px;
     border-radius: 4px;
     text-decoration: none;
     font-weight: 500;
     cursor: pointer;
-    transition: background 0.2s ease, transform 0.15s ease;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    flex-shrink: 1;
+    max-width: 100%;
+}
+
+.subproject-actions a:hover,
+.subproject-actions button:hover {
+    transform: scale(1.03);
+    filter: brightness(0.9);
 }
 
 .add-task-button {
-    background-color: #E91E63;
+    background-color: #3da83d;
     color: white;
 }
+
+.subproject-delete-button {
+    background-color: red;
+    color: white;
+}
+
 
 .subproject-details {
     width: 100%;
     display: block;
+    box-sizing: border-box;
 }
 
 .subproject-details summary::-webkit-details-marker { display: none; }
@@ -1190,7 +1217,7 @@ a:active {
     list-style: none;
     cursor: pointer;
     display: grid;
-    grid-template-columns: 30px 230px 335px 160px 110px 110px 120px 120px 80px;
+    grid-template-columns: 30px 230px 335px 160px 110px 110px 115px 115px 80px;
     align-items: start;
     background-color: #e3f2fd;
     padding: 8px 6px;
@@ -1261,7 +1288,7 @@ a:active {
     width: 100%;
     margin: 0 auto;
     padding: 10px 14px;
-    background-color: #2196f3;
+    background-color: #3da83d;
     color: white;
     text-decoration: none;
     font-weight: bold;
