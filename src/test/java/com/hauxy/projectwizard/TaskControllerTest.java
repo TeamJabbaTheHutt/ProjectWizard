@@ -2,6 +2,7 @@ package com.hauxy.projectwizard;
 
 import com.hauxy.projectwizard.controller.TaskController;
 import com.hauxy.projectwizard.model.*;
+import com.hauxy.projectwizard.service.LoginService;
 import com.hauxy.projectwizard.service.SubprojectService;
 import com.hauxy.projectwizard.service.SubtaskService;
 import com.hauxy.projectwizard.service.TaskService;
@@ -33,6 +34,9 @@ public class TaskControllerTest {
     private SubtaskService subtaskService;
     @MockitoBean
     private SubprojectService subprojectService;
+    @MockitoBean
+    private LoginService loginService;
+
 
     @Test
     void checkIfTaskCreateRedirectToProjectsDashboard() throws Exception {
