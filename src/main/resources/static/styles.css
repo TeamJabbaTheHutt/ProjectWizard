@@ -985,10 +985,6 @@ a:active {
     margin-bottom: 20px;
 }
 
-.project-title-dashboard {
-    flex-grow: 1;
-    margin: 0;
-}
 
 .project-actions > * {
     margin-left: 10px;
@@ -1038,6 +1034,7 @@ a:active {
     vertical-align: top;
 }
 
+
 .dashboard-backButton {
     position: absolute;
     top: 75px;
@@ -1085,16 +1082,47 @@ a:active {
 
 .subproject-summary {
     width: 90vw;
-    display: grid;
-    grid-template-columns: 30px 60px 200px 1fr;
+    max-width: 1400px;
+    display: flex;
     align-items: center;
-    gap: 10px;
+    justify-content: space-between;
+    gap: 12px;
     padding: 0.7rem 1rem;
     background: #f7f7f7;
     border-radius: 6px;
     cursor: pointer;
     font-weight: 600;
+}
 
+.subproject-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-grow: 1; /* allows the text to occupy the center space */
+}
+
+.arrow {
+    margin-right: 8px; /* optional visual spacing */
+}
+
+.subproject-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.subproject-actions a {
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.add-task-button {
+    background-color: #E91E63;
+    color: white;
 }
 
 .subproject-details {
@@ -1155,18 +1183,20 @@ a:active {
     align-items: center;
     padding: 0 4px;
     line-height: 1.5em;
+
 }
 
 .task-details summary {
     list-style: none;
     cursor: pointer;
     display: grid;
-    grid-template-columns: 40px 200px 300px 140px 100px 100px 100px 120px 80px;
-    align-items: center;
+    grid-template-columns: 30px 230px 335px 160px 110px 110px 120px 120px 80px;
+    align-items: start;
     background-color: #e3f2fd;
     padding: 8px 6px;
     border-radius: 4px;
     transition: background-color 0.2s ease;
+    border: 1px solid black;
 }
 
 .task-details summary::-webkit-details-marker {
@@ -1176,6 +1206,7 @@ a:active {
 .task-details summary:hover {
     background-color: #bbdefb;
 }
+
 
 
 .task-arrow::before {

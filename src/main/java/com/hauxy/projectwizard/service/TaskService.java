@@ -26,11 +26,10 @@ public class TaskService {
         return tasks;
     }
 
-    public int createTask(String title, String description, Integer parentTaskId, LocalDate deadline) {
+    public int createTask(String title, String description, Integer parentTaskId) {
         Task task = new Task();
         task.setTitle(title);
         task.setDescription(description);
-        task.setDeadline(deadline);
         task.setStatus(Status.NoStatus);
         return taskRepository.createTask(task, parentTaskId);
     }

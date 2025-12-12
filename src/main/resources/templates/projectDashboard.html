@@ -14,8 +14,7 @@
         <img src="/images/black-logo-removebg-preview.jpg" alt="Logo" class="logo" />
         <ul class="menu">
             <li class="nav-item"><a th:href="@{/project/home}">Home</a></li>
-            <li class="nav-item"><a href="#">My Assignments</a></li>
-            <li class="nav-item"><a href="#">Help</a></li>
+            <li class="nav-item"><a th:href="@{/project/help}">Help</a></li>
         </ul>
     </div>
     <button type="submit" class="user-icon"><i class='bx  bxs-user'  ></i></button>
@@ -53,8 +52,20 @@
 
                     <summary class="subproject-summary">
                         <span class="arrow"></span>
-                        <span class="subproject-id" th:text="${subProject.subProjectId}"></span>
-                        <span class="subproject-title" th:text="${subProject.title}"></span>
+                        <div class="subproject-info">
+                            <span class="subproject-id" th:text="${subProject.subProjectId}"></span>
+                            <span class="subproject-title" th:text="${subProject.title}"></span>
+                        </div>
+                        <div class="subproject-actions">
+                            <a class="add-task-button"
+                               th:href="@{/task/createTask/{projectId}/{parentId}(projectId=${project.projectId}, parentId=${subProject.subProjectId})}">
+                                Add Task
+                            </a>
+                            <a class="edit-button"
+                               th:href="@{/task/subproject/{subprojectId}/{projectId}/edit(subprojectId=${subProject.subProjectId}, projectId=${project.projectId})}">
+                                Edit
+                            </a>
+                        </div>
                     </summary>
 
                     <table class="subproject-meta-table">
@@ -113,9 +124,7 @@
                                     <details class="task-details">
                                         <summary class="task-summary">
 
-                                            <span class="task-arrow"
-                                                  th:if="${@subtaskService.getAllSubTasksByTaskId(task.taskId).size() > 0}"></span>
-                                            <span th:unless="${@subtaskService.getAllSubTasksByTaskId(task.taskId).size() > 0}"></span>
+                                            <span class="task-arrow"></span>
 
                                             <span th:text="${task.title}"></span>
                                             <span th:text="${task.description}"></span>
@@ -123,8 +132,9 @@
                                             <span th:text="${task.status}"></span>
                                             <span th:text="${task.estimate}"></span>
                                             <span th:text="${task.actualTime}"></span>
-                                            <span th:text="${task.deadline}"></span>
-                                            <button class="edit-button">Edit</button>
+                                            <span th:text="${subProject.deadline}"></span>
+                                            <a class="edit-button" th:href="@{/task/editTask/{taskId}/{projectId}(taskId=${task.taskId}, projectId=${project.projectId})}">Edit</a>
+
                                         </summary>
 
                                         <!-- Nested subtasks table -->
@@ -151,8 +161,8 @@
                                                     <td th:text="${subtask.status}"></td>
                                                     <td th:text="${subtask.estimate}"></td>
                                                     <td th:text="${subtask.actualTime}"></td>
-                                                    <td th:text="${task.deadline}"></td>
-                                                    <td><button class="edit-button">Edit</button></td>
+                                                    <td th:text="${subProject.deadline}"></td>
+                                                    <td><a class="edit-button" th:href="@{/task/editSubtask/{subTaskId}/{projectId}(subTaskId=${subtask.subtaskId}, projectId=${project.projectId})}">Edit</a></td>
                                                 </tr>
 
                                                 <tr class="add-subtask-row">
@@ -167,13 +177,6 @@
 
                                 </td>
                             </tr>
-                            <!-- <th:block th:each="task, iterStat : ${@taskService.getAllTasksBySubprojectId(subProject.subProjectId)}">
-                                <a class="add-task-button"
-                                   th:if="${iterStat.last}"
-                                   th:href="@{/task/createTask/{projectId}/{parentId}(projectId=${project.projectId}, parentId=${task.taskId})}">
-                                    + Add Task
-                                </a>
-                            </th:block> -->
                         </tbody>
                     </table>
                 </details>

@@ -47,8 +47,7 @@ public class TaskController {
         taskService.createTask(
                 task.getTitle(),
                 task.getDescription(),
-                task.getParentId(),
-                task.getDeadline()
+                task.getParentId()
         );
 
         return "redirect:/project/dashboard/" + projectId;
