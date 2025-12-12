@@ -36,7 +36,14 @@ public class ProjectControllerTest {
     private UserService userService;
     @MockitoBean
     private LoginService loginService;
-
+    @MockitoBean
+    private StatisticsService statisticsService;
+    @MockitoBean
+    private SubtaskService subtaskService;
+    @MockitoBean
+    private TaskService taskService;
+    @MockitoBean
+    private SubprojectService subprojectService;
 
 
 
