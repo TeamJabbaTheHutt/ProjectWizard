@@ -15,15 +15,15 @@ public class SubtaskRepository {
     }
 
     public List<Subtask> getAllSubtasksByProjectId(int taskId) {
-
         return subtaskDAO.getAllSubtasks(taskId);
     }
 
     public boolean updateTask(Subtask subtask) {
         return subtaskDAO.updateSubtask(subtask);
     }
-    public int createSubtask(Subtask subtask) {
-        return subtaskDAO.createSubtask(subtask);
+
+    public int createSubtask(Subtask subtask, int parent_id) {
+        return subtaskDAO.createSubtask(subtask, parent_id);
     }
 
     public Subtask getSubtaskById(int taskId) {
@@ -33,6 +33,7 @@ public class SubtaskRepository {
     public boolean setAssignee(int userId, int subtaskId) {
         return subtaskDAO.setAssignee(userId, subtaskId);
     }
+
     public boolean removeAssignee(int subtaskId) {
         return subtaskDAO.removeAssignee(subtaskId);
     }

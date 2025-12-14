@@ -92,7 +92,7 @@ public class TaskController {
     }
     @PostMapping("/saveSubtask/{projectId}")
     public String saveSubtask(@ModelAttribute Subtask subtask, @PathVariable int projectId) {
-        subtaskService.createSubtask(subtask);
+        subtaskService.createSubtask(subtask.getTitle(), subtask.getDescription(), subtask.getParentId());
         return "redirect:/project/dashboard/" + projectId;
     }
 

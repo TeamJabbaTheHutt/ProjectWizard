@@ -1,6 +1,8 @@
 package com.hauxy.projectwizard.service;
 
+import com.hauxy.projectwizard.model.Status;
 import com.hauxy.projectwizard.model.Subtask;
+import com.hauxy.projectwizard.model.Task;
 import com.hauxy.projectwizard.repository.SubtaskRepository;
 import org.springframework.stereotype.Service;
 
@@ -40,8 +42,12 @@ public class SubtaskService {
         return subtasks;
     }
 
-    public int createSubtask(Subtask subtask) {
-        return subtaskRepository.createSubtask(subtask);
+    public int createSubtask(String title, String description, int parent_id) {
+        Subtask subtask = new Subtask();
+        subtask.setTitle(title);
+        subtask.setDescription(description);
+        subtask.setStatus(Status.NoStatus);
+        return subtaskRepository.createSubtask(subtask, parent_id);
     }
 
     public Subtask getTaskById(int subtaskId) {
