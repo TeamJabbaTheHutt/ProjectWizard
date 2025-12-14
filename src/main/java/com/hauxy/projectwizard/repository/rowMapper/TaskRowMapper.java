@@ -1,11 +1,7 @@
 package com.hauxy.projectwizard.repository.rowMapper;
 
-import com.hauxy.projectwizard.model.Project;
 import com.hauxy.projectwizard.model.Status;
 import com.hauxy.projectwizard.model.Task;
-import com.hauxy.projectwizard.model.User;
-import com.hauxy.projectwizard.repository.DAO.UserDAO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -13,24 +9,12 @@ import java.sql.SQLException;
 
 public class TaskRowMapper implements RowMapper<Task> {
 
-
-
     @Override
     public Task mapRow(ResultSet rs, int rowNum) throws SQLException {
         Task task = new Task();
         task.setTaskId(rs.getInt("task_id"));
         task.setTitle(rs.getString("title"));
         task.setParentId(rs.getInt("parent_id"));
-
-        // Get the assignee ID from the DB
-//        int assigneeId = rs.getInt("assignee_id");
-//        if (assigneeId != 0) {
-//            User user = new User();
-//            user.setUserId(assigneeId);
-//            task.setAssignee(user);
-//        } else {
-//            task.setAssignee(null);
-//        }
         task.setAssigneeId(rs.getInt("assignee_id"));
         task.setEstimate(rs.getDouble("estimated_time"));
         task.setActualTime(rs.getDouble("actual_time"));
@@ -39,6 +23,4 @@ public class TaskRowMapper implements RowMapper<Task> {
 
         return task;
     }
-
-
 }

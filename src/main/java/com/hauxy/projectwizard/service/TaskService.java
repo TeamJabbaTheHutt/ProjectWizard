@@ -4,8 +4,6 @@ import com.hauxy.projectwizard.model.Status;
 import com.hauxy.projectwizard.model.Task;
 import com.hauxy.projectwizard.repository.TaskRepository;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -52,6 +50,7 @@ public class TaskService {
             return true;
         }
     }
+
 
     public boolean removeUserFromTask(int taskId) {
         return taskRepository.removeAssignee(taskId);
