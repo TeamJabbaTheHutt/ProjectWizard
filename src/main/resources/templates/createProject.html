@@ -5,7 +5,7 @@
     <title>Create Project</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{/styles.css}">
-    <link rel="icon" type="image/x-icon" href="/static/images/black-logo.jpg">
+    <link rel="icon" type="image/x-icon" th:href="@{/images/black-logo.jpg}">
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
@@ -37,6 +37,7 @@
             <input id="project-description" name="description" placeholder="Description" required>
         </div>
         <div class="input-box">
+            <label for="project-deadline"><strong>Deadline</strong> (Press the calendar icon)</label>
             <input id="project-deadline" name="deadline" type="date" placeholder="DeadLine" th:attr="min=${todaysDate}">
         </div>
         <button class="login-btn" type="submit">Create project</button>

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Edit Project</title>
+    <link rel="icon" type="image/x-icon" th:href="@{/images/black-logo.jpg}">
     <link rel="stylesheet" th:href="@{/styles.css}">
 </head>
 <body>
@@ -31,7 +32,7 @@
         <label for="description">Description:</label><br>
         <textarea id="description" name="description" th:text="${project.description}"></textarea><br><br>
 
-        <label for="deadline">Deadline:</label><br>
+        <label for="deadline"><strong>Deadline</strong> (Press the calendar icon)</label><br>
         <input type="date" id="deadline" name="deadline" th:value="${project.deadline}"><br><br>
 
         <h3>Edit Members</h3>

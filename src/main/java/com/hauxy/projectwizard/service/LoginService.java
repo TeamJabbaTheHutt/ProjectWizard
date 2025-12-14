@@ -27,7 +27,7 @@ public class LoginService {
     public User checkIfLoggedInAndGetUser(HttpSession session) {
         User user = (User) session.getAttribute("loggedInUser");
         if (user == null) {
-            throw new UserNotLoggedInException("you might not be logged in");
+            throw new UserNotLoggedInException("Please log in to continue");
         }
         return user;
     }

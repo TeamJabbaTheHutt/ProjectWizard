@@ -2,10 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Create Project</title>
+    <title>Project Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{/styles.css}">
-    <link rel="icon" type="image/x-icon" href="/static/images/black-logo.jpg">
+    <link rel="icon" type="image/x-icon" th:href="@{/images/black-logo.jpg}">
     <link th:href="@{https://cdn.boxicons.com/fonts/basic/boxicons.min.css}" rel='stylesheet'>
 </head>
 <body>
@@ -23,15 +23,13 @@
     <i class='bx bx-arrow-back'></i>
 </a>
 <div class="dashboard-container">
-
-
     <div class="project-header">
         <h2 th:text="${project.title}" class="project-title-dashboard"></h2>
 
         <div class="project-actions">
-            <a class="project-edit-button" th:href="@{'/project/'+  ${projectId} +'/edit'}" >Edit</a>
             <a th:href="@{'/statistics/project/'+ ${projectId}}"
                class="project-statistics-button">Statistics</a>
+            <a class="project-edit-button" th:href="@{'/project/'+  ${projectId} +'/edit'}" >Edit</a>
             <form th:action="@{/project/deleteProject}" method="post" style="display:inline;">
                 <input type="hidden" name="projectId" th:value="${projectId}">
                 <button type="submit" class="project-delete-button">Delete</button>
@@ -49,7 +47,6 @@
             <div class="subproject-block" th:each="subProject : ${subProjects}">
                 <!-- Collapsible -->
                 <details class="subproject-details">
-
                     <summary class="subproject-summary">
                         <span class="arrow"></span>
                         <div class="subproject-info">
@@ -59,12 +56,17 @@
                         <div class="subproject-actions">
                             <a class="add-task-button"
                                th:href="@{/task/createTask/{projectId}/{parentId}(projectId=${project.projectId}, parentId=${subProject.subProjectId})}">
-                                Add Task
+                                + Add Task
                             </a>
                             <a class="edit-button"
                                th:href="@{/task/subproject/{subprojectId}/{projectId}/edit(subprojectId=${subProject.subProjectId}, projectId=${project.projectId})}">
                                 Edit
                             </a>
+                            <form th:action="@{/task/deleteSubproject}" method="post" style="display:inline;">
+                                <input type="hidden" name="projectId" th:value="${projectId}">
+                                <input type="hidden" name="subprojectId" th:value="${subProject.subProjectId}">
+                                <button type="submit" class="project-delete-button subproject-delete-button">Delete</button>
+                            </form>
                         </div>
                     </summary>
 
@@ -133,8 +135,14 @@
                                             <span th:text="${task.estimate}"></span>
                                             <span th:text="${task.actualTime}"></span>
                                             <span th:text="${subProject.deadline}"></span>
-                                            <a class="edit-button" th:href="@{/task/editTask/{taskId}/{projectId}(taskId=${task.taskId}, projectId=${project.projectId})}">Edit</a>
-
+                                            <span>
+                                                <a class="edit-button" th:href="@{/task/editTask/{taskId}/{projectId}(taskId=${task.taskId}, projectId=${project.projectId})}"><i class="bx bx-edit"></i></a>
+                                                <form th:action="@{/task/deleteTask}" method="post" style="display:inline;">
+                                                    <input type="hidden" name="projectId" th:value="${projectId}">
+                                                    <input type="hidden" name="taskId" th:value="${task.taskId}">
+                                                    <button type="submit" class="edit-button task-delete-button"><i class="bx bx-trash"></i></button>
+                                                </form>
+                                            </span>
                                         </summary>
 
                                         <!-- Nested subtasks table -->
@@ -162,7 +170,14 @@
                                                     <td th:text="${subtask.estimate}"></td>
                                                     <td th:text="${subtask.actualTime}"></td>
                                                     <td th:text="${subProject.deadline}"></td>
-                                                    <td><a class="edit-button" th:href="@{/task/editSubtask/{subTaskId}/{projectId}(subTaskId=${subtask.subtaskId}, projectId=${project.projectId})}">Edit</a></td>
+                                                    <td>
+                                                        <a class="edit-button" th:href="@{/task/editSubtask/{subTaskId}/{projectId}(subTaskId=${subtask.subtaskId}, projectId=${project.projectId})}"><i class="bx bx-edit"></i></a>
+                                                        <form th:action="@{/task/deleteSubtask}" method="post" style="display:inline;">
+                                                            <input type="hidden" name="projectId" th:value="${projectId}">
+                                                            <input type="hidden" name="subtaskId" th:value="${subtask.subtaskId}">
+                                                            <button type="submit" class="task-delete-button subtask-delete"><i class="bx bx-trash"></i></button>
+                                                        </form>
+                                                    </td>
                                                 </tr>
 
                                                 <tr class="add-subtask-row">

@@ -7,7 +7,7 @@
     <title>Login</title>
 
     <link rel="stylesheet" th:href="@{/styles.css}">
-    <link rel="icon" type="image/x-icon" href="/static/images/black-logo.jpg">
+    <link rel="icon" type="image/x-icon" th:href="@{/images/black-logo.jpg}">
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
@@ -43,7 +43,7 @@
         <button type="submit" class="login-btn">Login</button>
 
         <div class="login-register">
-            <p>Don't have an account? <a th:href="@{/users/register}">Register</a></p>
+            <a th:href="@{/users/register}">Don't have an account yet? <strong>Register</strong></a>
         </div>
     </form>
 

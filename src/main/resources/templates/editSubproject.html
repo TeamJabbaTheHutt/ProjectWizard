@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Edit Subproject</title>
     <link rel="stylesheet" th:href="@{/styles.css}">
+    <link rel="icon" type="image/x-icon" th:href="@{/images/black-logo.jpg}">
 </head>
 <body>
 <nav class="navbar">
@@ -31,7 +32,7 @@
         <label for="description">Description:</label><br>
         <textarea id="description" name="description" th:text="${subproject.description}"></textarea><br><br>
 
-        <label for="deadline">Deadline:</label><br>
+        <label for="deadline"><strong>Deadline</strong> (Press the calendar icon)</label><br>
         <input type="date" id="deadline" name="deadline" th:value="${subproject.deadline}"><br><br>
 
 
