@@ -1250,6 +1250,29 @@ a:active {
     content: '▼';
 }
 
+.task-delete-button{
+    background: red;
+    margin-left: 4px;
+    border: none;
+    padding: 4px 10px;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    justify-self: end;
+    align-items: end;
+    height: 32px;
+
+}
+
+.task-delete-button:hover {
+    background: #970303;
+}
+
+.subtask-delete {
+    height: 25px;
+}
+
 .subtasks-table {
     width: 100%;
     border-collapse: collapse;
