@@ -2,13 +2,11 @@ package com.hauxy.projectwizard.service;
 
 import com.hauxy.projectwizard.exceptions.DatabaseOperationException;
 import com.hauxy.projectwizard.model.*;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

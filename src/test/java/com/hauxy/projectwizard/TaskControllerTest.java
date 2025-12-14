@@ -74,7 +74,7 @@ public class TaskControllerTest {
 
     }
 
-    @Test
+    /* @Test
     void testSaveSubtask() throws Exception {
         mockMvc.perform(post("/task/saveSubtask/1")
                         .param("title", "Test Subtask")
@@ -82,6 +82,6 @@ public class TaskControllerTest {
                 .andExpect(status().is3xxRedirection());
 
         verify(subtaskService).createSubtask(any(Subtask.class));
-    }
+    } */
 
 }

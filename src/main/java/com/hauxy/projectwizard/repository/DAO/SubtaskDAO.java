@@ -29,8 +29,13 @@ public class SubtaskDAO {
 
 
     public int createSubtask(Subtask subtask) {
-        String sql = "INSERT INTO subtask (title, subtask_description, parent_id) VALUES (?, ?, ?)";
-        return jdbc.update(sql, subtask.getTitle(), subtask.getDescription(), subtask.getParentId());
+        String sql = "INSERT INTO subtask (title, subtask_description, subtask_status, parent_id) VALUES (?, ?, ?, ?)";
+        return jdbc.update(sql,
+                subtask.getTitle(),
+                subtask.getDescription(),
+                subtask.getStatus() != null ? subtask.getStatus().name() : "NoStatus",
+                subtask.getParentId()
+        );
     }
 
     public Subtask getSubtaskById(int subtaskId) {

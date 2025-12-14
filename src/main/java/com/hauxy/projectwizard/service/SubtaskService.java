@@ -1,6 +1,8 @@
 package com.hauxy.projectwizard.service;
 
+import com.hauxy.projectwizard.model.Status;
 import com.hauxy.projectwizard.model.Subtask;
+import com.hauxy.projectwizard.model.Task;
 import com.hauxy.projectwizard.repository.SubtaskRepository;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,14 @@ public class SubtaskService {
     }
 
     public boolean updateSubtask(Subtask subtask) {
+
+        if (subtask.getEstimate() == null) {
+            subtask.setEstimate(0.0);
+        }
+
+        if (subtask.getActualTime() == null) {
+            subtask.setActualTime(0.0);
+        }
         return subtaskRepository.updateTask(subtask);
     }
 

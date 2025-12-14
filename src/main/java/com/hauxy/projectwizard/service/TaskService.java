@@ -39,6 +39,15 @@ public class TaskService {
     }
 
     public boolean updateTask(Task task) {
+
+        if (task.getEstimate() == null) {
+            task.setEstimate(0.0);
+        }
+
+        if (task.getActualTime() == null) {
+            task.setActualTime(0.0);
+        }
+
         return taskRepository.updateTask(task);
     }
 
