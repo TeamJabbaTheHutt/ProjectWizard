@@ -470,7 +470,13 @@ li{
 .project-description-homepage {
     margin-bottom: 20px;
     color: #cfcfcf;
+
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    line-height: 1.4;
 }
+
 .input-box input::placeholder {
     color: #ffff;
 }

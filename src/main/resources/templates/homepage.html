@@ -36,7 +36,9 @@
             <li th:each="project : ${UsersListOfProjects}">
                 <a th:href="@{/project/dashboard/{id}(id=${project.getProjectId()})}" class="project-card">
                     <h3 class="project-title-homepage" th:text="${project.title}"></h3>
-                    <p class="project-description-homepage" th:text="${project.description}"></p>
+                    <p class="project-description-homepage"
+                       th:text="${#strings.length(project.description) > 50 ? project.description.substring(0, 50) + '...' : project.description}">
+                    </p>
                     <p class="project-deadline-homepage">Deadline: <span th:text="${project.deadline}"></span></p>
                 </a>
             </li>
