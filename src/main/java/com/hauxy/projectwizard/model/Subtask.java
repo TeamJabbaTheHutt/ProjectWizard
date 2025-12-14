@@ -8,7 +8,7 @@ public class Subtask {
     private Status status;
     private double estimate;
     private double actualTime;
-    private int assigneeId;
+    private Integer assigneeId;
 
     private int parentId;
 
@@ -28,10 +28,10 @@ public class Subtask {
         this.subtaskId = subtaskId;
     }
 
-    public void setAssigneeId(int assigneeId) {
+    public void setAssigneeId(Integer assigneeId) {
         this.assigneeId = assigneeId;
     }
-    public int getAssigneeId() {
+    public Integer getAssigneeId() {
         return assigneeId;
     }
 

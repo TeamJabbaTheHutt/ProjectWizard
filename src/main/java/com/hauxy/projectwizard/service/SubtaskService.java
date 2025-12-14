@@ -21,17 +21,15 @@ public class SubtaskService {
     }
 
     public List<Subtask> getAllSubTasksByTaskId(int taskId) {
-        return subtaskRepository.getAllSubtasksByProjectId(taskId);
-    }
+        List<Subtask> subtasks = subtaskRepository.getAllSubtasksByProjectId(taskId);
 
-    public Subtask getSubtaskById(int subtaskId, int taskId) {
-        List<Subtask> subTasks = getAllSubTasksByTaskId(taskId);
-        for (Subtask subtask : subTasks) {
-            if (subtask.getSubtaskId() == taskId) {
-                return subtask;
+        for (Subtask subtask : subtasks) {
+            if (subtask.getAssigneeId() > 0) {
+                subtask.setAssignee(userService.getUserById(subtask.getAssigneeId()));
             }
         }
-        return null;
+
+        return subtasks;
     }
 
     public int createSubtask(Subtask subtask) {

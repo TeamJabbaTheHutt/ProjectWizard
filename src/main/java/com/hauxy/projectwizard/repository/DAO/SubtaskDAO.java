@@ -1,15 +1,10 @@
 package com.hauxy.projectwizard.repository.DAO;
 
-import com.hauxy.projectwizard.model.Subproject;
 import com.hauxy.projectwizard.model.Subtask;
-import com.hauxy.projectwizard.model.Task;
 import com.hauxy.projectwizard.repository.rowMapper.SubtaskRowMapper;
-import com.hauxy.projectwizard.repository.rowMapper.TaskRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-
-import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -45,7 +40,7 @@ public class SubtaskDAO {
 
     public boolean updateSubtask(Subtask subtask) {
         try {
-            String sql = "UPDATE subtask SET title = ?, subtask_description = ?, subtask_status = ?, estimated_time = ?, actual_time = ? WHERE subtask_id = ?";
+            String sql = "UPDATE subtask SET title = ?, subtask_description = ?, subtask_status = ?, estimated_time = ?, actual_time = ?, assignee_id = ?, WHERE subtask_id = ?";
 
             jdbc.update(sql,
                     subtask.getTitle(),
@@ -53,6 +48,7 @@ public class SubtaskDAO {
                     subtask.getStatus() != null ? subtask.getStatus().name() : "NoStatus",
                     subtask.getEstimate(),
                     subtask.getActualTime(),
+                    subtask.getAssignee() != null ? subtask.getAssignee().getUserId() : null,
                     subtask.getSubtaskId()
             );
             return true;
