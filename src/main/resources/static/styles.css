@@ -148,6 +148,7 @@ a:active {
     transform: translateY(-50%);
     font-size: 20px;
 }
+
 .login-wrapper {
     width: 450px;
     background: var(--main-color);
