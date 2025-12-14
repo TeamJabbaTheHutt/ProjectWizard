@@ -42,12 +42,8 @@ public class SubtaskService {
         return subtasks;
     }
 
-    public int createSubtask(String title, String description, int parent_id) {
-        Subtask subtask = new Subtask();
-        subtask.setTitle(title);
-        subtask.setDescription(description);
-        subtask.setStatus(Status.NoStatus);
-        return subtaskRepository.createSubtask(subtask, parent_id);
+    public int createSubtask(Subtask subtask) {
+        return subtaskRepository.createSubtask(subtask);
     }
 
     public Subtask getTaskById(int subtaskId) {

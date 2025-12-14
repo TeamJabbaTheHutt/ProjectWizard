@@ -22,8 +22,8 @@ public class SubtaskRepository {
         return subtaskDAO.updateSubtask(subtask);
     }
 
-    public int createSubtask(Subtask subtask, int parent_id) {
-        return subtaskDAO.createSubtask(subtask, parent_id);
+    public int createSubtask(Subtask subtask) {
+        return subtaskDAO.createSubtask(subtask);
     }
 
     public Subtask getSubtaskById(int taskId) {
