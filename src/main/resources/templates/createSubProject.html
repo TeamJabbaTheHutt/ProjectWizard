@@ -44,6 +44,7 @@
             <input th:field="*{description}" id="task-description" type="text" placeholder="Description" required>
         </div>
         <div class="input-box">
+            <label for="task-deadline"><strong>Deadline</strong> (Press the calendar icon)</label>
             <input id="task-deadline" type="date" th:field="*{deadline}" th:attr="min=${todaysDate}">
         </div>
 
