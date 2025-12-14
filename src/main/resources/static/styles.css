@@ -72,6 +72,7 @@ li{
 
 .nav-item {
     margin: 0 15px;
+    align-items: center;
 }
 
 .nav-item a {
@@ -79,10 +80,30 @@ li{
     color: #333;
     font-weight: bold;
     font-size: large;
+    align-items: center;
 }
 
 .nav-item a:hover {
     color: var(--main-color);
+}
+
+
+.backButton-nav {
+    background-color: var(--main-color);
+    color: white;
+    border: none;
+    width: 90px;
+    border-radius: 20px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    display: inline-flex;
+    text-decoration: none;
+}
+.bx-arrow-left {
+    font-size: 25px;
+    font-weight: bold;
+    line-height: 1;
 }
 
 .user-icon {

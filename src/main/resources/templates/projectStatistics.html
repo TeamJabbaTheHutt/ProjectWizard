@@ -15,8 +15,13 @@
     <div class="navbar-left">
         <img src="/images/black-logo-removebg-preview.jpg" alt="Logo" class="logo" />
         <ul class="menu">
+            <li>
+                <a th:href="@{/project/dashboard/{projectId}(projectId=${projectId})}" class="backButton-nav">
+                    <i class='bxr bx-arrow-left'></i>
+                    Return
+                </a>
+            </li>
             <li class="nav-item"><a th:href="@{/project/home}">Home</a></li>
-            <li class="nav-item"><a th:href="@{/project/dashboard/{projectId}(projectId=${projectId})}">Current project</a></li>
             <li class="nav-item"><a th:href="@{/project/help}">Help</a></li>
         </ul>
     </div>
@@ -24,10 +29,6 @@
 </nav>
 
     <div class="statisticsContainer">
-        <a th:href="@{/project/dashboard/{projectId}(projectId=${projectId})}"
-           class="backButton">
-            <i class='bxr bx-arrow-left'></i>
-        </a>
         <div class="statisticsBoxItem">
 
             <div class="statisticsBox">
