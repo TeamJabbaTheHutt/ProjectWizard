@@ -188,7 +188,7 @@
 
                                                 <tr class="add-subtask-row">
                                                     <td colspan="9">
-                                                        <a th:href="@{/task/createSubtask/{projectId}/{parentId}(projectId=${subProject.subProjectId}, parentId=${task.taskId})}"
+                                                        <a th:href="@{/task/createSubtask/{projectId}/{parentId}(projectId=${projectId}, parentId=${task.taskId})}"
                                                            class="add-subtask-btn">+ Add Subtask</a>
                                                     </td>
                                                 </tr>
