@@ -17,6 +17,14 @@ public class SubtaskService {
     }
 
     public boolean updateSubtask(Subtask subtask) {
+
+        if (subtask.getEstimate() == null) {
+            subtask.setEstimate(0.0);
+        }
+
+        if (subtask.getActualTime() == null) {
+            subtask.setActualTime(0.0);
+        }
         return subtaskRepository.updateTask(subtask);
     }
 

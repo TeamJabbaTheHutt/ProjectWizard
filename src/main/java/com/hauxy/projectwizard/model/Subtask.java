@@ -6,8 +6,8 @@ public class Subtask {
     private String description;
     private User assignee;
     private Status status;
-    private double estimate;
-    private double actualTime;
+    private Double estimate;
+    private Double actualTime;
     private Integer assigneeId;
 
     private int parentId;
@@ -59,19 +59,19 @@ public class Subtask {
         this.parentId = parentId;
     }
 
-    public double getEstimate() {
+    public Double getEstimate() {
         return estimate;
     }
 
-    public void setEstimate(double estimate) {
+    public void setEstimate(Double estimate) {
         this.estimate = estimate;
     }
 
-    public double getActualTime() {
+    public Double getActualTime() {
         return actualTime;
     }
 
-    public void setActualTime(double actualTime) {
+    public void setActualTime(Double actualTime) {
         this.actualTime = actualTime;
     }
 
