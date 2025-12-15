@@ -28,9 +28,12 @@ public class ProjectDAO {
         return jdbc.update(sql, newProject.getTitle(), newProject.getDescription(), LocalDate.now(), newProject.getDeadline());
     }
 
-    public int getLastCreatedProjectId() {
+    public int getLastCreatedProjectId() throws NullPointerException{
+
         String sql = "SELECT MAX(project_id) FROM project";
         return jdbc.queryForObject(sql, Integer.class);
+
+
     }
 
     public int addUserToProject(int userId, int projectId) {

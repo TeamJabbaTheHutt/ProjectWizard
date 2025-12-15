@@ -53,7 +53,7 @@ public class TaskController {
     // denne skal inspectes for logic check __________________________________________________________________::
     @PostMapping("/saveTask/{projectId}")
     public String saveTask(@ModelAttribute Task task, @PathVariable int projectId) {
-        System.out.println(task.getParentId());
+
         taskService.createTask(
                 task.getTitle(),
                 task.getDescription(),
@@ -103,7 +103,7 @@ public class TaskController {
 
         try {
             Subproject subproject = subprojectService.getSubprojectById(subprojectId, projectId);
-            System.out.println(subproject.getDeadline());
+
             model.addAttribute("subproject", subproject);
         } catch (EmptyResultDataAccessException e) {
             throw new DatabaseOperationException("Project does not exist or cannot be found", e);
