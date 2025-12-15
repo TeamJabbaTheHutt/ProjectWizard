@@ -82,7 +82,6 @@ public class StatisticsService {
             }
 
         }
-        System.out.println(num);
         return result;
     }
     // afvigelse, er vi i timer plus eller minus?

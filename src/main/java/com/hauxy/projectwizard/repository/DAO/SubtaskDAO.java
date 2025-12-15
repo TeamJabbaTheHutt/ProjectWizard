@@ -11,7 +11,7 @@ import java.util.List;
 public class SubtaskDAO {
 
 
-    @Autowired
+
     private final JdbcTemplate jdbc;
     private final SubtaskRowMapper subtaskRowMapper = new SubtaskRowMapper();
 

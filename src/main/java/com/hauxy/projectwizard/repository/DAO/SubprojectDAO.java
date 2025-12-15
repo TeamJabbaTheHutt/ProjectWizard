@@ -16,7 +16,6 @@ import java.util.List;
 public class SubprojectDAO {
 
 
-    @Autowired
     private final JdbcTemplate jdbc;
     private final SubprojectRowMapper subprojectRowMapper = new SubprojectRowMapper();
 
